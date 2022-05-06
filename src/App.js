@@ -1,5 +1,23 @@
-import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+
+import { AppRouter } from "./components/AppRouter";
 
 export const App = () => {
-  return <h1>Peculiar UI</h1>;
+  return (
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  );
 };
+
+// export const App = () => {
+//   return (
+//     <ApolloProvider client={client}>
+//       <AppProvider>
+//         <BrowserRouter>
+//           <AppRouter />
+//         </BrowserRouter>
+//       </AppProvider>
+//     </ApolloProvider>
+//   );
+// };
