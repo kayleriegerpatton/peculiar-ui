@@ -6,9 +6,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 
@@ -17,30 +15,29 @@ const pages = ["Create", "Edit", "Login/Signup"];
 
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  // const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
+  //  const handleOpenUserMenu = (event) => {
+  //     setAnchorElUser(event.currentTarget);
+  //   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "#e6e4e0ff" }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{}}>
+        <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* Title on desktop */}
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
@@ -48,21 +45,67 @@ export const Navbar = () => {
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
-              color: "inherit",
+              color: "#4c474bff",
               textDecoration: "none",
             }}
           >
             The Peculiar Project
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* nav links on medium+ screen sizes */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
+            }}
+          >
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "#4c474bff", display: "block" }}
+              >
+                {page}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Title on medium screen sizes */}
+          <Typography
+            variant="h4"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              justifyContent: "center",
+              fontWeight: 700,
+              color: "#4c474bff",
+              textDecoration: "none",
+              position: "absolute",
+              left: 0,
+              right: 0,
+            }}
+          >
+            The Peculiar Project
+          </Typography>
+          {/* Right-aligned burger menu */}
+          <Box
+            sx={{
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              justifyContent: "flex-end",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              sx={{ color: "#4c474bff" }}
             >
               <MenuIcon />
             </IconButton>
@@ -71,12 +114,12 @@ export const Navbar = () => {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: "bottom",
-                horizontal: "left",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
                 vertical: "top",
-                horizontal: "left",
+                horizontal: "right",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
@@ -90,34 +133,6 @@ export const Navbar = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-          {/* Title on medium screen size */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontWeight: 700,
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            The Peculiar Project
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
           </Box>
 
           {/* Avatar dropdown menu */}
