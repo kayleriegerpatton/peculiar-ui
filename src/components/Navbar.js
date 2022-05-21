@@ -10,7 +10,10 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 
-const pages = ["Create", "Edit"];
+const adminPages = [
+  { label: "Create", path: "create" },
+  { label: "Edit", path: "edit" },
+];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Navbar = () => {
@@ -60,9 +63,9 @@ export const Navbar = () => {
               justifyContent: "flex-end",
             }}
           >
-            {pages.map((page) => (
+            {adminPages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
                 onClick={handleCloseNavMenu}
                 sx={{
                   my: 2,
@@ -71,7 +74,7 @@ export const Navbar = () => {
                   "&:hover": { backgroundColor: "var(--lavender-blue)" },
                 }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
@@ -132,9 +135,9 @@ export const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {adminPages.map((page) => (
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
