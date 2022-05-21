@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const adminPages = [
   { label: "Create", path: "create" },
@@ -19,6 +20,7 @@ const adminPages = [
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -66,7 +68,7 @@ export const Navbar = () => {
             {adminPages.map((page) => (
               <Button
                 key={page.label}
-                onClick={handleCloseNavMenu}
+                onClick={() => navigate(page.path, { replace: true })}
                 sx={{
                   my: 2,
                   color: "var(--dark-liver)",
@@ -136,7 +138,10 @@ export const Navbar = () => {
               }}
             >
               {adminPages.map((page) => (
-                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.label}
+                  onClick={() => navigate(page.path, { replace: true })}
+                >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
