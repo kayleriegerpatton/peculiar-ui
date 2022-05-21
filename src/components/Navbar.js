@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 
-const pages = ["Create", "Edit", "Login/Signup"];
+const pages = ["Create", "Edit"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Navbar = () => {
@@ -32,7 +32,7 @@ export const Navbar = () => {
   //     setAnchorElUser(event.currentTarget);
   //   };
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#e6e4e0ff" }}>
+    <AppBar position="static" sx={{ backgroundColor: "var(--platinum)" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* Title on desktop */}
@@ -45,7 +45,7 @@ export const Navbar = () => {
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
-              color: "#4c474bff",
+              color: "var(--dark-liver)",
               textDecoration: "none",
             }}
           >
@@ -64,7 +64,7 @@ export const Navbar = () => {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "#4c474bff", display: "block" }}
+                sx={{ my: 2, color: "var(--dark-liver)", display: "block" }}
               >
                 {page}
               </Button>
@@ -82,7 +82,7 @@ export const Navbar = () => {
               flexGrow: 1,
               justifyContent: "center",
               fontWeight: 700,
-              color: "#4c474bff",
+              color: "var(--dark-liver)",
               textDecoration: "none",
               position: "absolute",
               left: 0,
@@ -105,7 +105,7 @@ export const Navbar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              sx={{ color: "#4c474bff" }}
+              sx={{ color: "var(--dark-liver)" }}
             >
               <MenuIcon />
             </IconButton>
