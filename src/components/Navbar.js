@@ -48,14 +48,17 @@ export const Navbar = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="/"
+            component="button"
+            onClick={() => handleNavigation("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
               color: "var(--dark-liver)",
               textDecoration: "none",
+              border: "none",
+              backgroundColor: "var(--platinum)",
+              cursor: "pointer",
             }}
           >
             The Peculiar Project
@@ -89,8 +92,8 @@ export const Navbar = () => {
           <Typography
             variant="h4"
             noWrap
-            component="a"
-            href=""
+            component="button"
+            onClick={() => handleNavigation("/")}
             sx={{
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
@@ -101,6 +104,9 @@ export const Navbar = () => {
               position: "absolute",
               left: 0,
               right: 0,
+              border: "none",
+              backgroundColor: "var(--platinum)",
+              cursor: "pointer",
             }}
           >
             The Peculiar Project
