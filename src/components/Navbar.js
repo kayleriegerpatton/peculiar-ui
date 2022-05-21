@@ -30,6 +30,10 @@ export const Navbar = () => {
     setAnchorElNav(null);
   };
 
+  const handleNavigation = (path) => {
+    navigate(path, { replace: true });
+    setAnchorElNav(null);
+  };
   // const handleCloseUserMenu = () => {
   //   setAnchorElUser(null);
   // };
@@ -68,7 +72,7 @@ export const Navbar = () => {
             {adminPages.map((page) => (
               <Button
                 key={page.label}
-                onClick={() => navigate(page.path, { replace: true })}
+                onClick={() => handleNavigation(page.path)}
                 sx={{
                   my: 2,
                   color: "var(--dark-liver)",
@@ -140,7 +144,7 @@ export const Navbar = () => {
               {adminPages.map((page) => (
                 <MenuItem
                   key={page.label}
-                  onClick={() => navigate(page.path, { replace: true })}
+                  onClick={() => handleNavigation(page.path)}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
