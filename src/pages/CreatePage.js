@@ -2,6 +2,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import LoadingButton from "@mui/lab/LoadingButton";
+import ErrorIcon from "@mui/icons-material/Error";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
@@ -9,6 +11,9 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import Box from "@mui/material/Box";
 import { Controller, useForm } from "react-hook-form";
+import { styles } from "../styles";
+import { CREATE_CHARACTER } from "../mutations";
+import { useMutation } from "@apollo/client";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -25,15 +30,17 @@ const books = [
 ];
 
 export const CreatePage = () => {
-  // query database to populate form field drop downs
+  const [executeCreateCharacter, { loading, error }] =
+    useMutation(CREATE_CHARACTER);
 
   const onSubmit = async ({
-    itemName,
-    itemDescription,
-    category,
-    condition,
-    price,
-    quantity,
+    characterName,
+    species,
+    peculiarity,
+    imageUrl,
+    status,
+    homeLoop,
+    books,
   }) => {
     try {
       //   const { data } = await executeCreateItem({
@@ -63,10 +70,16 @@ export const CreatePage = () => {
     watch,
     control,
   } = useForm();
+
   return (
     <Box
       component="form"
-      // sx={styles.form}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 4,
+      }}
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1>Create page here</h1>
@@ -80,6 +93,7 @@ export const CreatePage = () => {
         variant="outlined"
         fullWidth
         autoFocus
+        sx={styles.formFields}
         {...register("characterName", { required: true })}
         error={!!errors.characterName}
         // disabled={loading}
@@ -87,7 +101,10 @@ export const CreatePage = () => {
 
       {/* SPECIES */}
       <FormControl fullWidth>
-        <InputLabel id="species" sx={{ margin: "16px 0px" }}>
+        <InputLabel
+          id="species"
+          sx={{ ...styles.formFields, margin: "16px 0px" }}
+        >
           Species
         </InputLabel>
         <Select
@@ -115,7 +132,7 @@ export const CreatePage = () => {
         name="peculiarity"
         variant="outlined"
         fullWidth
-        autoFocus
+        sx={styles.formFields}
         {...register("peculiarity", { required: false })}
         error={!!errors.peculiarity}
         // disabled={loading}
@@ -129,7 +146,7 @@ export const CreatePage = () => {
         name="imageUrl"
         variant="outlined"
         fullWidth
-        autoFocus
+        sx={styles.formFields}
         {...register("imageUrl", { required: false })}
         error={!!errors.imageUrl}
         // disabled={loading}
@@ -165,7 +182,7 @@ export const CreatePage = () => {
         name="homeLoop"
         variant="outlined"
         fullWidth
-        autoFocus
+        sx={styles.formFields}
         {...register("homeLoop", { required: false })}
         error={!!errors.homeLoop}
         // disabled={loading}
@@ -211,6 +228,18 @@ export const CreatePage = () => {
 
       {/* NEW PECULIARITY; independent of new loop, may be dependent on new character*/}
       {/* NEW LOOP; can be done without new character or new peculiarity */}
+
+      <LoadingButton
+        loading={loading}
+        loadingIndicator="Loading..."
+        variant="contained"
+        type="submit"
+        sx={loading ? styles.loadingButton : { ...styles.postButton, mt: 2 }}
+        startIcon={error && <ErrorIcon />}
+        color={error ? "error" : "primary"}
+      >
+        Create Character
+      </LoadingButton>
     </Box>
   );
 };
