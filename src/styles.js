@@ -22,6 +22,9 @@ export const styles = {
         borderColor: "var(--lavender-blue)",
       },
     },
+    "&:before": {
+      borderColor: "var(--lavender-blue)",
+    },
   },
   loadingButton: { marginTop: 3, marginBottom: 2 },
   errorContainer: {
