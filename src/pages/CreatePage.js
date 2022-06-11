@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import { Controller, useForm } from "react-hook-form";
 import { styles } from "../styles";
 import { CREATE_CHARACTER } from "../mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -33,6 +33,12 @@ export const CreatePage = () => {
   const [executeCreateCharacter, { loading, error }] =
     useMutation(CREATE_CHARACTER);
 
+  const {
+    data: characterData,
+    loading: characterLoading,
+    error: characterError,
+  } = useQuery();
+
   const onSubmit = async ({
     characterName,
     species,
@@ -43,15 +49,28 @@ export const CreatePage = () => {
     books,
   }) => {
     try {
-      //   const { data } = await executeCreateItem({
+      console.log("Submit form");
+      const input = {
+        name: characterName.trim(),
+        species: species,
+        peculiarity: peculiarity.trim(),
+        imageUrl: imageUrl.trim(),
+        status: status,
+        homeLoop: homeLoop,
+        books: books,
+      };
+
+      console.log(input);
+      //   const { data } = await executeCreateCharacter({
       //     variables: {
       //       input: {
-      //         itemName: itemName.trim(),
-      //         itemDescription: itemDescription.trim(),
-      //         category: category.trim(),
-      //         condition: condition.trim(),
-      //         price: parseFloat(price),
-      //         quantity: parseInt(quantity.trim(), 10),
+      //        name: characterName.trim(),
+      //        species: species,
+      //        peculiarity: peculiarity.trim(),
+      //        imageUrl: imageUrl.trim(),
+      //        status: status,
+      //        homeLoop: homeLoop,
+      //        books: books,
       //       },
       //     },
       //   });
