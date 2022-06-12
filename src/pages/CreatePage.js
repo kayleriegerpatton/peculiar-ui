@@ -37,8 +37,9 @@ const books = [
 
 export const CreatePage = () => {
   const [showPeculiarities, setShowPeculiarities] = useState(false);
+  const [showLoops, setShowLoops] = useState(false);
 
-  const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   const [executeCreateCharacter, { loading, error }] =
     useMutation(CREATE_CHARACTER);
@@ -48,12 +49,6 @@ export const CreatePage = () => {
     loading: characterLoading,
     error: characterError,
   } = useQuery(CHARACTERS);
-
-  const {
-    data: loopData,
-    loading: loopLoading,
-    error: loopError,
-  } = useQuery(LOOPS);
 
   const onSubmit = async ({
     characterName,
@@ -105,14 +100,21 @@ export const CreatePage = () => {
     watch,
     control,
   } = useForm();
+
   const [
     executeGetPeculiarities,
     {
-      data: peculiarityData,
-      loading: peculiarityLoading,
-      error: peculiarityError,
+      data: peculiaritiesData,
+      loading: peculiaritiesLoading,
+      error: peculiaritiesError,
     },
   ] = useLazyQuery(PECULIARITIES);
+
+  const [
+    executeGetLoops,
+    { data: loopsData, loading: loopsLoading, error: loopsError },
+  ] = useLazyQuery(LOOPS);
+  console.log(loopsData);
 
   return (
     <Box
@@ -126,7 +128,7 @@ export const CreatePage = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       {characterLoading && <Spinner />}
-      <h1>Create page here</h1>
+      <h1>Create A Character</h1>
       {/* NEW CHARACTER; independent of new loop and peculiarity */}
       {/* CHARACTER NAME */}
       {characterData && (
@@ -166,13 +168,14 @@ export const CreatePage = () => {
           //   disabled={loading}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
           onChange={async (event) => {
-            //   if event value is "Peculiar" or "Wight", query peculiarity data & display additional form fields
-            if (
-              event.target.value === "Peculiar" ||
-              event.target.value === "Wight"
-            ) {
+            if (event.target.value === "Peculiar") {
               await executeGetPeculiarities();
+              await executeGetLoops();
 
+              setShowPeculiarities(true);
+              setShowLoops(true);
+            } else if (event.target.value === "Wight") {
+              await executeGetPeculiarities();
               setShowPeculiarities(true);
             } else {
               setShowPeculiarities(false);
@@ -187,8 +190,8 @@ export const CreatePage = () => {
 
       {/* PECULIARITY */}
       {showPeculiarities &&
-        !peculiarityLoading &&
-        peculiarityData?.peculiarities && (
+        !peculiaritiesLoading &&
+        peculiaritiesData?.peculiarities && (
           <Autocomplete
             margin="normal"
             id="peculiarity"
@@ -197,7 +200,7 @@ export const CreatePage = () => {
             sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
             error={!!errors.peculiarity}
-            options={peculiarityData.peculiarities.map((option) => {
+            options={peculiaritiesData.peculiarities.map((option) => {
               return option.abilities.length
                 ? option.name + " (" + option.abilities[0] + ")"
                 : option.name;
@@ -247,23 +250,36 @@ export const CreatePage = () => {
           <MenuItem value={"Unknown"}>Unknown</MenuItem>
         </Select>
       </FormControl>
-      {showPeculiarities &&
-        !peculiarityLoading &&
-        peculiarityData?.peculiarities && (
-          /* HOME LOOP TODO: only appear if peculiar species is selected */
-          <TextField
-            margin="normal"
-            id="homeLoop"
-            label="Loop"
-            name="homeLoop"
-            variant="outlined"
-            fullWidth
-            sx={styles.formFields}
-            {...register("homeLoop", { required: false })}
-            error={!!errors.homeLoop}
-            // disabled={loading}
-          ></TextField>
-        )}
+
+      {/* HOMELOOP */}
+      {showLoops && !loopsLoading && loopsData?.loops && (
+        // <TextField
+        //   margin="normal"
+        //   id="homeLoop"
+        //   label="Loop"
+        //   name="homeLoop"
+        //   variant="outlined"
+        //   fullWidth
+        //   sx={styles.formFields}
+        //   {...register("homeLoop", { required: false })}
+        //   error={!!errors.homeLoop}
+        //   // disabled={loading}
+        // ></TextField>
+
+        <Autocomplete
+          margin="normal"
+          id="homeLoop"
+          freeSolo
+          fullWidth
+          sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
+          {...register("homeLoop", { required: false })}
+          error={!!errors.homeLoop}
+          options={loopsData.loops.map((loop) => {
+            return loop.city + ", " + loop.year;
+          })}
+          renderInput={(params) => <TextField {...params} label="Loop" />}
+        />
+      )}
 
       {/* BOOKS */}
       <Controller
