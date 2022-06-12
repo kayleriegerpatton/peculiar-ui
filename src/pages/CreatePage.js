@@ -164,10 +164,18 @@ export const CreatePage = () => {
           error={!!errors.species}
           //   disabled={loading}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
-          onChange={async () => {
-            await executeGetPeculiarities();
+          onChange={async (event) => {
+            //   if event value is "Peculiar" or "Wight", query peculiarity data & display additional fields
+            if (
+              event.target.value === "Peculiar" ||
+              event.target.value === "Wight"
+            ) {
+              await executeGetPeculiarities();
 
-            setShowPeculiarities(true);
+              setShowPeculiarities(true);
+            } else {
+              setShowPeculiarities(false);
+            }
           }}
         >
           <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
