@@ -14,6 +14,10 @@ import { Controller, useForm } from "react-hook-form";
 import { styles } from "../styles";
 import { CREATE_CHARACTER } from "../mutations";
 import { useMutation, useQuery } from "@apollo/client";
+import { Spinner } from "../components/Spinner";
+
+import { CHARACTERS, PECULIARITIES, LOOPS } from "../queries";
+import { useNavigate } from "react-router-dom";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -30,14 +34,30 @@ const books = [
 ];
 
 export const CreatePage = () => {
+  const navigate = useNavigate();
+
   const [executeCreateCharacter, { loading, error }] =
     useMutation(CREATE_CHARACTER);
-
+  console.log("page loaded");
   const {
     data: characterData,
     loading: characterLoading,
     error: characterError,
-  } = useQuery();
+  } = useQuery(CHARACTERS);
+
+  console.log(characterData);
+
+  const {
+    data: peculiarityData,
+    loading: peculiarityLoading,
+    error: peculiarityError,
+  } = useQuery(PECULIARITIES);
+
+  const {
+    data: loopData,
+    loading: loopLoading,
+    error: loopError,
+  } = useQuery(LOOPS);
 
   const onSubmit = async ({
     characterName,
@@ -50,30 +70,30 @@ export const CreatePage = () => {
   }) => {
     try {
       console.log("Submit form");
-      const input = {
-        name: characterName.trim(),
-        species: species,
-        peculiarity: peculiarity.trim(),
-        imageUrl: imageUrl.trim(),
-        status: status,
-        homeLoop: homeLoop,
-        books: books,
-      };
+      //   const input = {
+      //     name: characterName.trim(),
+      //     species: species,
+      //     peculiarity: peculiarity.trim(),
+      //     imageUrl: imageUrl.trim(),
+      //     status: status,
+      //     homeLoop: homeLoop,
+      //     books: books,
+      //   };
 
-      console.log(input);
-      //   const { data } = await executeCreateCharacter({
-      //     variables: {
-      //       input: {
-      //        name: characterName.trim(),
-      //        species: species,
-      //        peculiarity: peculiarity.trim(),
-      //        imageUrl: imageUrl.trim(),
-      //        status: status,
-      //        homeLoop: homeLoop,
-      //        books: books,
-      //       },
-      //     },
-      //   });
+      //   console.log(input);
+      const { data } = await executeCreateCharacter({
+        variables: {
+          input: {
+            name: characterName.trim(),
+            species: species,
+            peculiarity: peculiarity.trim(),
+            imageUrl: imageUrl.trim(),
+            status: status,
+            homeLoop: homeLoop,
+            books: books,
+          },
+        },
+      });
       //   if (data) {
       //     navigate("/marketplace", { replace: true });
       //   }
@@ -101,10 +121,11 @@ export const CreatePage = () => {
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
+      {characterLoading && <Spinner />}
       <h1>Create page here</h1>
       {/* NEW CHARACTER; independent of new loop and peculiarity */}
       {/* CHARACTER NAME */}
-      <TextField
+      {/* <TextField
         margin="normal"
         id="characterName"
         label="Full Name"
@@ -116,10 +137,44 @@ export const CreatePage = () => {
         {...register("characterName", { required: true })}
         error={!!errors.characterName}
         // disabled={loading}
-      ></TextField>
+      ></TextField> */}
+      {characterData && (
+        <Autocomplete
+          margin="normal"
+          id="characterName"
+          freeSolo
+          fullWidth
+          sx={styles.formFields}
+          {...register("characterName", { required: true })}
+          error={!!errors.characterName}
+          options={characterData.characters.map((option) => option.name)}
+          renderInput={(params) => <TextField {...params} label="Full Name" />}
+        />
+      )}
+
+      {/* <Autocomplete
+          freeSolo
+          id="free-solo-2-demo"
+          disableClearable
+          options={characterData.map((option) => option.title)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search input"
+              InputProps={{
+                ...params.InputProps,
+                type: "search",
+              }}
+            />
+          )}
+        /> */}
 
       {/* SPECIES */}
-      <FormControl fullWidth>
+      <FormControl
+        fullWidth
+        margin="dense"
+        sx={{ ...styles.formFields, marginBottom: "-8px" }}
+      >
         <InputLabel
           id="species"
           sx={{ ...styles.formFields, margin: "16px 0px" }}
@@ -135,7 +190,7 @@ export const CreatePage = () => {
           {...register("species", { required: true })}
           error={!!errors.species}
           //   disabled={loading}
-          sx={{ margin: "16px 0px" }}
+          sx={{ ...styles.formFields, margin: "16px 0px" }}
         >
           <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
           <MenuItem value={"Wight"}>Wight</MenuItem>
@@ -172,7 +227,11 @@ export const CreatePage = () => {
       ></TextField>
 
       {/* STATUS */}
-      <FormControl fullWidth>
+      <FormControl
+        fullWidth
+        margin="dense"
+        sx={{ ...styles.formFields, marginBottom: "-8px", marginTop: "0px" }}
+      >
         <InputLabel id="status" sx={{ margin: "16px 0px" }}>
           Status
         </InputLabel>
@@ -244,9 +303,6 @@ export const CreatePage = () => {
           />
         )}
       />
-
-      {/* NEW PECULIARITY; independent of new loop, may be dependent on new character*/}
-      {/* NEW LOOP; can be done without new character or new peculiarity */}
 
       <LoadingButton
         loading={loading}
