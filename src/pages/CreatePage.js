@@ -251,21 +251,8 @@ export const CreatePage = () => {
         </Select>
       </FormControl>
 
-      {/* HOMELOOP */}
+      {/* HOME LOOP */}
       {showLoops && !loopsLoading && loopsData?.loops && (
-        // <TextField
-        //   margin="normal"
-        //   id="homeLoop"
-        //   label="Loop"
-        //   name="homeLoop"
-        //   variant="outlined"
-        //   fullWidth
-        //   sx={styles.formFields}
-        //   {...register("homeLoop", { required: false })}
-        //   error={!!errors.homeLoop}
-        //   // disabled={loading}
-        // ></TextField>
-
         <Autocomplete
           margin="normal"
           id="homeLoop"
