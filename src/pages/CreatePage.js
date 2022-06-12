@@ -13,11 +13,12 @@ import Box from "@mui/material/Box";
 import { Controller, useForm } from "react-hook-form";
 import { styles } from "../styles";
 import { CREATE_CHARACTER } from "../mutations";
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Spinner } from "../components/Spinner";
 
 import { CHARACTERS, PECULIARITIES, LOOPS } from "../queries";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -34,24 +35,18 @@ const books = [
 ];
 
 export const CreatePage = () => {
+  const [showPeculiarities, setShowPeculiarities] = useState(false);
+
   const navigate = useNavigate();
 
   const [executeCreateCharacter, { loading, error }] =
     useMutation(CREATE_CHARACTER);
-  console.log("page loaded");
+
   const {
     data: characterData,
     loading: characterLoading,
     error: characterError,
   } = useQuery(CHARACTERS);
-
-  console.log(characterData);
-
-  const {
-    data: peculiarityData,
-    loading: peculiarityLoading,
-    error: peculiarityError,
-  } = useQuery(PECULIARITIES);
 
   const {
     data: loopData,
@@ -109,6 +104,14 @@ export const CreatePage = () => {
     watch,
     control,
   } = useForm();
+  const [
+    executeGetPeculiarities,
+    {
+      data: peculiarityData,
+      loading: peculiarityLoading,
+      error: peculiarityError,
+    },
+  ] = useLazyQuery(PECULIARITIES);
 
   return (
     <Box
@@ -125,19 +128,6 @@ export const CreatePage = () => {
       <h1>Create page here</h1>
       {/* NEW CHARACTER; independent of new loop and peculiarity */}
       {/* CHARACTER NAME */}
-      {/* <TextField
-        margin="normal"
-        id="characterName"
-        label="Full Name"
-        name="characterName"
-        variant="outlined"
-        fullWidth
-        autoFocus
-        sx={styles.formFields}
-        {...register("characterName", { required: true })}
-        error={!!errors.characterName}
-        // disabled={loading}
-      ></TextField> */}
       {characterData && (
         <Autocomplete
           margin="normal"
@@ -151,23 +141,6 @@ export const CreatePage = () => {
           renderInput={(params) => <TextField {...params} label="Full Name" />}
         />
       )}
-
-      {/* <Autocomplete
-          freeSolo
-          id="free-solo-2-demo"
-          disableClearable
-          options={characterData.map((option) => option.title)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search input"
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
-              }}
-            />
-          )}
-        /> */}
 
       {/* SPECIES */}
       <FormControl
@@ -191,6 +164,11 @@ export const CreatePage = () => {
           error={!!errors.species}
           //   disabled={loading}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
+          onChange={async () => {
+            await executeGetPeculiarities();
+
+            setShowPeculiarities(true);
+          }}
         >
           <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
           <MenuItem value={"Wight"}>Wight</MenuItem>
@@ -199,18 +177,22 @@ export const CreatePage = () => {
       </FormControl>
 
       {/* PECULIARITY TODO: Only appear if peculiar or wight species is selected */}
-      <TextField
-        margin="normal"
-        id="peculiarity"
-        label="Peculiarity"
-        name="peculiarity"
-        variant="outlined"
-        fullWidth
-        sx={styles.formFields}
-        {...register("peculiarity", { required: false })}
-        error={!!errors.peculiarity}
-        // disabled={loading}
-      ></TextField>
+      {showPeculiarities &&
+        !peculiarityLoading &&
+        peculiarityData?.peculiarities && (
+          <TextField
+            margin="normal"
+            id="peculiarity"
+            label="Peculiarity"
+            name="peculiarity"
+            variant="outlined"
+            fullWidth
+            sx={styles.formFields}
+            {...register("peculiarity", { required: false })}
+            error={!!errors.peculiarity}
+            // disabled={loading}
+          ></TextField>
+        )}
 
       {/* IMAGE URL */}
       <TextField
@@ -251,20 +233,23 @@ export const CreatePage = () => {
           <MenuItem value={"Unknown"}>Unknown</MenuItem>
         </Select>
       </FormControl>
-
-      {/* HOME LOOP TODO: only appear if peculiar species is selected */}
-      <TextField
-        margin="normal"
-        id="homeLoop"
-        label="Loop"
-        name="homeLoop"
-        variant="outlined"
-        fullWidth
-        sx={styles.formFields}
-        {...register("homeLoop", { required: false })}
-        error={!!errors.homeLoop}
-        // disabled={loading}
-      ></TextField>
+      {showPeculiarities &&
+        !peculiarityLoading &&
+        peculiarityData?.peculiarities && (
+          /* HOME LOOP TODO: only appear if peculiar species is selected */
+          <TextField
+            margin="normal"
+            id="homeLoop"
+            label="Loop"
+            name="homeLoop"
+            variant="outlined"
+            fullWidth
+            sx={styles.formFields}
+            {...register("homeLoop", { required: false })}
+            error={!!errors.homeLoop}
+            // disabled={loading}
+          ></TextField>
+        )}
 
       {/* BOOKS */}
       <Controller
