@@ -19,6 +19,7 @@ import { Spinner } from "../components/Spinner";
 import { CHARACTERS, PECULIARITIES, LOOPS } from "../queries";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { margin } from "@mui/system";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -165,7 +166,7 @@ export const CreatePage = () => {
           //   disabled={loading}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
           onChange={async (event) => {
-            //   if event value is "Peculiar" or "Wight", query peculiarity data & display additional fields
+            //   if event value is "Peculiar" or "Wight", query peculiarity data & display additional form fields
             if (
               event.target.value === "Peculiar" ||
               event.target.value === "Wight"
@@ -184,22 +185,27 @@ export const CreatePage = () => {
         </Select>
       </FormControl>
 
-      {/* PECULIARITY TODO: Only appear if peculiar or wight species is selected */}
+      {/* PECULIARITY */}
       {showPeculiarities &&
         !peculiarityLoading &&
         peculiarityData?.peculiarities && (
-          <TextField
+          <Autocomplete
             margin="normal"
             id="peculiarity"
-            label="Peculiarity"
-            name="peculiarity"
-            variant="outlined"
+            freeSolo
             fullWidth
-            sx={styles.formFields}
+            sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
             error={!!errors.peculiarity}
-            // disabled={loading}
-          ></TextField>
+            options={peculiarityData.peculiarities.map((option) => {
+              return option.abilities.length
+                ? option.name + " (" + option.abilities[0] + ")"
+                : option.name;
+            })}
+            renderInput={(params) => (
+              <TextField {...params} label="Peculiarity" />
+            )}
+          />
         )}
 
       {/* IMAGE URL */}

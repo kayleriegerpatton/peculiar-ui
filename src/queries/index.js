@@ -13,6 +13,7 @@ export const PECULIARITIES = gql`
   query Peculiarities {
     peculiarities {
       name
+      abilities
     }
   }
 `;
