@@ -25,14 +25,14 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const books = [
-  "Miss Peregrine's Home for Peculiar Children (2011)",
-  "Hollow City (2014)",
-  "Library of Souls (2015)",
-  "Tales of the Peculiar (2016)",
-  "A Map of Days (2018)",
-  "The Conference of the Birds (2020)",
-  "The Desolation of Devil's Acre (2021)",
-  "Miss Peregrine's Museum of Wonders (2022)",
+  { name: "Miss Peregrine's Home for Peculiar Children (2011)", id: 1 },
+  { name: "Hollow City (2014)", id: 2 },
+  { name: "Library of Souls (2015)", id: 3 },
+  { name: "Tales of the Peculiar (2016)", id: 4 },
+  { name: "A Map of Days (2018)", id: 5 },
+  { name: "The Conference of the Birds (2020)", id: 6 },
+  { name: "The Desolation of Devil's Acre (2021)", id: 7 },
+  { name: "Miss Peregrine's Museum of Wonders (2022)", id: 8 },
 ];
 
 export const CreatePage = () => {
@@ -61,6 +61,7 @@ export const CreatePage = () => {
   }) => {
     try {
       console.log("Submit form");
+
       //   const input = {
       //     name: characterName.trim(),
       //     species: species,
@@ -114,7 +115,7 @@ export const CreatePage = () => {
     executeGetLoops,
     { data: loopsData, loading: loopsLoading, error: loopsError },
   ] = useLazyQuery(LOOPS);
-  console.log(loopsData);
+  //   console.log(loopsData);
 
   return (
     <Box
@@ -276,13 +277,14 @@ export const CreatePage = () => {
           <Autocomplete
             multiple
             fullWidth
-            options={books}
+            options={books.map((book) => book.name)}
             disableCloseOnSelect
             getOptionLabel={(option) => option}
             renderOption={(props, option, { selected }) => (
-              <li {...props}>
+              <li {...props} id={option.id}>
                 <Checkbox
                   icon={icon}
+                  id={option.id}
                   checkedIcon={checkedIcon}
                   style={{ marginRight: 8 }}
                   checked={selected}
@@ -300,7 +302,11 @@ export const CreatePage = () => {
                 value={value}
               />
             )}
-            onChange={(event, values, reason) => onChange(values)}
+            onChange={(event, values, reason) => {
+              onChange(values);
+              console.log("CLICKED");
+              console.log(values);
+            }}
             value={value || []}
           />
         )}
