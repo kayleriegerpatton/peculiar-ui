@@ -272,6 +272,8 @@ export const CreatePage = () => {
       {/* BOOKS */}
       <Autocomplete
         multiple
+        fullWidth
+        sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
         id="books-checkboxes"
         options={books}
         disableCloseOnSelect
@@ -287,7 +289,7 @@ export const CreatePage = () => {
             {option.name}
           </li>
         )}
-        style={{ width: 500 }}
+        style={{ ...styles.formFields }}
         renderInput={(params) => <TextField {...params} label="Books" />}
         onChange={(event, values, reason) => {
           console.log("CLICKED");
