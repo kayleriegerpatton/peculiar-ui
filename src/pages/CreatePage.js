@@ -270,46 +270,29 @@ export const CreatePage = () => {
       )}
 
       {/* BOOKS */}
-      <Controller
-        control={control}
-        name="books"
-        render={({ field: { onChange, value } }) => (
-          <Autocomplete
-            multiple
-            fullWidth
-            options={books.map((book) => book.name)}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option}
-            renderOption={(props, option, { selected }) => (
-              <li {...props} id={option.id}>
-                <Checkbox
-                  icon={icon}
-                  id={option.id}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
-                {option}
-              </li>
-            )}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Books"
-                margin="normal"
-                variant="outlined"
-                onChange={onChange}
-                value={value}
-              />
-            )}
-            onChange={(event, values, reason) => {
-              onChange(values);
-              console.log("CLICKED");
-              console.log(values);
-            }}
-            value={value || []}
-          />
+      <Autocomplete
+        multiple
+        id="books-checkboxes"
+        options={books}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.name}
+        renderOption={(props, option, { selected }) => (
+          <li {...props} id={option.id}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.name}
+          </li>
         )}
+        style={{ width: 500 }}
+        renderInput={(params) => <TextField {...params} label="Books" />}
+        onChange={(event, values, reason) => {
+          console.log("CLICKED");
+          console.log(values);
+        }}
       />
 
       <LoadingButton
