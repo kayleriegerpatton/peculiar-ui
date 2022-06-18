@@ -16,10 +16,9 @@ import { CREATE_CHARACTER } from "../mutations";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Spinner } from "../components/Spinner";
 
-import { CHARACTERS, PECULIARITIES, LOOPS } from "../queries";
+import { CHARACTERS, PECULIARITIES, LOOPS, BOOKS } from "../queries";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { margin } from "@mui/system";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -50,6 +49,12 @@ export const CreatePage = () => {
     error: characterError,
   } = useQuery(CHARACTERS);
 
+  const {
+    data: booksData,
+    loading: booksLoading,
+    error: booksError,
+  } = useQuery(BOOKS);
+
   const onSubmit = async ({
     characterName,
     species,
@@ -61,6 +66,7 @@ export const CreatePage = () => {
   }) => {
     try {
       console.log("Submit form");
+      console.log(books);
 
       //   const input = {
       //     name: characterName.trim(),
@@ -69,7 +75,7 @@ export const CreatePage = () => {
       //     imageUrl: imageUrl.trim(),
       //     status: status,
       //     homeLoop: homeLoop,
-      //     books: books,
+      //     books: books.map((book)=>book.id)
       //   };
 
       //   console.log(input);
@@ -115,7 +121,6 @@ export const CreatePage = () => {
     executeGetLoops,
     { data: loopsData, loading: loopsLoading, error: loopsError },
   ] = useLazyQuery(LOOPS);
-  //   console.log(loopsData);
 
   return (
     <Box
@@ -130,7 +135,7 @@ export const CreatePage = () => {
     >
       {characterLoading && <Spinner />}
       <h1>Create A Character</h1>
-      {/* NEW CHARACTER; independent of new loop and peculiarity */}
+
       {/* CHARACTER NAME */}
       {characterData && (
         <Autocomplete
@@ -140,7 +145,7 @@ export const CreatePage = () => {
           fullWidth
           sx={styles.formFields}
           {...register("characterName", { required: true })}
-          error={!!errors.characterName}
+          //   error={!!errors.characterName}
           options={characterData.characters.map((option) => option.name)}
           renderInput={(params) => <TextField {...params} label="Full Name" />}
         />
@@ -200,7 +205,7 @@ export const CreatePage = () => {
             fullWidth
             sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
-            error={!!errors.peculiarity}
+            // error={!!errors.peculiarity}
             options={peculiaritiesData.peculiarities.map((option) => {
               return option.abilities.length
                 ? option.name + " (" + option.abilities[0] + ")"
@@ -222,7 +227,7 @@ export const CreatePage = () => {
         fullWidth
         sx={styles.formFields}
         {...register("imageUrl", { required: false })}
-        error={!!errors.imageUrl}
+        // error={!!errors.imageUrl}
         // disabled={loading}
       ></TextField>
 
@@ -242,7 +247,7 @@ export const CreatePage = () => {
           variant="outlined"
           fullWidth
           {...register("status", { required: true })}
-          error={!!errors.status}
+          //   error={!!errors.status}
           //   disabled={loading}
           sx={{ margin: "16px 0px" }}
         >
@@ -261,7 +266,7 @@ export const CreatePage = () => {
           fullWidth
           sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
           {...register("homeLoop", { required: false })}
-          error={!!errors.homeLoop}
+          //   error={!!errors.homeLoop}
           options={loopsData.loops.map((loop) => {
             return loop.city + ", " + loop.year;
           })}

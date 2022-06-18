@@ -14,10 +14,10 @@ export const styles = {
     paddingTop: 3,
   },
   formFields: {
-    "& label.Mui-focused": {
+    "& label.MuiFocused": {
       color: "var(--dark-liver)",
     },
-    "& .MuiOutlinedInput-root": {
+    "& .MuiOutlinedInputRoot": {
       "&.Mui-focused fieldset": {
         borderColor: "var(--lavender-blue)",
       },

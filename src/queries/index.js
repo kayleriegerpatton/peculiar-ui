@@ -27,3 +27,13 @@ export const LOOPS = gql`
     }
   }
 `;
+
+export const BOOKS = gql`
+  query Books {
+    books {
+      id
+      title
+      releaseYear
+    }
+  }
+`;
