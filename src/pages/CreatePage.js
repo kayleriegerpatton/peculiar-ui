@@ -66,7 +66,7 @@ export const CreatePage = () => {
   }) => {
     try {
       console.log("Submit form");
-      console.log(books);
+      console.log(imageUrl.trim());
 
       //   const input = {
       //     name: characterName.trim(),
@@ -104,8 +104,8 @@ export const CreatePage = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
-    control,
+    getValues,
+    // control,
   } = useForm();
 
   const [
@@ -133,27 +133,41 @@ export const CreatePage = () => {
       }}
       onSubmit={handleSubmit(onSubmit)}
     >
-      {characterLoading && <Spinner />}
+      {characterLoading && booksLoading && <Spinner />}
       <h1>Create A Character</h1>
 
       {/* CHARACTER NAME */}
+
       {characterData && (
         <Autocomplete
           margin="normal"
           id="characterName"
+          name="characterName"
           freeSolo
           fullWidth
           sx={styles.formFields}
           {...register("characterName", { required: true })}
-          //   error={!!errors.characterName}
           options={characterData.characters.map((option) => option.name)}
-          renderInput={(params) => <TextField {...params} label="Full Name" />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Full Name"
+              required
+              error={!!errors.characterName}
+              helperText={
+                errors.characterName
+                  ? "Please enter the character's full name."
+                  : ""
+              }
+            />
+          )}
         />
       )}
 
       {/* SPECIES */}
-      <FormControl
+      {/* <FormControl
         fullWidth
+        required
         margin="dense"
         sx={{ ...styles.formFields, marginBottom: "-8px" }}
       >
@@ -169,9 +183,10 @@ export const CreatePage = () => {
           name="species"
           variant="outlined"
           fullWidth
-          {...register("species", { required: true })}
-          error={!!errors.species}
+          defaultValue={"Peculiar"}
           //   disabled={loading}
+          {...register("species", { required: true })}
+          //   error={!!errors.species}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
           onChange={async (event) => {
             if (event.target.value === "Peculiar") {
@@ -192,10 +207,10 @@ export const CreatePage = () => {
           <MenuItem value={"Wight"}>Wight</MenuItem>
           <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       {/* PECULIARITY */}
-      {showPeculiarities &&
+      {/* {showPeculiarities &&
         !peculiaritiesLoading &&
         peculiaritiesData?.peculiarities && (
           <Autocomplete
@@ -205,7 +220,7 @@ export const CreatePage = () => {
             fullWidth
             sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
-            // error={!!errors.peculiarity}
+            error={!!errors.peculiarity}
             options={peculiaritiesData.peculiarities.map((option) => {
               return option.abilities.length
                 ? option.name + " (" + option.abilities[0] + ")"
@@ -215,7 +230,7 @@ export const CreatePage = () => {
               <TextField {...params} label="Peculiarity" />
             )}
           />
-        )}
+        )} */}
 
       {/* IMAGE URL */}
       <TextField
@@ -227,12 +242,18 @@ export const CreatePage = () => {
         fullWidth
         sx={styles.formFields}
         {...register("imageUrl", { required: false })}
+        // {...register("imageUrl", {
+        //   pattern:
+        //     /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+        //   required: true,
+        // })}
         // error={!!errors.imageUrl}
-        // disabled={loading}
+        // helperText={errors.imageUrl ? "Must contain a valid URL" : ""}
+        disabled={loading}
       ></TextField>
 
       {/* STATUS */}
-      <FormControl
+      {/* <FormControl
         fullWidth
         margin="dense"
         sx={{ ...styles.formFields, marginBottom: "-8px", marginTop: "0px" }}
@@ -247,7 +268,7 @@ export const CreatePage = () => {
           variant="outlined"
           fullWidth
           {...register("status", { required: true })}
-          //   error={!!errors.status}
+          error={!!errors.status}
           //   disabled={loading}
           sx={{ margin: "16px 0px" }}
         >
@@ -255,10 +276,10 @@ export const CreatePage = () => {
           <MenuItem value={"Dead"}>Dead</MenuItem>
           <MenuItem value={"Unknown"}>Unknown</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
 
       {/* HOME LOOP */}
-      {showLoops && !loopsLoading && loopsData?.loops && (
+      {/* {showLoops && !loopsLoading && loopsData?.loops && (
         <Autocomplete
           margin="normal"
           id="homeLoop"
@@ -266,16 +287,16 @@ export const CreatePage = () => {
           fullWidth
           sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
           {...register("homeLoop", { required: false })}
-          //   error={!!errors.homeLoop}
+          error={!!errors.homeLoop}
           options={loopsData.loops.map((loop) => {
             return loop.city + ", " + loop.year;
           })}
           renderInput={(params) => <TextField {...params} label="Loop" />}
         />
-      )}
+      )} */}
 
       {/* BOOKS */}
-      <Autocomplete
+      {/* <Autocomplete
         multiple
         fullWidth
         sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
@@ -300,7 +321,7 @@ export const CreatePage = () => {
           console.log("CLICKED");
           console.log(values);
         }}
-      />
+      /> */}
 
       <LoadingButton
         loading={loading}
