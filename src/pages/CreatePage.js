@@ -105,7 +105,7 @@ export const CreatePage = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-    // control,
+    control,
   } = useForm();
 
   const [
@@ -139,29 +139,30 @@ export const CreatePage = () => {
       {/* CHARACTER NAME */}
 
       {characterData && (
-        <Autocomplete
-          margin="normal"
-          id="characterName"
-          name="characterName"
-          freeSolo
-          fullWidth
-          sx={styles.formFields}
-          {...register("characterName", { required: true })}
-          options={characterData.characters.map((option) => option.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Full Name"
-              required
-              error={!!errors.characterName}
-              helperText={
-                errors.characterName
-                  ? "Please enter the character's full name."
-                  : ""
-              }
-            />
-          )}
-        />
+        <FormControl fullWidth control={control}>
+          <Autocomplete
+            margin="normal"
+            id="characterName"
+            name="characterName"
+            freeSolo
+            fullWidth
+            sx={styles.formFields}
+            {...register("characterName", { required: true })}
+            options={characterData.characters.map((option) => option.name)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Full Name"
+                error={!!errors.characterName}
+                helperText={
+                  errors.characterName
+                    ? "Please enter the character's full name."
+                    : ""
+                }
+              />
+            )}
+          />
+        </FormControl>
       )}
 
       {/* SPECIES */}
