@@ -66,19 +66,18 @@ export const CreatePage = () => {
   }) => {
     try {
       console.log("Submit form");
-      console.log(imageUrl.trim());
 
-      //   const input = {
-      //     name: characterName.trim(),
-      //     species: species,
-      //     peculiarity: peculiarity.trim(),
-      //     imageUrl: imageUrl.trim(),
-      //     status: status,
-      //     homeLoop: homeLoop,
-      //     books: books.map((book)=>book.id)
-      //   };
+      const input = {
+        //   name: characterName.trim(),
+        species: species,
+        peculiarity: peculiarity.trim(),
+        imageUrl: imageUrl.trim(),
+        status: status,
+        homeLoop: homeLoop,
+        //   books: books.map((book)=>book.id)
+      };
 
-      //   console.log(input);
+      console.log(input);
       const { data } = await executeCreateCharacter({
         variables: {
           input: {
@@ -138,8 +137,13 @@ export const CreatePage = () => {
 
       {/* CHARACTER NAME */}
 
-      {characterData && (
-        <FormControl fullWidth control={control}>
+      {/* {characterData && (
+        <Controller
+          name="character-control"
+          control={control}
+          render={({ field }) => <input {...field} />}
+          //   rules={{ required: "Required" }}
+        >
           <Autocomplete
             margin="normal"
             id="characterName"
@@ -162,11 +166,11 @@ export const CreatePage = () => {
               />
             )}
           />
-        </FormControl>
-      )}
+        </Controller>
+      )} */}
 
       {/* SPECIES */}
-      {/* <FormControl
+      <FormControl
         fullWidth
         required
         margin="dense"
@@ -187,7 +191,6 @@ export const CreatePage = () => {
           defaultValue={"Peculiar"}
           //   disabled={loading}
           {...register("species", { required: true })}
-          //   error={!!errors.species}
           sx={{ ...styles.formFields, margin: "16px 0px" }}
           onChange={async (event) => {
             if (event.target.value === "Peculiar") {
@@ -208,10 +211,10 @@ export const CreatePage = () => {
           <MenuItem value={"Wight"}>Wight</MenuItem>
           <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
         </Select>
-      </FormControl> */}
+      </FormControl>
 
       {/* PECULIARITY */}
-      {/* {showPeculiarities &&
+      {showPeculiarities &&
         !peculiaritiesLoading &&
         peculiaritiesData?.peculiarities && (
           <Autocomplete
@@ -221,7 +224,7 @@ export const CreatePage = () => {
             fullWidth
             sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
-            error={!!errors.peculiarity}
+            // error={!!errors.peculiarity}
             options={peculiaritiesData.peculiarities.map((option) => {
               return option.abilities.length
                 ? option.name + " (" + option.abilities[0] + ")"
@@ -231,7 +234,7 @@ export const CreatePage = () => {
               <TextField {...params} label="Peculiarity" />
             )}
           />
-        )} */}
+        )}
 
       {/* IMAGE URL */}
       <TextField
@@ -254,7 +257,7 @@ export const CreatePage = () => {
       ></TextField>
 
       {/* STATUS */}
-      {/* <FormControl
+      <FormControl
         fullWidth
         margin="dense"
         sx={{ ...styles.formFields, marginBottom: "-8px", marginTop: "0px" }}
@@ -269,32 +272,33 @@ export const CreatePage = () => {
           variant="outlined"
           fullWidth
           {...register("status", { required: true })}
-          error={!!errors.status}
           //   disabled={loading}
           sx={{ margin: "16px 0px" }}
+          defaultValue={"Alive"}
         >
           <MenuItem value={"Alive"}>Alive</MenuItem>
           <MenuItem value={"Dead"}>Dead</MenuItem>
           <MenuItem value={"Unknown"}>Unknown</MenuItem>
         </Select>
-      </FormControl> */}
+      </FormControl>
 
       {/* HOME LOOP */}
-      {/* {showLoops && !loopsLoading && loopsData?.loops && (
+      {showLoops && !loopsLoading && loopsData?.loops && (
         <Autocomplete
           margin="normal"
-          id="homeLoop"
+          id="homeLoop-autocomplete"
           freeSolo
           fullWidth
           sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
           {...register("homeLoop", { required: false })}
-          error={!!errors.homeLoop}
           options={loopsData.loops.map((loop) => {
             return loop.city + ", " + loop.year;
           })}
-          renderInput={(params) => <TextField {...params} label="Loop" />}
+          renderInput={(params) => (
+            <TextField {...params} name="homeLoop" label="Loop" />
+          )}
         />
-      )} */}
+      )}
 
       {/* BOOKS */}
       {/* <Autocomplete
