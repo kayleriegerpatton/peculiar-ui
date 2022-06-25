@@ -24,6 +24,7 @@ export const LOOPS = gql`
       id
       city
       year
+      label
     }
   }
 `;

@@ -220,7 +220,6 @@ export const CreatePage = () => {
           <Autocomplete
             margin="normal"
             id="peculiarity"
-            freeSolo
             fullWidth
             sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
             {...register("peculiarity", { required: false })}
@@ -287,13 +286,14 @@ export const CreatePage = () => {
         <Autocomplete
           margin="normal"
           id="homeLoop-autocomplete"
-          freeSolo
           fullWidth
           sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
           {...register("homeLoop", { required: false })}
-          options={loopsData.loops.map((loop) => {
-            return loop.city + ", " + loop.year;
-          })}
+          options={loopsData.loops}
+          //   getOptionLabel={(option) => option.city + ", " + option.year}
+          onChange={(event, value) => {
+            console.log(value.id);
+          }}
           renderInput={(params) => (
             <TextField {...params} name="homeLoop" label="Loop" />
           )}
