@@ -81,6 +81,7 @@ export const Navbar = () => {
                 onClick={() => handleNavigation(page.path)}
                 sx={{
                   my: 2,
+                  mx: 0.5,
                   color: "var(--dark-liver)",
                   display: "block",
                   "&:hover": { backgroundColor: "var(--lavender-blue)" },
