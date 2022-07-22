@@ -15,11 +15,12 @@ export const CreatePage = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box sx={styles.flexContainer}>
       <Button
         variant="outlined"
         endIcon={<PersonAddAlt1Icon />}
         size="large"
+        fullWidth={false}
         sx={styles.button}
         onClick={() => handleNavigation("/create/character")}
       >
@@ -28,6 +29,7 @@ export const CreatePage = () => {
       <Button
         variant="outlined"
         endIcon={<StarsIcon />}
+        fullWidth={false}
         sx={styles.button}
         onClick={() => handleNavigation("/create/peculiarity")}
       >
@@ -36,6 +38,7 @@ export const CreatePage = () => {
       <Button
         variant="outlined"
         endIcon={<TornadoIcon />}
+        fullWidth={false}
         sx={styles.button}
         onClick={() => handleNavigation("/create/loop")}
       >

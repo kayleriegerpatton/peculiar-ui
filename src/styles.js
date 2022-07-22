@@ -1,6 +1,14 @@
 export const styles = {
-  container: {
-    backgroundColor: "#fff",
+  flexContainer: {
+    maxWidth: "750px",
+    margin: "auto",
+    display: "flex",
+    justifyContent: "center",
+    "@media only screen and (max-width: 900px)": {
+      flexDirection: "column",
+      alignItems: "center",
+      flex: "none",
+    },
   },
   header: {
     paddingTop: 3,
@@ -48,6 +56,7 @@ export const styles = {
     mx: 3,
     color: "white",
     fontWeight: 700,
+    minWidth: "200px",
     backgroundColor: "var(--gold-fusion)",
     "&:hover": {
       backgroundColor: "var(--lavender-blue)",

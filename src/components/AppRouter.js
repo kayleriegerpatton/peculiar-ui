@@ -12,6 +12,7 @@ import { EditPage } from "../pages/EditPage";
 // import authProvider
 
 // * AppRouter controls URL and rendered pages/components
+// TODO: handle browser back button functionality; hash router?
 export const AppRouter = () => {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
