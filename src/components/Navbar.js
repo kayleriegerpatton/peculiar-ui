@@ -41,7 +41,10 @@ export const Navbar = () => {
   //     setAnchorElUser(event.currentTarget);
   //   };
   return (
-    <AppBar position="static" sx={{ backgroundColor: "var(--platinum)" }}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: "var(--platinum)", marginBottom: 5 }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* Title on desktop */}

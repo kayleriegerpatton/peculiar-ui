@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { LandingPage } from "../pages/LandingPage";
 import { CreatePage } from "../pages/CreatePage";
+import { CreateCharacterPage } from "../pages/CreateCharacterPage";
 import { EditPage } from "../pages/EditPage";
 // import authProvider
 
