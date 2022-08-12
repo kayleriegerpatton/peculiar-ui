@@ -10,6 +10,7 @@ import { useMediaQuery } from "react-responsive";
 
 import { styles } from "../styles";
 import defaultCharacterImg from "../images/default-character.png";
+import { Typography } from "@mui/material";
 
 export const CreatePage = () => {
   const navigate = useNavigate();
@@ -22,6 +23,14 @@ export const CreatePage = () => {
 
   return (
     <Box sx={styles.flexContainer}>
+      <Typography
+        sx={{ fontFamily: "Oranienbaum", textTransform: "uppercase" }}
+      >
+        Miss Peregrine's Home for
+      </Typography>
+      <Typography sx={{ fontFamily: "Amatic SC" }}>
+        Peculiar Children
+      </Typography>
       <Stack sx={{ alignItems: "center" }}>
         {notMobile && (
           <Avatar
