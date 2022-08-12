@@ -88,9 +88,9 @@ export const styles = {
     color: "var(--dark-liver)",
     fontFamily: "Oranienbaum",
     textTransform: 'lowercase',
-    fontSize: '1.2rem',
+    fontSize: '1.5rem',
     display: "block",
-    "&:hover": { backgroundColor: "var(--lavender-blue)" },
+    "&:hover": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)"  },
     "&:focus": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)" }
   },
 };

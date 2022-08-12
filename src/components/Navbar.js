@@ -71,7 +71,7 @@ export const Navbar = () => {
             The Peculiar Project
           </Typography>
 
-          {/* nav links on medium+ screen sizes */}
+          {/* nav links on larger screen sizes */}
           <Box
             sx={{
               flexGrow: 1,
@@ -107,7 +107,8 @@ export const Navbar = () => {
             ))}
           </Box>
 
-          {/* Title on medium screen sizes */}
+          {/* MOBILE VIEWPORTS */}
+          {/* Title on small-medium screen sizes */}
           <Typography
             variant="h4"
             noWrap
@@ -117,6 +118,8 @@ export const Navbar = () => {
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               justifyContent: "center",
+              fontFamily: "Amatic SC",
+              fontSize: "2.5rem",
               fontWeight: 700,
               color: "var(--dark-liver)",
               textDecoration: "none",
@@ -170,8 +173,17 @@ export const Navbar = () => {
                 <MenuItem
                   key={page.label}
                   onClick={() => handleNavigation(page.path)}
+                  sx={styles.navLink}
                 >
-                  <Typography textAlign="center">{page.label}</Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: "Oranienbaum",
+                      textTransform: "lowercase",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    {page.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
