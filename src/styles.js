@@ -44,11 +44,18 @@ export const styles = {
     marginBottom: 2,
     color: "#fff",
     backgroundColor: "var(--gold-fusion)",
-    fontWeight: "bold",
+    fontWeight: 700,
     "&:hover": {
-      backgroundColor: "var(--dark-liver)",
+      backgroundColor: "var(--lavender-blue)",
+      color: "var(--dark-liver)",
+      borderColor: "#a4a7dc",
       boxShadow: "none",
     },
+    "&:focus": {
+      backgroundColor: "var(--lavender-blue)",
+      color: "var(--dark-liver)",
+      borderColor: "#a4a7dc",
+    }
   },
 
   button: {
@@ -63,6 +70,11 @@ export const styles = {
       color: "var(--dark-liver)",
       borderColor: "#a4a7dc",
     },
+    "&:focus": {
+      backgroundColor: "var(--lavender-blue)",
+      color: "var(--dark-liver)",
+      borderColor: "#a4a7dc",
+    }
   },
 
   navLink: {
