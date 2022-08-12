@@ -11,6 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { styles } from "../styles";
+
 const adminPages = [
   { label: "Create", path: "create" },
   { label: "Edit", path: "edit" },
@@ -75,17 +77,19 @@ export const Navbar = () => {
               justifyContent: "flex-end",
             }}
           >
+            <Button
+              component="a"
+              className="skip-nav-link"
+              sx={{...styles.navLink, transform: 'translateY(-170%)', transition: 'transform 0.3s', '&:focus': { transform: 'translateY(0%)', backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)"}}}
+              href="#page-container"
+            >
+              Skip Navigation
+            </Button>
             {adminPages.map((page) => (
               <Button
                 key={page.label}
                 onClick={() => handleNavigation(page.path)}
-                sx={{
-                  my: 2,
-                  mx: 0.5,
-                  color: "var(--dark-liver)",
-                  display: "block",
-                  "&:hover": { backgroundColor: "var(--lavender-blue)" },
-                }}
+                sx={styles.navLink}
               >
                 {page.label}
               </Button>
