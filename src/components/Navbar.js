@@ -45,7 +45,7 @@ export const Navbar = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "var(--platinum)", marginBottom: 5 }}
+      sx={{ backgroundColor: "var(--platinum)", mb: 5 }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: "flex" }}>
@@ -56,9 +56,11 @@ export const Navbar = () => {
             component="button"
             onClick={() => handleNavigation("/")}
             sx={{
+              fontFamily: "Amatic SC",
+              fontWeight: 700, //bold
+              fontSize: "2.5rem",
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontWeight: 700,
               color: "var(--dark-liver)",
               textDecoration: "none",
               border: "none",
@@ -80,7 +82,16 @@ export const Navbar = () => {
             <Button
               component="a"
               className="skip-nav-link"
-              sx={{...styles.navLink, transform: 'translateY(-170%)', transition: 'transform 0.3s', '&:focus': { transform: 'translateY(0%)', backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)"}}}
+              sx={{
+                ...styles.navLink,
+                transform: "translateY(-170%)",
+                transition: "transform 0.3s",
+                "&:focus": {
+                  transform: "translateY(0%)",
+                  backgroundColor: "var(--lavender-blue)",
+                  color: "var(--dark-liver)",
+                },
+              }}
               href="#page-container"
             >
               Skip Navigation

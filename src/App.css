@@ -4,8 +4,7 @@
   --lavender-blue: #bfc1edff;
   --dark-liver: #4c474bff;
   --gold-fusion: #817f61ff;
-  font-family: "Amatic SC", cursive;
-  font-family: "IM Fell Double Pica SC", serif;
-  font-family: "Loved by the King", cursive;
-  font-family: "Oranienbaum", serif;
+  font-family: "Amatic SC", cursive; /*400 or 700*/
+  font-family: "Oranienbaum", serif; /*400*/
+  font-size: 16;
 }

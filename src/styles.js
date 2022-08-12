@@ -10,10 +10,12 @@ export const styles = {
       flex: "none",
     },
   },
+
   header: {
     paddingTop: 3,
     paddingBottom: 2,
   },
+
   form: {
     display: "flex",
     flexDirection: "column",
@@ -21,6 +23,7 @@ export const styles = {
     padding: 4,
     paddingTop: 3,
   },
+
   formFields: {
     "& label.MuiFocused": {
       color: "var(--dark-liver)",
@@ -34,11 +37,13 @@ export const styles = {
       borderColor: "var(--lavender-blue)",
     },
   },
+
   errorContainer: {
     marginTop: 2,
     color: "#d32f2f",
     textAlign: "center",
   },
+
   loadingButton: {
     marginTop: 3,
     marginBottom: 2,
@@ -78,9 +83,12 @@ export const styles = {
   },
 
   navLink: {
-    my: 2,
+    // my: 2,
     mx: 0.5,
     color: "var(--dark-liver)",
+    fontFamily: "Oranienbaum",
+    textTransform: 'lowercase',
+    fontSize: '1.2rem',
     display: "block",
     "&:hover": { backgroundColor: "var(--lavender-blue)" },
     "&:focus": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)" }

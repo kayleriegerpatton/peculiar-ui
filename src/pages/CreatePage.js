@@ -5,12 +5,12 @@ import TornadoIcon from "@mui/icons-material/Tornado";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import { styles } from "../styles";
 import defaultCharacterImg from "../images/default-character.png";
-import { Typography } from "@mui/material";
 
 export const CreatePage = () => {
   const navigate = useNavigate();
@@ -23,14 +23,6 @@ export const CreatePage = () => {
 
   return (
     <Box sx={styles.flexContainer}>
-      <Typography
-        sx={{ fontFamily: "Oranienbaum", textTransform: "uppercase" }}
-      >
-        Miss Peregrine's Home for
-      </Typography>
-      <Typography sx={{ fontFamily: "Amatic SC" }}>
-        Peculiar Children
-      </Typography>
       <Stack sx={{ alignItems: "center" }}>
         {notMobile && (
           <Avatar
