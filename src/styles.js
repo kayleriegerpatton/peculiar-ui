@@ -64,4 +64,13 @@ export const styles = {
       borderColor: "#a4a7dc",
     },
   },
+
+  navLink: {
+    my: 2,
+    mx: 0.5,
+    color: "var(--dark-liver)",
+    display: "block",
+    "&:hover": { backgroundColor: "var(--lavender-blue)" },
+    "&:focus": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)" }
+  },
 };

@@ -18,7 +18,7 @@ export const AppRouter = () => {
     <Stack sx={{ minHeight: "100vh" }}>
       <Navbar />
 
-      <Box sx={{ minHeight: "80vh" }}>
+      <Box id='page-container' sx={{ minHeight: "80vh" }}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/create" element={<CreatePage />} />
