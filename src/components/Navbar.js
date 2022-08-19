@@ -53,7 +53,7 @@ export const Navbar = () => {
           <Typography
             variant="h5"
             noWrap
-            component="button"
+            component="a"
             onClick={() => handleNavigation("/")}
             sx={{
               fontFamily: "Amatic SC",
@@ -79,23 +79,6 @@ export const Navbar = () => {
               justifyContent: "flex-end",
             }}
           >
-            <Button
-              component="a"
-              className="skip-nav-link"
-              sx={{
-                ...styles.navLink,
-                transform: "translateY(-170%)",
-                transition: "transform 0.3s",
-                "&:focus": {
-                  transform: "translateY(0%)",
-                  backgroundColor: "var(--lavender-blue)",
-                  color: "var(--dark-liver)",
-                },
-              }}
-              href="#page-container"
-            >
-              Skip Navigation
-            </Button>
             {adminPages.map((page) => (
               <Button
                 key={page.label}
