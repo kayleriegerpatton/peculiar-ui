@@ -26,7 +26,7 @@ export const AppRouter = () => {
     <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
       <Navbar component={"header"}/>
 
-      <Box component={'main'} id='main-content' tabIndex={'-1'} sx={{ minHeight: "80vh" }}>
+      <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh" }}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/create" element={<CreatePage />} />

@@ -3,9 +3,15 @@ import  Button  from "@mui/material/Button"
 import { styles } from "../styles"
 
 export const SkipLink = ()=>{
+const handleFocus =()=>{
+const mainContent = document.getElementById('main-content')
+console.log('skip nav clicked', mainContent)
+mainContent.focus()
+}
+
   return <Button
-  component="a"
-  className="skip-nav-link"
+  component="button"
+  id="skip-nav-link"
   sx={{
     ...styles.navLink,
     transition: "transform 0.3s",
@@ -19,6 +25,7 @@ export const SkipLink = ()=>{
     },
   }}
   href="#main-content"
+  onClick={()=>{handleFocus()}}
 >
   Skip to Main Content
 </Button>
