@@ -8,3 +8,15 @@
   font-family: "Oranienbaum", serif; /*400*/
   font-size: 16px;
 }
+
+html, body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  /* for a11y testing */
+  /* letter-spacing: .12rem; 
+  word-spacing: .16rem;  */
+}
+
+p+p {
+  margin-top: 2rem;
+}
