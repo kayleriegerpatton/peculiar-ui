@@ -1,3 +1,9 @@
+import { Title } from "../components/Title";
+
 export const EditPage = () => {
-  return <h1>Edit page here</h1>;
+  return (
+    <>
+      <Title title="EDIT PAGE TITLE" />
+    </>
+  );
 };

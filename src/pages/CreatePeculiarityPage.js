@@ -1,3 +1,9 @@
+import { Title } from "../components/Title";
+
 export const CreatePeculiarityPage = () => {
-  return <h1>Create peculiarity page here</h1>;
+  return <>
+    <Title title="EDIT PAGE TITLE" />
+    {/* title */}
+    {/* form */}
+  </>;
 };

@@ -19,6 +19,7 @@ import { Spinner } from "../components/Spinner";
 import { CHARACTERS, PECULIARITIES, LOOPS, BOOKS } from "../queries";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Title } from "../components/Title";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -134,7 +135,7 @@ export const CreateCharacterPage = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       {characterLoading && booksLoading && <Spinner />}
-      <h1>Create A Character</h1>
+      <Title title="Create a New Character"/>
 
       {/* CHARACTER NAME */}
 

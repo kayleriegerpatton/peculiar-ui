@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import { styles } from "../styles";
+import { Title } from "../components/Title";
 // import defaultCharacterImg from "../images/default-character.png";
 const defaultCharacterImg = "https://peculiar-project-images.s3.amazonaws.com/default-character.png"
 const defaultLoopImg = "https://peculiar-project-images.s3.amazonaws.com/default-loop-image-crop.png"
@@ -24,6 +25,8 @@ export const CreatePage = () => {
   const notMobile = useMediaQuery({ query: "(min-width: 900px" });
 
   return (
+    <>
+    <Title title="Add to the Peculiar world..."/>
     <Box sx={styles.flexContainer}>
       {/* CHARACTER stack */}
       <Stack sx={{ alignItems: "center" }}>
@@ -90,5 +93,7 @@ export const CreatePage = () => {
       </Stack>
       
     </Box>
+    </>
+    
   );
 };
