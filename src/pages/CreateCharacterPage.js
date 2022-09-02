@@ -20,6 +20,7 @@ import { CHARACTERS, PECULIARITIES, LOOPS, BOOKS } from "../queries";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Title } from "../components/Title";
+import { FormButton } from "../components/FormButton";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -124,179 +125,174 @@ export const CreateCharacterPage = () => {
   ] = useLazyQuery(LOOPS);
 
   return (
-    <Box
-      component="form"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: 4,
-      }}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      {characterLoading && booksLoading && <Spinner />}
-      <Title title="Create a New Character"/>
-
-      {/* CHARACTER NAME */}
-
-      {characterData && (
-        <Autocomplete
-          margin="normal"
-          id="characterName"
-          name="characterName"
-          freeSolo
-          fullWidth
-          sx={styles.formFields}
-          {...register("characterName", { required: true })}
-          options={characterData.characters.map((option) => option.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Full Name"
-              error={!!errors.characterName}
-              helperText={
-                errors.characterName
-                  ? "Please enter the character's full name."
-                  : ""
-              }
-            />
-          )}
-        />
-      )}
-
-      {/* SPECIES */}
-      <FormControl
-        fullWidth
-        required
-        margin="dense"
-        sx={{ ...styles.formFields, marginBottom: "-8px" }}
+    <>
+      {/* {characterLoading && booksLoading && <Spinner />} */}
+      <Title title="Create a New Character" />
+      <Box
+        component="form"
+        sx={styles.formWrapper}
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <InputLabel
-          id="species"
-          sx={{ ...styles.formFields, margin: "16px 0px" }}
-        >
-          Species
-        </InputLabel>
-        <Select
-          id="species"
-          label="Species"
-          name="species"
-          variant="outlined"
-          fullWidth
-          defaultValue={"Peculiar"}
-          //   disabled={loading}
-          {...register("species", { required: true })}
-          sx={{ ...styles.formFields, margin: "16px 0px" }}
-          onChange={async (event) => {
-            if (event.target.value === "Peculiar") {
-              await executeGetPeculiarities();
-              await executeGetLoops();
+        {/* CHARACTER NAME */}
 
-              setShowPeculiarities(true);
-              setShowLoops(true);
-            } else if (event.target.value === "Wight") {
-              await executeGetPeculiarities();
-              setShowPeculiarities(true);
-            } else {
-              setShowPeculiarities(false);
-            }
-          }}
-        >
-          <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
-          <MenuItem value={"Wight"}>Wight</MenuItem>
-          <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
-        </Select>
-      </FormControl>
-
-      {/* PECULIARITY */}
-      {showPeculiarities &&
-        !peculiaritiesLoading &&
-        peculiaritiesData?.peculiarities && (
+        {characterData && (
           <Autocomplete
             margin="normal"
-            id="peculiarity"
+            id="characterName"
+            name="characterName"
+            freeSolo
             fullWidth
-            sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
-            {...register("peculiarity", { required: false })}
-            // error={!!errors.peculiarity}
-            options={peculiaritiesData.peculiarities.map((option) => {
-              return option.abilities.length
-                ? option.name + " (" + option.abilities[0] + ")"
-                : option.name;
-            })}
+            sx={{ ...styles.formFields }}
+            {...register("characterName", { required: true })}
+            options={characterData.characters.map((option) => option.name)}
             renderInput={(params) => (
-              <TextField {...params} label="Peculiarity" />
+              <TextField
+                {...params}
+                label="Full Name"
+                error={!!errors.characterName}
+                helperText={
+                  errors.characterName
+                    ? "Please enter the character's full name."
+                    : ""
+                }
+              />
             )}
           />
         )}
 
-      {/* IMAGE URL */}
-      <TextField
-        margin="normal"
-        id="imageUrl"
-        label="Image URL"
-        name="imageUrl"
-        variant="outlined"
-        fullWidth
-        sx={styles.formFields}
-        {...register("imageUrl", { required: false })}
-        // {...register("imageUrl", {
-        //   pattern:
-        //     /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-        //   required: true,
-        // })}
-        // error={!!errors.imageUrl}
-        // helperText={errors.imageUrl ? "Must contain a valid URL" : ""}
-        disabled={loading}
-      ></TextField>
+        {/* SPECIES */}
+        <FormControl
+          fullWidth
+          required
+          margin="dense"
+          sx={{ ...styles.formFields, marginBottom: "-8px" }}
+        >
+          <InputLabel
+            id="species"
+            sx={{ ...styles.formFields, margin: "16px 0px" }}
+          >
+            Species
+          </InputLabel>
+          <Select
+            id="species"
+            label="Species"
+            name="species"
+            variant="outlined"
+            fullWidth
+            defaultValue={"Peculiar"}
+            //   disabled={loading}
+            {...register("species", { required: true })}
+            sx={{ ...styles.formFields, margin: "16px 0px" }}
+            onChange={async (event) => {
+              if (event.target.value === "Peculiar") {
+                await executeGetPeculiarities();
+                await executeGetLoops();
 
-      {/* STATUS */}
-      <FormControl
-        fullWidth
-        margin="dense"
-        sx={{ ...styles.formFields, marginBottom: "-8px", marginTop: "0px" }}
-      >
-        <InputLabel id="status" sx={{ margin: "16px 0px" }}>
-          Status
-        </InputLabel>
-        <Select
-          id="status"
-          label="Status"
-          name="status"
+                setShowPeculiarities(true);
+                setShowLoops(true);
+              } else if (event.target.value === "Wight") {
+                await executeGetPeculiarities();
+                setShowPeculiarities(true);
+              } else {
+                setShowPeculiarities(false);
+              }
+            }}
+          >
+            <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
+            <MenuItem value={"Wight"}>Wight</MenuItem>
+            <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
+          </Select>
+        </FormControl>
+
+        {/* PECULIARITY */}
+        {showPeculiarities &&
+          !peculiaritiesLoading &&
+          peculiaritiesData?.peculiarities && (
+            <Autocomplete
+              margin="normal"
+              id="peculiarity"
+              fullWidth
+              sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
+              {...register("peculiarity", { required: false })}
+              // error={!!errors.peculiarity}
+              options={peculiaritiesData.peculiarities.map((option) => {
+                return option.abilities.length
+                  ? option.name + " (" + option.abilities[0] + ")"
+                  : option.name;
+              })}
+              renderInput={(params) => (
+                <TextField {...params} label="Peculiarity" />
+              )}
+            />
+          )}
+
+        {/* IMAGE URL */}
+        <TextField
+          margin="normal"
+          id="imageUrl"
+          label="Image URL"
+          name="imageUrl"
           variant="outlined"
           fullWidth
-          {...register("status", { required: true })}
-          //   disabled={loading}
-          sx={{ margin: "16px 0px" }}
-          defaultValue={"Alive"}
-        >
-          <MenuItem value={"Alive"}>Alive</MenuItem>
-          <MenuItem value={"Dead"}>Dead</MenuItem>
-          <MenuItem value={"Unknown"}>Unknown</MenuItem>
-        </Select>
-      </FormControl>
+          sx={{ ...styles.formFields }}
+          {...register("imageUrl", { required: false })}
+          // {...register("imageUrl", {
+          //   pattern:
+          //     /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+          //   required: true,
+          // })}
+          // error={!!errors.imageUrl}
+          // helperText={errors.imageUrl ? "Must contain a valid URL" : ""}
+          disabled={loading}
+        ></TextField>
 
-      {/* HOME LOOP */}
-      {showLoops && !loopsLoading && loopsData?.loops && (
-        <Autocomplete
-          margin="normal"
-          id="homeLoop-autocomplete"
+        {/* STATUS */}
+        <FormControl
           fullWidth
-          sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
-          {...register("homeLoop", { required: false })}
-          options={loopsData.loops}
-          //   getOptionLabel={(option) => option.city + ", " + option.year}
-          onChange={(event, value) => {
-            console.log(value.id);
-          }}
-          renderInput={(params) => (
-            <TextField {...params} name="homeLoop" label="Loop" />
-          )}
-        />
-      )}
+          margin="dense"
+          sx={{ ...styles.formFields, marginBottom: "-8px", marginTop: "0px" }}
+        >
+          <InputLabel id="status" sx={{ margin: "16px 0px" }}>
+            Status
+          </InputLabel>
+          <Select
+            id="status"
+            label="Status"
+            name="status"
+            variant="outlined"
+            fullWidth
+            {...register("status", { required: true })}
+            //   disabled={loading}
+            sx={{ ...styles.formFields, margin: "16px 0px" }}
+            defaultValue={"Alive"}
+          >
+            <MenuItem value={"Alive"}>Alive</MenuItem>
+            <MenuItem value={"Dead"}>Dead</MenuItem>
+            <MenuItem value={"Unknown"}>Unknown</MenuItem>
+          </Select>
+        </FormControl>
 
-      {/* BOOKS */}
-      {/* <Autocomplete
+        {/* HOME LOOP */}
+        {showLoops && !loopsLoading && loopsData?.loops && (
+          <Autocomplete
+            margin="normal"
+            id="homeLoop-autocomplete"
+            fullWidth
+            sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
+            {...register("homeLoop", { required: false })}
+            options={loopsData.loops}
+            //   getOptionLabel={(option) => option.city + ", " + option.year}
+            onChange={(event, value) => {
+              console.log(value.id);
+            }}
+            renderInput={(params) => (
+              <TextField {...params} name="homeLoop" label="Loop" />
+            )}
+          />
+        )}
+
+        {/* BOOKS */}
+        {/* <Autocomplete
         multiple
         fullWidth
         sx={{ ...styles.formFields, margin: "14px 0px 6px" }}
@@ -323,17 +319,8 @@ export const CreateCharacterPage = () => {
         }}
       /> */}
 
-      <LoadingButton
-        loading={loading}
-        loadingIndicator="Loading..."
-        variant="contained"
-        type="submit"
-        sx={loading ? styles.loadingButton : { ...styles.loadingButton, mt: 2 }}
-        startIcon={error && <ErrorIcon />}
-        color={error ? "error" : "primary"}
-      >
-        Create Character
-      </LoadingButton>
-    </Box>
+      <FormButton loading={loading} error={error} text="Create Character"/>
+      </Box>
+    </>
   );
 };
