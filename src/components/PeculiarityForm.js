@@ -20,11 +20,14 @@ export const PeculiarityForm = () => {
 
   const onSubmit = async ({ peculiarityName, abilities }) => {
     try {
-      console.log("Submit form");
+// TODO: handle when abilities is an empty string (don't pass to mutation)
       const input = {
         //   REQUIRED: name
         name: peculiarityName.trim(),
-        // abilities: abilities,
+        abilities: abilities.split(";").map((ability) => {
+          return ability.trim(); // split string of abilities by ";" & remove leading/trailing spaces
+        }),
+        
       };
 
       console.log(input);
@@ -58,13 +61,32 @@ export const PeculiarityForm = () => {
         name="peculiarityName"
         label="Peculiarity Name*"
         variant="outlined"
-        // defaultValue="Peculiarity Name"
-        helperText={errors.peculiarityName ? "Peculiarity must have a name." : ""}
+        helperText={
+          errors.peculiarityName ? "Peculiarity must have a name." : ""
+        }
         fullWidth
         {...register("peculiarityName", { required: true })}
         // sx={{...styles.formFields, color: 'red'}}
       />
+
       {/* abilities () */}
+      <TextField
+        error={!!errors.abilities}
+        margin="normal"
+        id="abilities"
+        name="abilities"
+        label="Abilities"
+        variant="outlined"
+        helperText={
+          errors.abilities
+            ? "There must be at least one ability."
+            : "Describe all abilities using a semicolon (;) to separate each item."
+        }
+        fullWidth
+        {...register("abilities", { required: false })}
+        // sx={{...styles.formFields, color: 'red'}}
+      />
+
       <FormButton text="Create Peculiarity" loading={loading} error={error} />
     </Box>
   );

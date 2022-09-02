@@ -1,4 +1,3 @@
-import { textAlign } from "@mui/system";
 
 export const styles = {
   flexContainer: {
