@@ -25,15 +25,19 @@ export const styles = {
     textAlign: "center",
   },
 
-  form: {
+  formWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: 4,
     paddingTop: 3,
+    maxWidth: '42rem',
+    margin: 'auto'
   },
 
+  // TODO: styles not rendering across all form fields
   formFields: {
+    color: 'red',
     "& label.MuiFocused": {
       color: "var(--dark-liver)",
     },
