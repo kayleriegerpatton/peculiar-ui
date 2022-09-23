@@ -1,3 +1,4 @@
+
 export const styles = {
   flexContainer: {
     maxWidth: "750px",
@@ -16,15 +17,26 @@ export const styles = {
     paddingBottom: 2,
   },
 
-  form: {
+  title: {
+    fontFamily: "Oranienbaum",
+    fontSize: "2.5rem",
+    marginBottom: "2rem",
+    textAlign: "center",
+  },
+
+  formWrapper: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: 4,
     paddingTop: 3,
+    maxWidth: '42rem',
+    margin: 'auto'
   },
 
+  // TODO: FIX: styles not rendering across all form fields
   formFields: {
+    color: 'red',
     "& label.MuiFocused": {
       color: "var(--dark-liver)",
     },
@@ -60,7 +72,7 @@ export const styles = {
       backgroundColor: "var(--lavender-blue)",
       color: "var(--dark-liver)",
       borderColor: "#a4a7dc",
-    }
+    },
   },
 
   button: {
@@ -79,7 +91,7 @@ export const styles = {
       backgroundColor: "var(--lavender-blue)",
       color: "var(--dark-liver)",
       borderColor: "#a4a7dc",
-    }
+    },
   },
 
   navLink: {
@@ -87,10 +99,23 @@ export const styles = {
     mx: 0.5,
     color: "var(--dark-liver)",
     fontFamily: "Oranienbaum",
-    textTransform: 'lowercase',
-    fontSize: '1.5rem',
+    textTransform: "lowercase",
+    fontSize: "1.5rem",
     display: "block",
-    "&:hover": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)"  },
-    "&:focus": { backgroundColor: "var(--lavender-blue)", color: "var(--dark-liver)" }
+    "&:hover": {
+      backgroundColor: "var(--lavender-blue)",
+      color: "var(--dark-liver)",
+    },
+    "&:focus": {
+      backgroundColor: "var(--lavender-blue)",
+      color: "var(--dark-liver)",
+    },
   },
+
+  notification: {
+    fontWeight: 200,
+    fontSize: "1rem",
+    marginBottom: "2rem",
+    textAlign: "center",
+  }
 };

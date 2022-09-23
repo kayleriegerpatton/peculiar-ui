@@ -1,3 +1,10 @@
+import { PeculiarityForm } from "../components/PeculiarityForm";
+import { Title } from "../components/Title";
+
 export const CreatePeculiarityPage = () => {
-  return <h1>Create peculiarity page here</h1>;
+  return <>
+    <Title title="Create a New Peculiarity" />
+    {/* form */}
+    <PeculiarityForm />
+  </>;
 };

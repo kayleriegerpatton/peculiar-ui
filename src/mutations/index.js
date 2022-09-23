@@ -19,3 +19,11 @@ export const CREATE_CHARACTER = gql`
     }
   }
 `;
+
+export const CREATE_PECULIARITY = gql`
+mutation Mutation($input: PeculiarityInput!) {
+  createPeculiarity(input: $input) {
+    name
+  }
+}
+`

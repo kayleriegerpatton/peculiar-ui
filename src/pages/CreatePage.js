@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import { styles } from "../styles";
-import defaultCharacterImg from "../images/default-character.png";
+import { Title } from "../components/Title";
+// import defaultCharacterImg from "../images/default-character.png";
+const defaultCharacterImg = "https://peculiar-project-images.s3.amazonaws.com/default-character.png"
+const defaultLoopImg = "https://peculiar-project-images.s3.amazonaws.com/default-loop-image-crop.png"
 
 export const CreatePage = () => {
   const navigate = useNavigate();
@@ -22,7 +25,10 @@ export const CreatePage = () => {
   const notMobile = useMediaQuery({ query: "(min-width: 900px" });
 
   return (
+    <>
+    <Title title="Add to the Peculiar world..."/>
     <Box sx={styles.flexContainer}>
+      {/* CHARACTER stack */}
       <Stack sx={{ alignItems: "center" }}>
         {notMobile && (
           <Avatar
@@ -43,6 +49,28 @@ export const CreatePage = () => {
           Character
         </Button>
       </Stack>
+      {/* LOOP stack */}
+      <Stack sx={{ alignItems: "center" }}>
+        {notMobile && (
+          <Avatar
+            alt="Graphic of Florida with various printed images and doodles"
+            src={defaultLoopImg}
+            variant="rounded"
+            sx={{ width: "80%", height: "80%" }}
+          />
+        )}
+        <Button
+          variant="outlined"
+          endIcon={<TornadoIcon />}
+          size="large"
+          fullWidth={false}
+          sx={styles.button}
+          onClick={() => handleNavigation("/create/loop")}
+        >
+          Loop
+        </Button>
+      </Stack>
+      {/* PECULIARITY stack */}
       <Stack sx={{ alignItems: "center" }}>
         {notMobile && (
           <Avatar
@@ -63,26 +91,9 @@ export const CreatePage = () => {
           Peculiarity
         </Button>
       </Stack>
-      <Stack sx={{ alignItems: "center" }}>
-        {notMobile && (
-          <Avatar
-            alt="Miss Peregrine's Home for Peculiar Children book cover"
-            src={defaultCharacterImg}
-            variant="rounded"
-            sx={{ width: "80%", height: "80%" }}
-          />
-        )}
-        <Button
-          variant="outlined"
-          endIcon={<TornadoIcon />}
-          size="large"
-          fullWidth={false}
-          sx={styles.button}
-          onClick={() => handleNavigation("/create/loop")}
-        >
-          Loop
-        </Button>
-      </Stack>
+      
     </Box>
+    </>
+    
   );
 };
