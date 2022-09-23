@@ -20,6 +20,8 @@ export const LoopForm = () => {
         fullWidth
         // {...register("peculiarityName", { required: "Peculiarity must have a name." })}
       />
+
+      {/* city, state, country, day, month, year, ymbryne, description, status */}
     </Box>
   </>
 }
