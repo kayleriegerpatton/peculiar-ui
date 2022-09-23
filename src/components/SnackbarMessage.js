@@ -34,9 +34,10 @@ export const SnackbarMessage = (props) => {
       <Snackbar open={open}
       // milliseconds
         autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={handleClose}
         action={action}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
           {props.message}
         </Alert>
       </Snackbar>
