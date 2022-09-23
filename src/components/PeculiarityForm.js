@@ -1,47 +1,58 @@
 import { useMutation } from "@apollo/client";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
 import { CREATE_PECULIARITY } from "../mutations";
 import { styles } from "../styles";
+import { useState } from "react";
 import { FormButton } from "./FormButton";
+import { SnackbarMessage } from "./SnackbarMessage";
 
 export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
 
+  // const [peculiarityName, setPeculiarityName] = useState("")
+  // const [abilities, setAbilities] = useState([])
+  const [formSuccess, setFormSuccess] = useState(false)
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
-    control,
-  } = useForm();
+    setValue,
+  } = useForm({ defaultValues: { peculiarityName: "", abilities: "" } });
+
+// const handleChange = (event) => {
+//   console.log("typing");
+//   setPeculiarityName(event.target.value)
+//   console.log(peculiarityName);
+// }
 
   const onSubmit = async ({ peculiarityName, abilities }) => {
     try {
-// TODO: handle when abilities is an empty string (don't pass to mutation)
       const input = {
         //   REQUIRED: name
         name: peculiarityName.trim(),
-        abilities: abilities.split(";").map((ability) => {
-          return ability.trim(); // split string of abilities by ";" & remove leading/trailing spaces
+        // only pass empty or populated array as input
+        abilities: abilities === undefined ? [] : abilities.split(";").map((ability) => {
+          // split string of abilities by ";" & remove leading/trailing spaces
+          return ability.trim()
         }),
-        
-      };
+      }
 
-      console.log(input);
-      //   const { data } = await executeCreatePeculiarity({
-      //     variables: {
-      //       input: {
-      //         name: peculiarityName.trim(),
-      //         abilities: abilities,
-      //       },
-      //     },
-      //   });
-      //   if (data) {
-      //     navigate("/marketplace", { replace: true });
-      //   }
+      const { data } = await executeCreatePeculiarity({
+        variables: {
+          input
+        },
+      });
+      if (data) {
+        // show success message
+        setFormSuccess(true)
+        setValue("peculiarityName", "")
+        setValue("abilities", "")
+        // navigate("/marketplace", { replace: true });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -55,39 +66,35 @@ export const PeculiarityForm = () => {
     >
       {/* name */}
       <TextField
+        // onChange={(event)=> handleChange(event)}
         error={!!errors.peculiarityName}
         margin="normal"
         id="peculiarityName"
         name="peculiarityName"
         label="Peculiarity Name*"
         variant="outlined"
-        helperText={
-          errors.peculiarityName ? "Peculiarity must have a name." : ""
-        }
+        helperText={errors.peculiarityName?.message}
         fullWidth
-        {...register("peculiarityName", { required: true })}
-        // sx={{...styles.formFields, color: 'red'}}
+        {...register("peculiarityName", { required: "Peculiarity must have a name." })}
+      // sx={{...styles.formFields, color: 'red'}}
       />
 
       {/* abilities () */}
       <TextField
-        error={!!errors.abilities}
         margin="normal"
         id="abilities"
         name="abilities"
         label="Abilities"
         variant="outlined"
-        helperText={
-          errors.abilities
-            ? "There must be at least one ability."
-            : "Describe all abilities using a semicolon (;) to separate each item."
-        }
+        helperText="Describe all abilities using a semicolon (;) to separate each item."
         fullWidth
-        {...register("abilities", { required: false })}
-        // sx={{...styles.formFields, color: 'red'}}
+        {...register("abilities", {required: false})}
+      // sx={{...styles.formFields, color: 'red'}}
       />
 
       <FormButton text="Create Peculiarity" loading={loading} error={error} />
+
+      {formSuccess && <SnackbarMessage message="New peculiarity created."/>}
     </Box>
   );
 };

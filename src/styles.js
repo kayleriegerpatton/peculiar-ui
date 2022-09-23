@@ -34,7 +34,7 @@ export const styles = {
     margin: 'auto'
   },
 
-  // TODO: styles not rendering across all form fields
+  // TODO: FIX: styles not rendering across all form fields
   formFields: {
     color: 'red',
     "& label.MuiFocused": {
@@ -111,4 +111,11 @@ export const styles = {
       color: "var(--dark-liver)",
     },
   },
+
+  notification: {
+    fontWeight: 200,
+    fontSize: "1rem",
+    marginBottom: "2rem",
+    textAlign: "center",
+  }
 };
