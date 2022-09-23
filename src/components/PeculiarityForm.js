@@ -1,10 +1,11 @@
 import { useMutation } from "@apollo/client";
-import { TextField } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
 import { CREATE_PECULIARITY } from "../mutations";
 import { styles } from "../styles";
-import { useState } from "react";
 import { FormButton } from "./FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
 
