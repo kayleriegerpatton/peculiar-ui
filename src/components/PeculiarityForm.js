@@ -11,9 +11,6 @@ import { SnackbarMessage } from "./SnackbarMessage";
 export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
-
-  // const [peculiarityName, setPeculiarityName] = useState("")
-  // const [abilities, setAbilities] = useState([])
   const [formSuccess, setFormSuccess] = useState(false)
 
   const {
@@ -22,12 +19,6 @@ export const PeculiarityForm = () => {
     formState: { errors },
     setValue,
   } = useForm({ defaultValues: { peculiarityName: "", abilities: "" } });
-
-// const handleChange = (event) => {
-//   console.log("typing");
-//   setPeculiarityName(event.target.value)
-//   console.log(peculiarityName);
-// }
 
   const onSubmit = async ({ peculiarityName, abilities }) => {
     try {
@@ -49,9 +40,9 @@ export const PeculiarityForm = () => {
       if (data) {
         // show success message
         setFormSuccess(true)
+        // reset form values
         setValue("peculiarityName", "")
         setValue("abilities", "")
-        // navigate("/marketplace", { replace: true });
       }
     } catch (err) {
       console.log(err);
@@ -66,7 +57,6 @@ export const PeculiarityForm = () => {
     >
       {/* name */}
       <TextField
-        // onChange={(event)=> handleChange(event)}
         error={!!errors.peculiarityName}
         margin="normal"
         id="peculiarityName"
@@ -76,7 +66,6 @@ export const PeculiarityForm = () => {
         helperText={errors.peculiarityName?.message}
         fullWidth
         {...register("peculiarityName", { required: "Peculiarity must have a name." })}
-      // sx={{...styles.formFields, color: 'red'}}
       />
 
       {/* abilities () */}
@@ -89,7 +78,6 @@ export const PeculiarityForm = () => {
         helperText="Describe all abilities using a semicolon (;) to separate each item."
         fullWidth
         {...register("abilities", {required: false})}
-      // sx={{...styles.formFields, color: 'red'}}
       />
 
       <FormButton text="Create Peculiarity" loading={loading} error={error} />

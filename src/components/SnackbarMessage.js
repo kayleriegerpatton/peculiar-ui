@@ -32,6 +32,7 @@ export const SnackbarMessage = (props) => {
   return (
     <>
       <Snackbar open={open}
+      // milliseconds
         autoHideDuration={6000}
         onClose={handleClose}
         action={action}>
