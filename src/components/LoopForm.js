@@ -14,18 +14,24 @@ import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, 
 export const LoopForm = () => {
   // tracks form success for success snackbar message
   const [formSuccess, setFormSuccess] = useState(false)
+
   const [statusValue, setStatusValue] = useState('Active');
+  const [yearRangeValue, setYearRangeValue] = useState('CE');
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_PECULIARITY)
-
 
   const handleStatusChange = (event) => {
     setStatusValue(event.target.value);
   };
 
+  const handleYearRangeChange = (event) => {
+    setYearRangeValue(event.target.value);
+  };
+
   const handleMonthChange = (event) => {
     setValue("loopMonth", event.target.value)
   };
+  
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues:
@@ -36,12 +42,11 @@ export const LoopForm = () => {
       loopDate: "",
       loopMonth: "",
       loopYear: "",
+      loopYearRange: "",
       loopDescription: "",
-      loopStatus: "",
+      loopStatus: "Active",
     }
   })
-
-
 
   const onSubmit = async ({
     loopCity,
@@ -50,11 +55,16 @@ export const LoopForm = () => {
     loopDate,
     loopMonth,
     loopYear,
+    loopYearRange,
     loopDescription,
     loopStatus
   }) => {
     try {
       // get loop data
+      // concatenate year + year range
+      const year = loopYear + " " + loopYearRange
+      console.log("transformed year:", year);
+
       const input = {
         // REQUIRED: description, status
         city: loopCity.trim(),
@@ -62,7 +72,7 @@ export const LoopForm = () => {
         country: loopCountry.trim(),
         day: loopDate.trim(),
         month: loopMonth,
-        year: loopYear.trim(),
+        year: year,
         description: loopDescription.trim(),
         // ymbryne: ,
         status: loopStatus,
@@ -144,10 +154,10 @@ export const LoopForm = () => {
           defaultValue=""
           label="Month*"
           onChange={handleMonthChange}
-          {...register("loopMonth", {required: "Month is required. If unsure, choose \"Unknown.\""})}
+          {...register("loopMonth", { required: "Month is required. If unsure, choose \"Unknown.\"" })}
           helperText={errors.loopMonth?.message}
           error={!!errors.loopMonth}
-          rules={{required: true}}
+          rules={{ required: true }}
           variant="outlined"
         >
           <MenuItem value={"Unknown"} >Unknown</MenuItem>
@@ -167,16 +177,29 @@ export const LoopForm = () => {
       </FormControl>
 
       {/* year */}
-      {/* TODO: handle ce/bce, error handle numbers */}
-      <TextField
-        margin="normal"
-        id="loopYear"
-        name="loopYear"
-        label="Year"
-        variant="outlined"
-        fullWidth
-        {...register("loopYear", { required: false })}
-      />
+      <Box sx={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}>
+        <TextField
+          margin="dense"
+          id="loopYear"
+          name="loopYear"
+          label="Year"
+          variant="outlined"
+          {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
+          error={!!errors.loopYear}
+          helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)" : "Examples: 2020, 1500s."}
+        />
+        <FormControl fullWidth sx={{ marginLeft: '0.5rem' }}>
+          <RadioGroup
+            row
+            name="loop-year-radio-buttons-group"
+            value={yearRangeValue}
+            onChange={handleYearRangeChange}
+          >
+            <FormControlLabel value="BCE" control={<Radio {...register("loopYearRange")} />} label="BCE" />
+            <FormControlLabel value="CE" control={<Radio {...register("loopYearRange")} />} label="CE" />
+          </RadioGroup>
+        </FormControl>
+      </Box>
 
       {/* description */}
       <TextField
@@ -189,7 +212,7 @@ export const LoopForm = () => {
         fullWidth
         multiline
         minRows={5}
-        {...register("loopDescription", { required: true, pattern: /[A-Za-z\d.-]/ })} // match any letter, number, period or dash
+        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d.-]+$/ })} // match any letter, number, period or dash
         error={!!errors.loopDescription}
         sx={{ marginBottom: '1rem' }}
       />
