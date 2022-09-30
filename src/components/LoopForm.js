@@ -8,35 +8,40 @@ import { FormButton } from "./FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
 import { useMutation } from "@apollo/client";
 import { CREATE_PECULIARITY } from "../mutations";
-import { ErrorSharp } from "@mui/icons-material";
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
 
 
 export const LoopForm = () => {
   // tracks form success for success snackbar message
   const [formSuccess, setFormSuccess] = useState(false)
+  const [statusValue, setStatusValue] = useState('Active');
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_PECULIARITY)
+
+
+  const handleStatusChange = (event) => {
+    setStatusValue(event.target.value);
+  };
+
+  const handleMonthChange = (event) => {
+    setValue("loopMonth", event.target.value)
+  };
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues:
     {
-      loopCity: "Unknown",
+      loopCity: "",
       loopState: "",
-      loopCountry: "Unknown",
-      loopDate: "Unknown",
-      loopMonth: "Unknown",
+      loopCountry: "",
+      loopDate: "",
+      loopMonth: "",
       loopYear: "",
       loopDescription: "",
-      // loopStatus: "",
+      loopStatus: "",
     }
   })
 
-  const [statusValue, setStatusValue] = useState('Active');
 
-  const handleChange = (event) => {
-    setStatusValue(event.target.value);
-  };
 
   const onSubmit = async ({
     loopCity,
@@ -56,11 +61,11 @@ export const LoopForm = () => {
         state: loopState.trim(),
         country: loopCountry.trim(),
         day: loopDate.trim(),
-        month: loopMonth.trim(),
+        month: loopMonth,
         year: loopYear.trim(),
         description: loopDescription.trim(),
         // ymbryne: ,
-        status: loopStatus.trim(),
+        status: loopStatus,
       }
       console.log("input:", input);
       // send mutation request
@@ -131,16 +136,35 @@ export const LoopForm = () => {
       />
 
       {/* month */}
-      {/* TODO: enum the month options */}
-      <TextField
-        margin="normal"
-        id="loopMonth"
-        name="loopMonth"
-        label="Month"
-        variant="outlined"
-        fullWidth
-        {...register("loopMonth", { required: false })}
-      />
+      <FormControl fullWidth margin="normal" >
+        <TextField
+          select
+          id="loopMonth"
+          name="loopMonth"
+          defaultValue=""
+          label="Month*"
+          onChange={handleMonthChange}
+          {...register("loopMonth", {required: "Month is required. If unsure, choose \"Unknown.\""})}
+          helperText={errors.loopMonth?.message}
+          error={!!errors.loopMonth}
+          rules={{required: true}}
+          variant="outlined"
+        >
+          <MenuItem value={"Unknown"} >Unknown</MenuItem>
+          <MenuItem value={"January"}>January</MenuItem>
+          <MenuItem value={"February"}>February</MenuItem>
+          <MenuItem value={"March"}>March</MenuItem>
+          <MenuItem value={"April"}>April</MenuItem>
+          <MenuItem value={"May"}>May</MenuItem>
+          <MenuItem value={"June"}>June</MenuItem>
+          <MenuItem value={"July"}>July</MenuItem>
+          <MenuItem value={"August"}>August</MenuItem>
+          <MenuItem value={"September"}>September</MenuItem>
+          <MenuItem value={"October"}>October</MenuItem>
+          <MenuItem value={"November"}>November</MenuItem>
+          <MenuItem value={"December"}>December</MenuItem>
+        </TextField>
+      </FormControl>
 
       {/* year */}
       {/* TODO: handle ce/bce, error handle numbers */}
@@ -167,19 +191,19 @@ export const LoopForm = () => {
         minRows={5}
         {...register("loopDescription", { required: true, pattern: /[A-Za-z\d.-]/ })} // match any letter, number, period or dash
         error={!!errors.loopDescription}
-        sx={{marginBottom: '1rem'}}
+        sx={{ marginBottom: '1rem' }}
       />
 
       {/* status */}
       <Box sx={{ alignSelf: 'flex-start', marginLeft: '0.85em' }}>
-        <FormControl >
+        <FormControl fullWidth>
           <FormLabel id="loop-status-radio-buttons-group">Status</FormLabel>
           <RadioGroup
             row
             aria-labelledby="loop-status-radio-buttons-group"
             name="loop-status-radio-buttons-group"
             value={statusValue}
-            onChange={handleChange}
+            onChange={handleStatusChange}
           >
             <FormControlLabel value="Active" control={<Radio {...register("loopStatus")} />} label="Active" />
             <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus")} />} label="Collapsed" />
@@ -188,7 +212,7 @@ export const LoopForm = () => {
         </FormControl>
       </Box>
 
-      {/* ymbryne, status */}
+      {/* ymbryne */}
 
       <FormButton text="Create Loop" loading={loading} error={error} />
 
