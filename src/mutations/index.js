@@ -27,3 +27,12 @@ mutation Mutation($input: PeculiarityInput!) {
   }
 }
 `
+
+export const CREATE_LOOP = gql`
+mutation Mutation($input: LoopInput!) {
+  createLoop(input: $input) {
+    id
+  }
+}
+
+`

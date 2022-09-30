@@ -12,6 +12,7 @@ import { SnackbarMessage } from "./SnackbarMessage";
 export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
+    
   const [formSuccess, setFormSuccess] = useState(false)
 
   const {
