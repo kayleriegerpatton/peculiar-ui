@@ -207,8 +207,9 @@ export const LoopForm = () => {
         />
 
         {/* year notation */}
-        <FormControl sx={{ width: "100px" }} >
+        <FormControl sx={{marginTop: "1rem"}} >
           <TextField
+            sx={{width: "100px"}}
             select
             id="loopYearNotation"
             name="loopYearNotation"
