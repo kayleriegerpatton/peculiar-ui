@@ -1,15 +1,20 @@
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Radio from "@mui/material/Radio";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import RadioGroup from "@mui/material/RadioGroup";
+import { useMutation, useQuery } from "@apollo/client";
 
-import { styles } from "../styles";
 import { FormButton } from "./FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
-import { useMutation } from "@apollo/client";
+import { styles } from "../styles";
 import { CREATE_PECULIARITY } from "../mutations";
-import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from "@mui/material";
-
+import { YMBRYNES } from "../queries";
 
 export const LoopForm = () => {
   // tracks form success for success snackbar message
@@ -17,6 +22,12 @@ export const LoopForm = () => {
 
   const [statusValue, setStatusValue] = useState('Active');
   const [yearNotationValue, setYearNotationValue] = useState('C.E.');
+
+  const {
+    data: ymbrynesData,
+    loading: ymbrynesLoading,
+    error: ymbrynesError,
+  } = useQuery(YMBRYNES);
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_PECULIARITY)
 
@@ -32,6 +43,10 @@ export const LoopForm = () => {
     setValue("loopMonth", event.target.value)
   };
 
+  const handleYmbryneChange = (event) => {
+    setValue("ymbryne", event.target.value)
+  }
+
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues:
     {
@@ -44,6 +59,7 @@ export const LoopForm = () => {
       loopDescription: "",
       loopStatus: "Active",
       loopYearNotation: "C.E.",
+      ymbryne: ""
     }
   })
 
@@ -56,25 +72,23 @@ export const LoopForm = () => {
     loopYear,
     loopYearNotation,
     loopDescription,
-    loopStatus
+    loopStatus,
+    ymbryne,
   }) => {
     try {
-      // get loop data
-      // concatenate year + year notation
-      const year = loopYear + " " + loopYearNotation
-      console.log("transformed year:", year);
+      // concatenate year + year notation, normalize for empty year value
+      const year = loopYear.length < 1 ? loopYearNotation : loopYear + " " + loopYearNotation
 
       const input = {
-        // REQUIRED: description, status
         city: loopCity.trim(),
         state: loopState.trim(),
         country: loopCountry.trim(),
         day: loopDate.trim(),
         month: loopMonth,
         year: year,
-        description: loopDescription.trim(),
-        // ymbryne: ,
-        status: loopStatus,
+        description: loopDescription.trim(), //required
+        ymbryne: ymbryne,
+        status: loopStatus, //required
       }
       console.log("input:", input);
       // send mutation request
@@ -145,8 +159,10 @@ export const LoopForm = () => {
       />
 
       {/* month */}
-      <FormControl fullWidth margin="normal" >
+      {/* <FormControl > */}
         <TextField
+          fullWidth
+          sx={{marginTop: "1rem"}}
           select
           id="loopMonth"
           name="loopMonth"
@@ -173,11 +189,10 @@ export const LoopForm = () => {
           <MenuItem value={"November"}>November</MenuItem>
           <MenuItem value={"December"}>December</MenuItem>
         </TextField>
-      </FormControl>
+      {/* </FormControl> */}
 
       {/* year */}
-
-      <Box fullWidth sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
+      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
         <TextField
           margin="normal"
           fullWidth
@@ -192,10 +207,9 @@ export const LoopForm = () => {
         />
 
         {/* year notation */}
-        <FormControl fullWidth margin="normal" sx={{ width: "100px" }} >
+        <FormControl sx={{ width: "100px" }} >
           <TextField
             select
-            
             id="loopYearNotation"
             name="loopYearNotation"
             defaultValue=""
@@ -213,7 +227,6 @@ export const LoopForm = () => {
           </TextField>
         </FormControl>
       </Box>
-
 
       {/* description */}
       <TextField
@@ -233,7 +246,7 @@ export const LoopForm = () => {
 
       {/* status */}
       <Box sx={{ alignSelf: 'flex-start', marginLeft: '0.85em' }}>
-        <FormControl fullWidth>
+        <FormControl>
           <FormLabel id="loop-status-radio-buttons-group">Status</FormLabel>
           <RadioGroup
             row
@@ -250,10 +263,30 @@ export const LoopForm = () => {
       </Box>
 
       {/* ymbryne */}
+      {/* <FormControl fullWidth margin="normal" >
+        <TextField
+          select
+          id="ymbryne"
+          name="ymbryne"
+          defaultValue=""
+          label="Ymbryne"
+          onChange={handleYmbryneChange}
+          {...register("ymbryne", { required: false })}
+          // helperText={errors.loopMonth?.message}
+          // error={!!errors.loopMonth}
+          rules={{ required: false }}
+          variant="outlined"
+        >
+          {ymbrynesData && ymbrynesData.map((ymbryne) => {
+            return <MenuItem id={ymbrynesData.id} value={ymbrynesData.name}>{ymbrynesData.name}</MenuItem>
+          })}
+
+        </TextField>
+      </FormControl> */}
 
       <FormButton text="Create Loop" loading={loading} error={error} />
 
-      {/* {formSuccess && <SnackbarMessage message="New peculiarity created." />} */}
+      {/* {formSuccess && <SnackbarMessage message="New loop created." />} */}
     </Box>
   </>
 }
