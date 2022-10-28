@@ -5,7 +5,6 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
-import Select from "@mui/material/Select";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -16,7 +15,6 @@ import { SnackbarMessage } from "./SnackbarMessage";
 import { styles } from "../styles";
 import { CREATE_LOOP } from "../mutations";
 import { YMBRYNES } from "../queries";
-import InputLabel from "@mui/material/InputLabel";
 
 export const LoopForm = () => {
   // tracks form success for success snackbar message
@@ -78,6 +76,9 @@ export const LoopForm = () => {
       // concatenate year + year notation, normalize for empty year value
       const year = loopYear.length < 1 ? loopYearNotation : loopYear + " " + loopYearNotation
 
+      // if ymbryne is "", return null
+      const ymbryneID = ymbryne.length < 1 ? null : ymbryne
+
       const input = {
         city: loopCity.trim(),
         state: loopState.trim(),
@@ -86,7 +87,7 @@ export const LoopForm = () => {
         month: loopMonth,
         year: year,
         description: loopDescription.trim(), //required
-        ymbryne: ymbryne,
+        ymbryne: ymbryneID,
         status: loopStatus, //required
       }
       console.log("input:", input);
@@ -99,10 +100,10 @@ export const LoopForm = () => {
       })
 
       if (data) {
-        // show success message
+        // show success message (only working on first success; need to re-render page? or form?)
         setFormSuccess(true)
-        // reset form values
-        setValue("city", "")
+
+
       }
     } catch (err) {
       // don't clear form fields
@@ -202,10 +203,10 @@ export const LoopForm = () => {
       </Box>
 
       {/* year */}
-      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", marginTop: "0.5rem" }}>
+      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
         <TextField
           fullWidth
-          sx={{ width: "150px", marginRight: "1rem" }}
+          sx={{ width: "150px", marginRight: "1rem", marginTop: "1rem" }}
           id="loopYear"
           name="loopYear"
           label="Year"
@@ -216,15 +217,14 @@ export const LoopForm = () => {
         />
 
         {/* year notation */}
-        <FormControl >
+        <FormControl sx={{ paddingTop: "1rem" }}>
           <TextField
-            sx={{ width: "100px" }}
+            sx={{ width: "100px"}}
             select
             id="loopYearNotation"
             name="loopYearNotation"
             defaultValue=""
-            // label="Year Notation*"
-            aria-labelledby="Year Notation"
+            label="Era"
             onChange={handleYearNotationChange}
             {...register("loopYearNotation", { required: false })}
             // helperText={errors.loopYearNotation?.message}
@@ -241,6 +241,7 @@ export const LoopForm = () => {
       {/* description */}
       <TextField
         margin="normal"
+        sx={{marginTop: "1.5rem"}}
         id="loopDescription"
         name="loopDescription"
         label="Description*"
