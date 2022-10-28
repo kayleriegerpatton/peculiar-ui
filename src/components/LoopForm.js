@@ -192,9 +192,8 @@ export const LoopForm = () => {
       {/* </FormControl> */}
 
       {/* year */}
-      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
+      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", marginTop: "1.3rem" }}>
         <TextField
-          margin="normal"
           fullWidth
           sx={{ width: "150px", marginRight: "1rem" }}
           id="loopYear"
@@ -207,7 +206,7 @@ export const LoopForm = () => {
         />
 
         {/* year notation */}
-        <FormControl sx={{marginTop: "1rem"}} >
+        <FormControl >
           <TextField
             sx={{width: "100px"}}
             select
