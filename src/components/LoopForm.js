@@ -14,7 +14,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { FormButton } from "./FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
 import { styles } from "../styles";
-import { CREATE_PECULIARITY } from "../mutations";
+import { CREATE_LOOP } from "../mutations";
 import { YMBRYNES } from "../queries";
 import InputLabel from "@mui/material/InputLabel";
 
@@ -31,7 +31,7 @@ export const LoopForm = () => {
     error: ymbrynesError,
   } = useQuery(YMBRYNES);
 
-  const [executeCreateLoop, { loading, error }] = useMutation(CREATE_PECULIARITY)
+  const [executeCreateLoop, { loading, error }] = useMutation(CREATE_LOOP)
 
   const handleStatusChange = (event) => {
     setStatusValue(event.target.value);
@@ -45,9 +45,6 @@ export const LoopForm = () => {
     setValue("loopMonth", event.target.value)
   };
 
-  const handleYmbryneChange = (event) => {
-    setValue("ymbryne", event.target.value)
-  }
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues:
@@ -93,21 +90,26 @@ export const LoopForm = () => {
         status: loopStatus, //required
       }
       console.log("input:", input);
-      // send mutation request
-      // const { data } = await executeCreateLoop({
-      //   variables: {
-      //     input
-      //   }
-      // })
 
-      // if(data){
-      //   // show success message
-      //   setFormSuccess(true)
-      //   // reset form values
-      //   setValue("city", "")
-      // }
+      // mutation request
+      const { data } = await executeCreateLoop({
+        variables: {
+          input
+        }
+      })
+
+      if (data) {
+        // show success message
+        setFormSuccess(true)
+        // reset form values
+        setValue("city", "")
+      }
     } catch (err) {
+      // don't clear form fields
+      // not re-render page
+      // show error message
       console.log(err);
+      // setFormSuccess(false)
     }
   }
 
@@ -173,7 +175,7 @@ export const LoopForm = () => {
           select
           id="loopMonth"
           name="loopMonth"
-          defaultValue=""
+          defaultValue="Unknown"
           label="Month"
           onChange={handleMonthChange}
           {...register("loopMonth", { required: false })}
@@ -258,33 +260,33 @@ export const LoopForm = () => {
           select
           id="ymbryne"
           name="ymbryne"
-          defaultValue=""
           label="Ymbryne"
-          // labelId="ymbryne-input1"
+          defaultValue={""}
           fullWidth
-          onChange={handleYmbryneChange}
           {...register("ymbryne", { required: false })}
           rules={{ required: false }}
           variant="outlined"
           sx={{ minWidth: "300px" }}
         >
-          {ymbrynesData && ymbrynesData.ymbrynes?.map((ymbryne, index) => (
-            <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.name}>{ymbryne.name}</MenuItem>
+          <MenuItem key={1} id={1} value={"test"}>TestYmbryneID</MenuItem>
+          {ymbrynesData.ymbrynes?.map((ymbryne, index) => (
+            <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.id}>{ymbryne.name}</MenuItem>
           ))}
 
         </TextField>
       </FormControl>}
 
       {/* status */}
-      <Box sx={{ alignSelf: 'flex-start', marginLeft: '0.85em', marginTop: "1.4rem" }}>
+      <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
         <FormControl>
-          <FormLabel id="loop-status-radio-buttons-group">Loop Status</FormLabel>
+          <FormLabel id="loop-status-radio-buttons-group">Loop Status*</FormLabel>
           <RadioGroup
             row
             aria-labelledby="loop-status-radio-buttons-group"
             name="loop-status-radio-buttons-group"
             value={statusValue}
             onChange={handleStatusChange}
+            sx={{marginLeft: '0.85em'}}
           >
             <FormControlLabel value="Active" control={<Radio {...register("loopStatus")} />} label="Active" />
             <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus")} />} label="Collapsed" />
@@ -295,7 +297,7 @@ export const LoopForm = () => {
 
       <FormButton text="Create Loop" loading={loading} error={error} />
 
-      {/* {formSuccess && <SnackbarMessage message="New loop created." />} */}
+      {formSuccess && <SnackbarMessage message="New loop created." />}
     </Box>
   </>
 }
