@@ -16,7 +16,7 @@ export const LoopForm = () => {
   const [formSuccess, setFormSuccess] = useState(false)
 
   const [statusValue, setStatusValue] = useState('Active');
-  const [yearRangeValue, setYearRangeValue] = useState('CE');
+  const [yearNotationValue, setYearNotationValue] = useState('C.E.');
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_PECULIARITY)
 
@@ -24,14 +24,13 @@ export const LoopForm = () => {
     setStatusValue(event.target.value);
   };
 
-  const handleYearRangeChange = (event) => {
-    setYearRangeValue(event.target.value);
+  const handleYearNotationChange = (event) => {
+    setYearNotationValue(event.target.value);
   };
 
   const handleMonthChange = (event) => {
     setValue("loopMonth", event.target.value)
   };
-  
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues:
@@ -40,11 +39,11 @@ export const LoopForm = () => {
       loopState: "",
       loopCountry: "",
       loopDate: "",
-      loopMonth: "",
+      loopMonth: "Unknown",
       loopYear: "",
-      loopYearRange: "",
       loopDescription: "",
       loopStatus: "Active",
+      loopYearNotation: "C.E.",
     }
   })
 
@@ -55,14 +54,14 @@ export const LoopForm = () => {
     loopDate,
     loopMonth,
     loopYear,
-    loopYearRange,
+    loopYearNotation,
     loopDescription,
     loopStatus
   }) => {
     try {
       // get loop data
-      // concatenate year + year range
-      const year = loopYear + " " + loopYearRange
+      // concatenate year + year notation
+      const year = loopYear + " " + loopYearNotation
       console.log("transformed year:", year);
 
       const input = {
@@ -139,7 +138,7 @@ export const LoopForm = () => {
         margin="normal"
         id="loopDate"
         name="loopDate"
-        label="Date"
+        label="Day"
         variant="outlined"
         fullWidth
         {...register("loopDate", { required: false })}
@@ -154,13 +153,13 @@ export const LoopForm = () => {
           defaultValue=""
           label="Month*"
           onChange={handleMonthChange}
-          {...register("loopMonth", { required: "Month is required. If unsure, choose \"Unknown.\"" })}
-          helperText={errors.loopMonth?.message}
-          error={!!errors.loopMonth}
-          rules={{ required: true }}
+          {...register("loopMonth", { required: false })}
+          // helperText={errors.loopMonth?.message}
+          // error={!!errors.loopMonth}
+          rules={{ required: false }}
           variant="outlined"
         >
-          <MenuItem value={"Unknown"} >Unknown</MenuItem>
+          <MenuItem value={"Unknown"}>Unknown</MenuItem>
           <MenuItem value={"January"}>January</MenuItem>
           <MenuItem value={"February"}>February</MenuItem>
           <MenuItem value={"March"}>March</MenuItem>
@@ -177,29 +176,44 @@ export const LoopForm = () => {
       </FormControl>
 
       {/* year */}
-      <Box sx={{ alignSelf: 'flex-start', marginTop: '0.5rem' }}>
+
+      <Box fullWidth sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
         <TextField
-          margin="dense"
+          margin="normal"
+          fullWidth
+          sx={{ width: "150px", marginRight: "1rem" }}
           id="loopYear"
           name="loopYear"
           label="Year"
           variant="outlined"
           {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
           error={!!errors.loopYear}
-          helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)" : "Examples: 2020, 1500s."}
+          helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)." : "Ex: 2020, 1500s."}
         />
-        <FormControl fullWidth sx={{ marginLeft: '0.5rem' }}>
-          <RadioGroup
-            row
-            name="loop-year-radio-buttons-group"
-            value={yearRangeValue}
-            onChange={handleYearRangeChange}
+
+        {/* year notation */}
+        <FormControl fullWidth margin="normal" sx={{ width: "100px" }} >
+          <TextField
+            select
+            
+            id="loopYearNotation"
+            name="loopYearNotation"
+            defaultValue=""
+            // label="Year Notation*"
+            aria-labelledby="Year Notation"
+            onChange={handleYearNotationChange}
+            {...register("loopYearNotation", { required: false })}
+            // helperText={errors.loopYearNotation?.message}
+            // error={!!errors.loopYearNotation}
+            rules={{ required: false }}
+            variant="outlined"
           >
-            <FormControlLabel value="BCE" control={<Radio {...register("loopYearRange")} />} label="BCE" />
-            <FormControlLabel value="CE" control={<Radio {...register("loopYearRange")} />} label="CE" />
-          </RadioGroup>
+            <MenuItem value={"B.C.E."}>B.C.E.</MenuItem>
+            <MenuItem value={"C.E."}>C.E.</MenuItem>
+          </TextField>
         </FormControl>
       </Box>
+
 
       {/* description */}
       <TextField
@@ -212,7 +226,7 @@ export const LoopForm = () => {
         fullWidth
         multiline
         minRows={5}
-        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d.-]+$/ })} // match any letter, number, period or dash
+        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -]+$/ })} // match any letter, number, period or dash
         error={!!errors.loopDescription}
         sx={{ marginBottom: '1rem' }}
       />
