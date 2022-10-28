@@ -5,6 +5,7 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
+import Select from "@mui/material/Select";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -15,6 +16,7 @@ import { SnackbarMessage } from "./SnackbarMessage";
 import { styles } from "../styles";
 import { CREATE_PECULIARITY } from "../mutations";
 import { YMBRYNES } from "../queries";
+import InputLabel from "@mui/material/InputLabel";
 
 export const LoopForm = () => {
   // tracks form success for success snackbar message
@@ -148,7 +150,7 @@ export const LoopForm = () => {
       />
 
       {/* day & month */}
-      <Box sx={{flexDirection: "row", display: "flex", alignSelf: "start", minWidth: "421px"}}>
+      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", minWidth: "421px" }}>
         {/* date */}
         <TextField
           margin="normal"
@@ -247,13 +249,36 @@ export const LoopForm = () => {
         minRows={5}
         {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -]+$/ })} // match any letter, number, period or dash
         error={!!errors.loopDescription}
-        sx={{ marginBottom: '1rem' }}
       />
 
+      {/* ymbryne */}
+      {ymbrynesData && <FormControl sx={{ alignSelf: "start", paddingTop: "1rem" }}>
+        {/* <InputLabel id="ymbryne-input1">Ymbryne</InputLabel> */}
+        <TextField
+          select
+          id="ymbryne"
+          name="ymbryne"
+          defaultValue=""
+          label="Ymbryne"
+          // labelId="ymbryne-input1"
+          fullWidth
+          onChange={handleYmbryneChange}
+          {...register("ymbryne", { required: false })}
+          rules={{ required: false }}
+          variant="outlined"
+          sx={{ minWidth: "300px" }}
+        >
+          {ymbrynesData && ymbrynesData.ymbrynes?.map((ymbryne, index) => (
+            <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.name}>{ymbryne.name}</MenuItem>
+          ))}
+
+        </TextField>
+      </FormControl>}
+
       {/* status */}
-      <Box sx={{ alignSelf: 'flex-start', marginLeft: '0.85em' }}>
+      <Box sx={{ alignSelf: 'flex-start', marginLeft: '0.85em', marginTop: "1.4rem" }}>
         <FormControl>
-          <FormLabel id="loop-status-radio-buttons-group">Status</FormLabel>
+          <FormLabel id="loop-status-radio-buttons-group">Loop Status</FormLabel>
           <RadioGroup
             row
             aria-labelledby="loop-status-radio-buttons-group"
@@ -267,28 +292,6 @@ export const LoopForm = () => {
           </RadioGroup>
         </FormControl>
       </Box>
-
-      {/* ymbryne */}
-      {/* <FormControl fullWidth margin="normal" >
-        <TextField
-          select
-          id="ymbryne"
-          name="ymbryne"
-          defaultValue=""
-          label="Ymbryne"
-          onChange={handleYmbryneChange}
-          {...register("ymbryne", { required: false })}
-          // helperText={errors.loopMonth?.message}
-          // error={!!errors.loopMonth}
-          rules={{ required: false }}
-          variant="outlined"
-        >
-          {ymbrynesData && ymbrynesData.map((ymbryne) => {
-            return <MenuItem id={ymbrynesData.id} value={ymbrynesData.name}>{ymbrynesData.name}</MenuItem>
-          })}
-
-        </TextField>
-      </FormControl> */}
 
       <FormButton text="Create Loop" loading={loading} error={error} />
 
