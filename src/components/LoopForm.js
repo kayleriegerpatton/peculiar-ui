@@ -147,27 +147,32 @@ export const LoopForm = () => {
         {...register("loopCountry", { required: false })}
       />
 
-      {/* date */}
-      <TextField
-        margin="normal"
-        id="loopDate"
-        name="loopDate"
-        label="Day"
-        variant="outlined"
-        fullWidth
-        {...register("loopDate", { required: false })}
-      />
+      {/* day & month */}
+      <Box sx={{flexDirection: "row", display: "flex", alignSelf: "start", minWidth: "421px"}}>
+        {/* date */}
+        <TextField
+          margin="normal"
+          id="loopDate"
+          name="loopDate"
+          label="Day"
+          variant="outlined"
+          fullWidth
+          helperText="Numbers only"
+          placeholder="01"
+          {...register("loopDate", { required: false, pattern: /^[\d]{2}$/ })}
+          error={!!errors.loopDate}
+        />
 
-      {/* month */}
-      {/* <FormControl > */}
+        {/* month */}
+        {/* <FormControl > */}
         <TextField
           fullWidth
-          sx={{marginTop: "1rem"}}
+          sx={{ marginTop: "1rem", marginLeft: "1rem" }}
           select
           id="loopMonth"
           name="loopMonth"
           defaultValue=""
-          label="Month*"
+          label="Month"
           onChange={handleMonthChange}
           {...register("loopMonth", { required: false })}
           // helperText={errors.loopMonth?.message}
@@ -189,10 +194,11 @@ export const LoopForm = () => {
           <MenuItem value={"November"}>November</MenuItem>
           <MenuItem value={"December"}>December</MenuItem>
         </TextField>
-      {/* </FormControl> */}
+        {/* </FormControl> */}
+      </Box>
 
       {/* year */}
-      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", marginTop: "1.3rem" }}>
+      <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", marginTop: "0.5rem" }}>
         <TextField
           fullWidth
           sx={{ width: "150px", marginRight: "1rem" }}
@@ -208,7 +214,7 @@ export const LoopForm = () => {
         {/* year notation */}
         <FormControl >
           <TextField
-            sx={{width: "100px"}}
+            sx={{ width: "100px" }}
             select
             id="loopYearNotation"
             name="loopYearNotation"
