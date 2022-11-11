@@ -38,3 +38,15 @@ export const BOOKS = gql`
     }
   }
 `;
+
+export const YMBRYNES = gql`
+query Query {
+  ymbrynes {
+    id
+    name
+    peculiarity {
+      name
+    }
+  }
+}
+`

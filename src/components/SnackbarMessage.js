@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -37,7 +36,7 @@ export const SnackbarMessage = (props) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={handleClose}
         action={action}>
-        <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} variant="filled" severity={props.status} sx={{ width: '100%' }}>
           {props.message}
         </Alert>
       </Snackbar>

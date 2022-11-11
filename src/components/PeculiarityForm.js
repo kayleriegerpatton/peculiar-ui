@@ -1,16 +1,18 @@
 import { useMutation } from "@apollo/client";
-import { TextField, Typography } from "@mui/material";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
 import { CREATE_PECULIARITY } from "../mutations";
 import { styles } from "../styles";
-import { useState } from "react";
 import { FormButton } from "./FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
 
 export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
+    
   const [formSuccess, setFormSuccess] = useState(false)
 
   const {
@@ -77,12 +79,12 @@ export const PeculiarityForm = () => {
         variant="outlined"
         helperText="Describe all abilities using a semicolon (;) to separate each item."
         fullWidth
-        {...register("abilities", {required: false})}
+        {...register("abilities", { required: false })}
       />
 
       <FormButton text="Create Peculiarity" loading={loading} error={error} />
 
-      {formSuccess && <SnackbarMessage message="New peculiarity created."/>}
+      {formSuccess && <SnackbarMessage message="New peculiarity created." />}
     </Box>
   );
 };
