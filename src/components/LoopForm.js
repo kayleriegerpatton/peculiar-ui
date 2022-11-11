@@ -251,7 +251,7 @@ export const LoopForm = () => {
       fullWidth
       multiline
       minRows={5}
-      {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -()]+$/ })} // match any letter, number, period or dash
+      {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -()]+$/ })} // match any number of letters, numbers, periods, parentheses, or dashes
       error={!!errors.loopDescription}
     />
 
