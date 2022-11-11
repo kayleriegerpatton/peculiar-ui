@@ -15,13 +15,11 @@ import { SnackbarMessage } from "./SnackbarMessage";
 import { styles } from "../styles";
 import { CREATE_LOOP } from "../mutations";
 import { YMBRYNES } from "../queries";
+import { FormHelperText } from "@mui/material";
 
 export const LoopForm = () => {
-  // tracks form success for success snackbar message
-  const [formSuccess, setFormSuccess] = useState(false)
-
-  const [statusValue, setStatusValue] = useState('Active');
-  const [yearNotationValue, setYearNotationValue] = useState('C.E.');
+  // tracks form success for snackbar message
+  const [formSuccess, setFormSuccess] = useState()
 
   const {
     data: ymbrynesData,
@@ -31,12 +29,12 @@ export const LoopForm = () => {
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_LOOP)
 
-  const handleStatusChange = (event) => {
-    setStatusValue(event.target.value);
+  const handleLoopStatusChange = (event) => {
+    setValue("loopStatus", event.target.value);
   };
 
   const handleYearNotationChange = (event) => {
-    setYearNotationValue(event.target.value);
+    setValue("loopYearNotation", event.target.value);
   };
 
   const handleMonthChange = (event) => {
@@ -44,7 +42,7 @@ export const LoopForm = () => {
   };
 
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm({
     defaultValues:
     {
       loopCity: "",
@@ -54,7 +52,7 @@ export const LoopForm = () => {
       loopMonth: "Unknown",
       loopYear: "",
       loopDescription: "",
-      loopStatus: "Active",
+      loopStatus: "",
       loopYearNotation: "C.E.",
       ymbryne: ""
     }
@@ -100,17 +98,16 @@ export const LoopForm = () => {
       })
 
       if (data) {
-        // show success message (only working on first success; need to re-render page? or form?)
+        // show success message
         setFormSuccess(true)
 
-
+        // re-render/clear form
+        reset()
       }
     } catch (err) {
-      // don't clear form fields
-      // not re-render page
-      // show error message
       console.log(err);
-      // setFormSuccess(false)
+      // show error message
+      setFormSuccess(false)
     }
   }
 
@@ -119,6 +116,9 @@ export const LoopForm = () => {
       sx={styles.formWrapper}
       onSubmit={handleSubmit(onSubmit)}
     >
+      {formSuccess && <SnackbarMessage message="New loop created." status="success" />}
+      {formSuccess === false && <SnackbarMessage message="Failed to create loop. Please try again." status="error" />}
+
       {/* city */}
       <TextField
         margin="normal"
@@ -164,7 +164,7 @@ export const LoopForm = () => {
           fullWidth
           helperText="Numbers only"
           placeholder="01"
-          {...register("loopDate", { required: false, pattern: /^[\d]{2}$/ })}
+          {...register("loopDate", { required: false, pattern: /\b([0][1-9]|[12][0-9]|3[01])\b/g })} //match 01-31
           error={!!errors.loopDate}
         />
 
@@ -219,7 +219,7 @@ export const LoopForm = () => {
         {/* year notation */}
         <FormControl sx={{ paddingTop: "1rem" }}>
           <TextField
-            sx={{ width: "100px"}}
+            sx={{ width: "100px" }}
             select
             id="loopYearNotation"
             name="loopYearNotation"
@@ -241,7 +241,7 @@ export const LoopForm = () => {
       {/* description */}
       <TextField
         margin="normal"
-        sx={{marginTop: "1.5rem"}}
+        sx={{ marginTop: "1.5rem" }}
         id="loopDescription"
         name="loopDescription"
         label="Description*"
@@ -250,7 +250,7 @@ export const LoopForm = () => {
         fullWidth
         multiline
         minRows={5}
-        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -]+$/ })} // match any letter, number, period or dash
+        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -()]+$/ })} // match any letter, number, period or dash
         error={!!errors.loopDescription}
       />
 
@@ -279,26 +279,27 @@ export const LoopForm = () => {
 
       {/* status */}
       <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
-        <FormControl>
-          <FormLabel id="loop-status-radio-buttons-group">Loop Status*</FormLabel>
+        <FormControl error={!!errors.loopStatus}>
+          <FormLabel id="loop-status-radio-buttons-group" error={!!errors.loopStatus}>Loop Status*</FormLabel>
           <RadioGroup
             row
             aria-labelledby="loop-status-radio-buttons-group"
             name="loop-status-radio-buttons-group"
-            value={statusValue}
-            onChange={handleStatusChange}
-            sx={{marginLeft: '0.85em'}}
+            onChange={handleLoopStatusChange}
+            sx={{ marginLeft: '0.85em' }}
+
           >
-            <FormControlLabel value="Active" control={<Radio {...register("loopStatus")} />} label="Active" />
-            <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus")} />} label="Collapsed" />
-            <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus")} />} label="Unknown" />
+            <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true, message: "Loop status is required." })} />} label="Active" />
+            <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
+            <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
           </RadioGroup>
+          <FormHelperText>{!!errors.loopStatus ? "Loop status is required." : ""}</FormHelperText>
         </FormControl>
       </Box>
 
       <FormButton text="Create Loop" loading={loading} error={error} />
 
-      {formSuccess && <SnackbarMessage message="New loop created." />}
+
     </Box>
   </>
 }
