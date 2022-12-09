@@ -31,6 +31,7 @@ export const LoopForm = () => {
 
   const [executeCreateLoop, { loading, error }] = useMutation(CREATE_LOOP)
 
+  // TODO: this may be not needed. See status field in characterForm.
   const handleLoopStatusChange = (event) => {
     setValue("loopStatus", event.target.value);
   };
@@ -288,7 +289,7 @@ export const LoopForm = () => {
           sx={{ marginLeft: '0.85em' }}
 
         >
-          <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true, message: "Loop status is required." })} />} label="Active" />
+          <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true })} />} label="Active" />
           <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
           <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
         </RadioGroup>
