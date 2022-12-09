@@ -75,7 +75,7 @@ export const LoopForm = () => {
   }) => {
     try {
       // concatenate year + year notation, normalize for empty year value
-      const year = loopYear.length < 1 ? loopYearNotation : loopYear + " " + loopYearNotation
+      const year = loopYear.length < 1 ? null : loopYear + " " + loopYearNotation
 
       // if ymbryne is "", return null
       const ymbryneID = ymbryne.length < 1 ? null : ymbryne
