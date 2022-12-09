@@ -64,7 +64,7 @@ export const CharacterForm = () => {
     }
   })
 
-  const onSubmit = async ({ fullName, species, peculiarStatus }) => {
+  const onSubmit = async ({ fullName, species, peculiarStatus, imageUrl }) => {
     try {
       const input = {
         name: fullName.trim(),
@@ -74,10 +74,11 @@ export const CharacterForm = () => {
         status: peculiarStatus,
         // removes duplicate double quotations around id number
         loop: !!loopId ? loopId.replace(/["]+/g, '') : null,
+        imageUrl: imageUrl.trim(),
       }
       console.log("input:", input);
     } catch (error) {
-console.log(error);
+      console.log(error);
     }
 
   }
@@ -171,6 +172,23 @@ console.log(error);
     />}
 
     {/* imageUrl- input */}
+    <TextField
+      margin="normal"
+      id="image"
+      label="Image URL"
+      name="imageUrl"
+      variant="outlined"
+      fullWidth
+      sx={{ ...styles.formFields }}
+      {...register("imageUrl", {
+        pattern:
+          /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+        required: true,
+      })}
+      error={!!errors.imageUrl}
+      helperText={errors.imageUrl ? "Must contain a valid URL." : ""}
+      disabled={loading}
+    ></TextField>
 
     {/* homeLoop-autocomplete select from db */}
     {loopsData?.loops && showLoops && < Autocomplete
