@@ -4,7 +4,6 @@ export const styles = {
     maxWidth: "750px",
     margin: "auto",
     display: "flex",
-    justifyContent: "center",
     "@media only screen and (max-width: 899px)": {
       flexDirection: "column",
       alignItems: "center",
