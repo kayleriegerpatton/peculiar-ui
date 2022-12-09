@@ -24,6 +24,8 @@ export const CharacterForm = () => {
 
   const [species, setSpecies] = useState('');
   const [peculiarityId, setPeculiarityId] = useState()
+  const [loopId, setLoopId] = useState()
+
   const [showPeculiarities, setShowPeculiarities] = useState(false);
   const [showLoops, setShowLoops] = useState(false);
 
@@ -62,19 +64,20 @@ export const CharacterForm = () => {
     }
   })
 
-
   const onSubmit = async ({ fullName, species, peculiarStatus }) => {
     try {
       const input = {
         name: fullName.trim(),
         species: species,
         // removes duplicate double quotations around id number
-        peculiarity: peculiarityId.replace(/["]+/g, ''),
+        peculiarity: !!peculiarityId ? peculiarityId.replace(/["]+/g, '') : null,
         status: peculiarStatus,
+        // removes duplicate double quotations around id number
+        loop: !!loopId ? loopId.replace(/["]+/g, '') : null,
       }
       console.log("input:", input);
     } catch (error) {
-
+console.log(error);
     }
 
   }
@@ -150,16 +153,16 @@ export const CharacterForm = () => {
       getOptionLabel={option => option.abilities.length > 0 ? option.name + " (" + option.abilities[0] + ")" : option.name}
       renderInput={(params) => (
         <TextField
-          {...register("peculiarityName", { required: true, message: "A unique peculiarity name is required.", pattern: /[a-zA-Z-'. ]+/ })} //match any number of letters, periods, spaces, apostrophes, and/or hyphens
+          {...register("peculiarityName", { required: true })}
           {...params}
           name="peculiarityName"
-          label="Peculiarity"
+          label="Peculiarity*"
           InputProps={{
             ...params.InputProps,
             type: 'search',
           }}
           error={!!errors.peculiarityName}
-          helperText={errors.peculiarityName ? "Peculiarity name is required. Only letters and '.- characters are allowed." : ""}
+          helperText={errors.peculiarityName ? "Peculiarity name is required." : ""}
         />
       )}
       onChange={(e, newValue) => {
@@ -168,7 +171,33 @@ export const CharacterForm = () => {
     />}
 
     {/* imageUrl- input */}
+
     {/* homeLoop-autocomplete select from db */}
+    {loopsData?.loops && showLoops && < Autocomplete
+      fullWidth
+      id="loop"
+      disableClearable
+      options={loopsData.loops}
+      getOptionLabel={option => option.city}
+      renderInput={(params) => (
+        <TextField
+          {...register("loop", { required: true })}
+          {...params}
+          name="loop"
+          label="Loop*"
+          InputProps={{
+            ...params.InputProps,
+            type: 'search',
+          }}
+          error={!!errors.loop}
+          helperText={errors.loop ? "Loop is required." : ""}
+        />
+      )}
+      onChange={(e, newValue) => {
+        setLoopId(JSON.stringify(newValue.id))
+      }}
+    />}
+
     {/* books- multiselect from db */}
 
     {/* status- dropdown select from enum, Alive/Dead/Unknown */}
