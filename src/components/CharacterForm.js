@@ -67,28 +67,51 @@ export const CharacterForm = () => {
   const onSubmit = async ({ fullName, species, peculiarStatus, imageUrl }) => {
     try {
       const input = {
+        // required fields: name, species, status
         name: fullName.trim(),
         species: species,
         // removes duplicate double quotations around id number
         peculiarity: !!peculiarityId ? peculiarityId.replace(/["]+/g, '') : null,
         status: peculiarStatus,
         // removes duplicate double quotations around id number
-        loop: !!loopId ? loopId.replace(/["]+/g, '') : null,
+        homeLoop: !!loopId ? loopId.replace(/["]+/g, '') : null,
         imageUrl: imageUrl.trim(),
       }
-      console.log("input:", input);
+
+      const data = await executeCreateCharacter({
+        variables: { input }
+      })
+
+      if (data) {
+        setFormSuccess(true)
+        // refresh form or whole page
+      }
     } catch (error) {
       console.log(error);
+      setFormSuccess(false)
     }
 
+  }
+
+
+  const formatLoops = (loopData) => {
+    const options = []
+    if (!!loopData.city) { options.push(loopData.city) }
+    if (!!loopData.state) { options.push(loopData.state) }
+    if (!!loopData.country) { options.push(loopData.country) }
+    if (!!loopData.description) { options.push(loopData.description) }
+    // return the first 1-2 items in array plus the year, truncating for potentially long descriptions
+    return options[1] && !!loopData.year ? (options[0] + ", " + options[1] + ", " + loopData?.year).substring(0, 50) 
+    : options[1] ? (options[0] + ", " + options[1]).substring(0, 50) 
+    : options[0].substring(0, 50)
   }
 
   return <Box component="form"
     sx={styles.formWrapper}
     onSubmit={handleSubmit(onSubmit)}>
 
-    {/* {formSuccess && <SnackbarMessage message="New character created." status="success" />}
-    {formSuccess === false && <SnackbarMessage message="Failed to create character. Please try again." status="error" />} */}
+    {formSuccess && <SnackbarMessage message="New character created." status="success" />}
+    {formSuccess === false && <SnackbarMessage message="Failed to create character. Please try again." status="error" />}
 
     {/* fullName */}
     {charactersData && < Autocomplete
@@ -196,10 +219,11 @@ export const CharacterForm = () => {
       id="loop"
       disableClearable
       options={loopsData.loops}
-      getOptionLabel={option => option.city}
+      // TODO: handle no city, etc.
+      getOptionLabel={(option) => formatLoops(option)}
       renderInput={(params) => (
         <TextField
-          {...register("loop", { required: true })}
+          {...register("loop", { required: false })}
           {...params}
           name="loop"
           label="Loop*"
@@ -207,8 +231,8 @@ export const CharacterForm = () => {
             ...params.InputProps,
             type: 'search',
           }}
-          error={!!errors.loop}
-          helperText={errors.loop ? "Loop is required." : ""}
+        // error={!!errors.loop}
+        // helperText={errors.loop ? "Loop is required." : ""}
         />
       )}
       onChange={(e, newValue) => {
