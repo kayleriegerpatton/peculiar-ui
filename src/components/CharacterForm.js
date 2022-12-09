@@ -15,6 +15,7 @@ import { CHARACTERS, LOOPS, PECULIARITIES } from "../queries";
 import { styles } from "../styles";
 import { SnackbarMessage } from "./SnackbarMessage";
 import { useState } from "react";
+import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 
 export const CharacterForm = () => {
@@ -61,16 +62,15 @@ export const CharacterForm = () => {
     }
   })
 
-  // const handleSpeciesChange = (event) => {
-  //   setSpecies(event.target.value);
-  // };
 
-  const onSubmit = async ({ fullName, species }) => {
+  const onSubmit = async ({ fullName, species, peculiarStatus }) => {
     try {
       const input = {
         name: fullName.trim(),
         species: species,
-        peculiarity: peculiarityId,
+        // removes duplicate double quotations around id number
+        peculiarity: peculiarityId.replace(/["]+/g, ''),
+        status: peculiarStatus,
       }
       console.log("input:", input);
     } catch (error) {
@@ -98,7 +98,7 @@ export const CharacterForm = () => {
           {...register("fullName", { required: true, message: "A unique character name is required.", pattern: /[a-zA-Z-'. ]+/ })} //match any number of letters, periods, spaces, and/or hyphens
           {...params}
           name="fullName"
-          label="Full name"
+          label="Full name*"
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -111,7 +111,7 @@ export const CharacterForm = () => {
 
     {/* species- dropdown select from enum, Peculiar/Wight/Hollowgast*/}
     <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id="species">Species</InputLabel>
+      <InputLabel id="species">Species*</InputLabel>
       <Select
         labelId="species"
         id="species-select"
@@ -170,18 +170,27 @@ export const CharacterForm = () => {
     {/* imageUrl- input */}
     {/* homeLoop-autocomplete select from db */}
     {/* books- multiselect from db */}
+
     {/* status- dropdown select from enum, Alive/Dead/Unknown */}
+    <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
+      <FormControl error={!!errors.peculiarStatus}>
+        <FormLabel id="peculiar-status-radio-buttons-group" error={!!errors.peculiarStatus}>Status*</FormLabel>
+        <RadioGroup
+          row
+          aria-labelledby="peculiar-status-radio-buttons-group"
+          name="peculiar-status-radio-buttons-group"
+          // onChange={handlePeculiarStatusChange}
+          sx={{ marginLeft: '0.85em' }}
+        >
+          <FormControlLabel value="Alive" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Alive" />
+          <FormControlLabel value="Dead" control={<Radio {...register("peculiarStatus", { required: true, })} />} label="Dead" />
+          <FormControlLabel value="Unknown" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Unknown" />
+        </RadioGroup>
+        <FormHelperText>{!!errors.peculiarStatus ? "Peculiar's status is required." : ""}</FormHelperText>
+      </FormControl>
+    </Box>
+
     <FormButton loading={loading} error={error} text="Create Character" />
-
-
-    {/* <Autocomplete
-      freeSolo
-      fullWidth
-      id="free-solo-demo"
-      options={top100Films.map((option) => option.title)}
-
-      renderInput={(params) => <TextField {...params} label="freeSolo" />}
-    /> */}
   </Box>
 
 }
