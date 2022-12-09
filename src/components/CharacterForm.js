@@ -67,13 +67,12 @@ export const CharacterForm = () => {
   const onSubmit = async ({ fullName, species, peculiarStatus, imageUrl }) => {
     try {
       const input = {
-        // required fields: name, species, status
-        name: fullName.trim(),
-        species: species,
-        // removes duplicate double quotations around id number
+        name: fullName.trim(), // required field
+        species: species, // required field
+        // remove duplicate double quotations around id number
         peculiarity: !!peculiarityId ? peculiarityId.replace(/["]+/g, '') : null,
-        status: peculiarStatus,
-        // removes duplicate double quotations around id number
+        status: peculiarStatus, // required field
+        // remove duplicate double quotations around id number
         homeLoop: !!loopId ? loopId.replace(/["]+/g, '') : null,
         imageUrl: imageUrl.trim(),
       }
@@ -90,9 +89,7 @@ export const CharacterForm = () => {
       console.log(error);
       setFormSuccess(false)
     }
-
   }
-
 
   const formatLoops = (loopData) => {
     const options = []
@@ -101,9 +98,9 @@ export const CharacterForm = () => {
     if (!!loopData.country) { options.push(loopData.country) }
     if (!!loopData.description) { options.push(loopData.description) }
     // return the first 1-2 items in array plus the year, truncating for potentially long descriptions
-    return options[1] && !!loopData.year ? (options[0] + ", " + options[1] + ", " + loopData?.year).substring(0, 50) 
-    : options[1] ? (options[0] + ", " + options[1]).substring(0, 50) 
-    : options[0].substring(0, 50)
+    return options[1] && !!loopData.year ? (options[0] + ", " + options[1] + ", " + loopData?.year).substring(0, 50)
+      : options[1] ? (options[0] + ", " + options[1]).substring(0, 50)
+        : options[0].substring(0, 50)
   }
 
   return <Box component="form"
@@ -136,63 +133,67 @@ export const CharacterForm = () => {
       )}
     />}
 
-    {/* species- dropdown select from enum, Peculiar/Wight/Hollowgast*/}
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id="species">Species*</InputLabel>
-      <Select
-        labelId="species"
-        id="species-select"
-        value={species}
-        // onChange={handleSpeciesChange}
-        {...register("species", { required: true })}
-        onChange={async (event) => {
-          setSpecies(event.target.value)
-          if (event.target.value === "Peculiar") {
-            await executeGetPeculiarities();
-            await executeGetLoops();
+    <Box sx={{...styles.flexContainer, justifyContent: 'left'}}>
+      {/* species- dropdown select from enum, Peculiar/Wight/Hollowgast*/}
+      <FormControl sx={{ margin: "1.2rem 1rem 0rem 0rem", minWidth: 150 }}>
+        <InputLabel id="species">Species*</InputLabel>
+        <Select
+        fullWidth
+          labelId="species"
+          id="species-select"
+          value={species}
+          // onChange={handleSpeciesChange}
+          {...register("species", { required: true })}
+          onChange={async (event) => {
+            setSpecies(event.target.value)
+            if (event.target.value === "Peculiar") {
+              await executeGetPeculiarities();
+              await executeGetLoops();
 
-            setShowPeculiarities(true);
-            setShowLoops(true);
-          } else if (event.target.value === "Wight") {
-            await executeGetPeculiarities();
-            setShowPeculiarities(true);
-          } else {
-            setShowPeculiarities(false);
-          }
-        }}
-      >
-        <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
-        <MenuItem value={"Wight"}>Wight</MenuItem>
-        <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
-      </Select>
-      <FormHelperText error={!!errors.species} >Species is required.</FormHelperText>
-    </FormControl>
-
-    {/* peculiarity- autocomplete select from db */}
-    {peculiaritiesData?.peculiarities && showPeculiarities && < Autocomplete
-      fullWidth
-      id="peculiarityName"
-      disableClearable
-      options={peculiaritiesData.peculiarities}
-      getOptionLabel={option => option.abilities.length > 0 ? option.name + " (" + option.abilities[0] + ")" : option.name}
-      renderInput={(params) => (
-        <TextField
-          {...register("peculiarityName", { required: true })}
-          {...params}
-          name="peculiarityName"
-          label="Peculiarity*"
-          InputProps={{
-            ...params.InputProps,
-            type: 'search',
+              setShowPeculiarities(true);
+              setShowLoops(true);
+            } else if (event.target.value === "Wight") {
+              await executeGetPeculiarities();
+              setShowPeculiarities(true);
+            } else {
+              setShowPeculiarities(false);
+            }
           }}
-          error={!!errors.peculiarityName}
-          helperText={errors.peculiarityName ? "Peculiarity name is required." : ""}
-        />
-      )}
-      onChange={(e, newValue) => {
-        setPeculiarityId(JSON.stringify(newValue.id))
-      }}
-    />}
+        >
+          <MenuItem value={"Peculiar"}>Peculiar</MenuItem>
+          <MenuItem value={"Wight"}>Wight</MenuItem>
+          <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
+        </Select>
+        <FormHelperText error={!!errors.species} >Species is required.</FormHelperText>
+      </FormControl>
+
+      {/* peculiarity- autocomplete select from db */}
+      {peculiaritiesData?.peculiarities && showPeculiarities && < Autocomplete
+        sx={{minWidth: 500, marginLeft: 1}}
+        fullWidth
+        id="peculiarityName"
+        disableClearable
+        options={peculiaritiesData.peculiarities}
+        getOptionLabel={option => option.abilities.length > 0 ? option.name + " (" + option.abilities[0] + ")" : option.name}
+        renderInput={(params) => (
+          <TextField
+            {...register("peculiarityName", { required: true })}
+            {...params}
+            name="peculiarityName"
+            label="Peculiarity*"
+            InputProps={{
+              ...params.InputProps,
+              type: 'search',
+            }}
+            error={!!errors.peculiarityName}
+            helperText={errors.peculiarityName ? "Peculiarity name is required." : ""}
+          />
+        )}
+        onChange={(e, newValue) => {
+          setPeculiarityId(JSON.stringify(newValue.id))
+        }}
+      />}
+    </Box>
 
     {/* imageUrl- input */}
     <TextField
@@ -231,8 +232,6 @@ export const CharacterForm = () => {
             ...params.InputProps,
             type: 'search',
           }}
-        // error={!!errors.loop}
-        // helperText={errors.loop ? "Loop is required." : ""}
         />
       )}
       onChange={(e, newValue) => {
