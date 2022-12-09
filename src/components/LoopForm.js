@@ -257,7 +257,6 @@ export const LoopForm = () => {
 
     {/* ymbryne */}
     {ymbrynesData && <FormControl sx={{ alignSelf: "start", paddingTop: "1rem" }}>
-      {/* <InputLabel id="ymbryne-input1">Ymbryne</InputLabel> */}
       <TextField
         select
         id="ymbryne"
@@ -270,8 +269,7 @@ export const LoopForm = () => {
         variant="outlined"
         sx={{ minWidth: "300px" }}
       >
-        <MenuItem key={1} id={1} value={"test"}>TestYmbryneID</MenuItem>
-        {ymbrynesData.ymbrynes?.map((ymbryne, index) => (
+        {ymbrynesData.ymbrynes?.map((ymbryne) => (
           <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.id}>{ymbryne.name}</MenuItem>
         ))}
 
