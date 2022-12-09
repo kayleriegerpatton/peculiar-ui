@@ -24,6 +24,8 @@ export const LOOPS = gql`
     loops {
       id
       city
+      state
+      country
       year
       label
     }
