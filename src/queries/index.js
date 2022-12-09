@@ -27,7 +27,7 @@ export const LOOPS = gql`
       state
       country
       year
-      label
+      description
     }
   }
 `;
