@@ -12,6 +12,7 @@ export const CHARACTERS = gql`
 export const PECULIARITIES = gql`
   query Peculiarities {
     peculiarities {
+      id
       name
       abilities
     }
