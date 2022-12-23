@@ -1,13 +1,9 @@
 
 export const styles = {
   flexContainer: {
-    maxWidth: "750px",
-    margin: "auto",
     display: "flex",
     "@media only screen and (max-width: 899px)": {
       flexDirection: "column",
-      alignItems: "center",
-      flex: "none",
     },
   },
 

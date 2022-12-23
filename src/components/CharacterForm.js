@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
+import { useMediaQuery } from "react-responsive"
 
 import { FormButton } from "../components/FormButton";
 import { CREATE_CHARACTER } from "../mutations";
@@ -18,7 +19,10 @@ import { useState } from "react";
 import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
 
 
+
 export const CharacterForm = () => {
+  const isDesktop = useMediaQuery({query: "(min-width: 899px)"})
+
   // tracks form success for snackbar message
   const [formSuccess, setFormSuccess] = useState()
 
@@ -122,7 +126,8 @@ export const CharacterForm = () => {
           {...register("fullName", { required: true, message: "A unique character name is required.", pattern: /[a-zA-Z-'. ]+/ })} //match any number of letters, periods, spaces, and/or hyphens
           {...params}
           name="fullName"
-          label="Full name*"
+          label="Full name"
+          required
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -133,16 +138,15 @@ export const CharacterForm = () => {
       )}
     />}
 
-    <Box sx={{...styles.flexContainer, justifyContent: 'left'}}>
       {/* species- dropdown select from enum, Peculiar/Wight/Hollowgast*/}
-      <FormControl sx={{ margin: "1.2rem 1rem 0rem 0rem", minWidth: 150 }}>
-        <InputLabel id="species">Species*</InputLabel>
+      <FormControl fullWidth sx={{ marginTop: "1.2rem" }}>
+        <InputLabel id="species" error={!!errors.species} required>Species</InputLabel>
         <Select
         fullWidth
           labelId="species"
+          label="Species"
           id="species-select"
           value={species}
-          // onChange={handleSpeciesChange}
           {...register("species", { required: true })}
           onChange={async (event) => {
             setSpecies(event.target.value)
@@ -164,12 +168,12 @@ export const CharacterForm = () => {
           <MenuItem value={"Wight"}>Wight</MenuItem>
           <MenuItem value={"Hollowgast"}>Hollowgast</MenuItem>
         </Select>
-        <FormHelperText error={!!errors.species} >Species is required.</FormHelperText>
+         <FormHelperText error={!!errors.species} >{errors.species ? "Species is required." : ""}</FormHelperText> 
       </FormControl>
 
       {/* peculiarity- autocomplete select from db */}
       {peculiaritiesData?.peculiarities && showPeculiarities && < Autocomplete
-        sx={{minWidth: 500, marginLeft: 1}}
+        sx={{ marginTop: 2}}
         fullWidth
         id="peculiarityName"
         disableClearable
@@ -180,7 +184,8 @@ export const CharacterForm = () => {
             {...register("peculiarityName", { required: true })}
             {...params}
             name="peculiarityName"
-            label="Peculiarity*"
+            label="Peculiarity"
+            required
             InputProps={{
               ...params.InputProps,
               type: 'search',
@@ -193,7 +198,6 @@ export const CharacterForm = () => {
           setPeculiarityId(JSON.stringify(newValue.id))
         }}
       />}
-    </Box>
 
     {/* imageUrl- input */}
     <TextField
@@ -203,7 +207,7 @@ export const CharacterForm = () => {
       name="imageUrl"
       variant="outlined"
       fullWidth
-      sx={{ ...styles.formFields }}
+      sx={{ ...styles.formFields, marginBottom: 2 }}
       {...register("imageUrl", {
         pattern:
           /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
@@ -244,7 +248,7 @@ export const CharacterForm = () => {
     {/* status- dropdown select from enum, Alive/Dead/Unknown */}
     <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
       <FormControl error={!!errors.peculiarStatus}>
-        <FormLabel id="peculiar-status-radio-buttons-group" error={!!errors.peculiarStatus}>Status*</FormLabel>
+        <FormLabel id="peculiar-status-radio-buttons-group" required error={!!errors.peculiarStatus}>Status</FormLabel>
         <RadioGroup
           row
           aria-labelledby="peculiar-status-radio-buttons-group"
