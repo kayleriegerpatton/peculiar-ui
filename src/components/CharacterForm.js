@@ -237,6 +237,7 @@ export const CharacterForm = () => {
           {...params}
           name="loop"
           label="Loop"
+          margin= "normal"
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -251,6 +252,7 @@ export const CharacterForm = () => {
     />}
 
     {/* books- multiselect from db */}
+    {/* TODO: page breaks when user tries to type in the dropdown box. Compare with Loop and FullName drop downs which don't break. I think it's to do with the react Controller wrapping the books select. */}
     <Controller
       control={control}
       name="books"
