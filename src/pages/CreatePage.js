@@ -27,7 +27,7 @@ export const CreatePage = () => {
   return (
     <>
     <Title title="Add to the Peculiar world..."/>
-    <Box sx={styles.flexContainer}>
+    <Box sx={{...styles.flexContainer, justifyContent: 'center'}}>
       {/* CHARACTER stack */}
       <Stack sx={{ alignItems: "center" }}>
         {notMobile && (
