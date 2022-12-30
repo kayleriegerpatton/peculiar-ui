@@ -213,7 +213,7 @@ export const CharacterForm = () => {
       name="imageUrl"
       variant="outlined"
       fullWidth
-      sx={{ ...styles.formFields }}
+      sx={{marginTop: 2.5}}
       {...register("imageUrl", {
         pattern:
           /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
@@ -238,6 +238,7 @@ export const CharacterForm = () => {
           name="loop"
           label="Loop"
           margin= "normal"
+          sx={{marginTop: 1.5}}
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -284,6 +285,7 @@ export const CharacterForm = () => {
               variant="outlined"
               onChange={onChange}
               value={value}
+              sx={{marginTop: 1.5}}
               error={!!errors.books}
               helperText={errors.books ? "Choose at least one book in which the character appears." : ""}
             />
