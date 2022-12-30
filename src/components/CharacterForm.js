@@ -280,7 +280,7 @@ export const CharacterForm = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Books"
+              label="Books *"
               margin="normal"
               variant="outlined"
               onChange={onChange}
