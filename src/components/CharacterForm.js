@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useFormState } from "react-hook-form";
 import { useMediaQuery } from "react-responsive"
 
 import { FormButton } from "../components/FormButton";
@@ -19,6 +19,7 @@ import { styles } from "../styles";
 import { SnackbarMessage } from "./SnackbarMessage";
 import { useState } from "react";
 import { Checkbox, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
 const checkedIcon = <CheckBoxIcon fontSize="small" />
@@ -32,6 +33,8 @@ export const CharacterForm = () => {
   const [species, setSpecies] = useState('')
   const [peculiarityId, setPeculiarityId] = useState()
   const [loopId, setLoopId] = useState()
+  const [booksSelection, setBooksSelection] = useState([])
+  console.log("booksSelection: ", booksSelection);
 
   const [showPeculiarities, setShowPeculiarities] = useState(false);
   const [showLoops, setShowLoops] = useState(false);
@@ -89,7 +92,7 @@ export const CharacterForm = () => {
         : options[0].substring(0, 50)
   }
 
-  const onSubmit = async ({ fullName, species, peculiarStatus, imageUrl, books }) => {
+  const onSubmit = async ({ fullName, species, peculiarStatus, imageUrl }) => {
     try {
       const input = {
         name: fullName.trim(), // required field
@@ -97,8 +100,9 @@ export const CharacterForm = () => {
         peculiarity: !!peculiarityId ? peculiarityId.replace(/["]+/g, '') : null, // remove duplicate double quotations around id number
         status: peculiarStatus, // required field
         homeLoop: !!loopId ? loopId.replace(/["]+/g, '') : null, // remove duplicate double quotations around id number
-        imageUrl: imageUrl.trim(),
-        books: books.map((book) => book.id)
+        imageUrl: !!imageUrl ? imageUrl.trim() : undefined,
+        books: booksSelection.map((book) => book.id)
+
       }
       console.log("input:", input);
       // const data = await executeCreateCharacter({
@@ -205,7 +209,7 @@ export const CharacterForm = () => {
       }}
     />}
 
-    {/* imageUrl- input */}
+    {/* imageUrl- input; optional */}
     <TextField
       margin="normal"
       id="image"
@@ -213,11 +217,11 @@ export const CharacterForm = () => {
       name="imageUrl"
       variant="outlined"
       fullWidth
-      sx={{ ...styles.formFields }}
+      sx={{ marginTop: 2.5 }}
       {...register("imageUrl", {
         pattern:
           /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-        required: true,
+        required: false,
       })}
       error={!!errors.imageUrl}
       helperText={errors.imageUrl ? "Must contain a valid URL." : ""}
@@ -237,7 +241,8 @@ export const CharacterForm = () => {
           {...params}
           name="loop"
           label="Loop"
-          margin= "normal"
+          margin="normal"
+          sx={{ marginTop: 1.5 }}
           InputProps={{
             ...params.InputProps,
             type: 'search',
@@ -252,49 +257,42 @@ export const CharacterForm = () => {
     />}
 
     {/* books- multiselect from db */}
-    {/* TODO: page breaks when user tries to type in the dropdown box. Compare with Loop and FullName drop downs which don't break. I think it's to do with the react Controller wrapping the books select. */}
-    <Controller
-      control={control}
-      name="books"
-      rules={{ required: true }}
-      render={({ field: { onChange, value } }) => (
-        <Autocomplete
-          multiple
-          id="books-checkboxes"
-          fullWidth
-          options={booksData?.books || []}
-          disableCloseOnSelect
-          getOptionLabel={(option) => option.title}
-          renderOption={(props, option, { selected }) => (
-            <li {...props}>
-              <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={selected}
-              />
-              {option.title}
-            </li>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Books"
-              margin="normal"
-              variant="outlined"
-              onChange={onChange}
-              value={value}
-              error={!!errors.books}
-              helperText={errors.books ? "Choose at least one book in which the character appears." : ""}
-            />
-          )}
-          onChange={(e, values) => 
-            onChange(values)
-          }
-          value={value || []}
+    {booksData?.books && <Autocomplete
+      multiple
+      id="books-checkboxes"
+      fullWidth
+      onChange={(e, newValue) => {
+        setBooksSelection(newValue)
+      }}
+      options={booksData.books}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option.title}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option.title}
+        </li>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...register("books", { validate: (value) => { return booksSelection.length > 0 } })}
+          {...params}
+          label="Books *"
+          margin="normal"
+          variant="outlined"
+          // onChange={onChange}
+          // value={value}
+          sx={{ marginTop: 1.5 }}
+          error={!!errors.books}
+          helperText={errors.books ? "Choose at least one book in which the character appears." : ""}
         />
-      )} />
-
+      )}
+    />}
 
     {/* status- dropdown select from enum, Alive/Dead/Unknown */}
     <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
