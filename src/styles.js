@@ -19,6 +19,13 @@ export const styles = {
     textAlign: "center",
   },
 
+  note: {
+    // fontFamily: "Roboto",
+    fontWeight: '200',
+    fontSize: "1rem",
+    textAlign: "center",
+  },
+
   formWrapper: {
     display: "flex",
     flexDirection: "column",
