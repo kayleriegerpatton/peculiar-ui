@@ -97,18 +97,18 @@ export const CharacterForm = () => {
         peculiarity: !!peculiarityId ? peculiarityId.replace(/["]+/g, '') : null, // remove duplicate double quotations around id number
         status: peculiarStatus, // required field
         homeLoop: !!loopId ? loopId.replace(/["]+/g, '') : null, // remove duplicate double quotations around id number
-        imageUrl: imageUrl.trim(),
+        imageUrl: !!imageUrl ? imageUrl.trim() : undefined,
         books: books.map((book) => book.id)
       }
       console.log("input:", input);
-      // const data = await executeCreateCharacter({
-      //   variables: { input }
-      // })
+      const data = await executeCreateCharacter({
+        variables: { input }
+      })
 
-      // if (data) {
-      //   setFormSuccess(true)
-      //   // refresh form or whole page?
-      // }
+      if (data) {
+        setFormSuccess(true)
+        // refresh form or whole page?
+      }
     } catch (error) {
       console.log(error);
       setFormSuccess(false)
@@ -205,7 +205,7 @@ export const CharacterForm = () => {
       }}
     />}
 
-    {/* imageUrl- input */}
+    {/* imageUrl- input; optional */}
     <TextField
       margin="normal"
       id="image"
@@ -217,7 +217,7 @@ export const CharacterForm = () => {
       {...register("imageUrl", {
         pattern:
           /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-        required: true,
+        required: false,
       })}
       error={!!errors.imageUrl}
       helperText={errors.imageUrl ? "Must contain a valid URL." : ""}
