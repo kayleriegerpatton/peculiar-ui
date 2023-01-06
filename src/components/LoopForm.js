@@ -19,10 +19,7 @@ import { styles } from "../styles";
 import { CREATE_LOOP } from "../mutations";
 import { YMBRYNES } from "../queries";
 
-
-
 export const LoopForm = () => {
-  // const isDesktop = useMediaQuery({ query: "(min-width: 899px)" })
   const isMobile = useMediaQuery({ query: "(max-width: 599px)" })
 
   // tracks form success for snackbar message
@@ -96,7 +93,6 @@ export const LoopForm = () => {
         ymbryne: ymbryneID,
         status: loopStatus, //required
       }
-      console.log("input:", input);
 
       const { data } = await executeCreateLoop({
         variables: {
@@ -112,8 +108,7 @@ export const LoopForm = () => {
         reset()
       }
     } catch (err) {
-      console.log(err);
-      // show error message
+      // show fail message
       setFormSuccess(false)
     }
   }
