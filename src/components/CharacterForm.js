@@ -39,7 +39,6 @@ export const CharacterForm = () => {
   const [peculiarityId, setPeculiarityId] = useState()
   const [loopId, setLoopId] = useState()
   const [booksSelection, setBooksSelection] = useState([])
-  console.log("booksSelection: ", booksSelection);
 
   const [showPeculiarities, setShowPeculiarities] = useState(false);
   const [showLoops, setShowLoops] = useState(false);
@@ -109,7 +108,6 @@ export const CharacterForm = () => {
         books: booksSelection.map((book) => book.id)
 
       }
-      console.log("input:", input);
       const data = await executeCreateCharacter({
         variables: { input }
       })
@@ -119,7 +117,7 @@ export const CharacterForm = () => {
         // TODO: reset form
       }
     } catch (error) {
-      console.log(error);
+      // show fail message
       setFormSuccess(false)
     }
   }
