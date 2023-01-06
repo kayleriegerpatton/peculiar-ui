@@ -12,7 +12,7 @@ import { SnackbarMessage } from "./SnackbarMessage";
 export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
-    
+
   const [formSuccess, setFormSuccess] = useState(false)
 
   const {
@@ -25,11 +25,9 @@ export const PeculiarityForm = () => {
   const onSubmit = async ({ peculiarityName, abilities }) => {
     try {
       const input = {
-        //   REQUIRED: name
-        name: peculiarityName.trim(),
+        name: peculiarityName.trim(), // required
         // only pass empty or populated array as input
         abilities: abilities === undefined ? [] : abilities.split(";").map((ability) => {
-          // split string of abilities by ";" & remove leading/trailing spaces
           return ability.trim()
         }),
       }
@@ -47,7 +45,8 @@ export const PeculiarityForm = () => {
         setValue("abilities", "")
       }
     } catch (err) {
-      console.log(err);
+      // show fail message
+      setFormSuccess(false)
     }
   };
 
@@ -56,7 +55,11 @@ export const PeculiarityForm = () => {
       component="form"
       sx={styles.formWrapper}
       onSubmit={handleSubmit(onSubmit)}
-    >
+      formSuccess={setFormSuccess}
+      >
+      {formSuccess && <SnackbarMessage message="New peculiarity created." status="success" />}
+      {formSuccess === false && <SnackbarMessage message="Failed to create peculiarity. Please try again." status="error" />}
+
       {/* name */}
       <TextField
         error={!!errors.peculiarityName}
