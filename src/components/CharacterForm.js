@@ -1,31 +1,36 @@
-import Box from "@mui/material/Box";
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import Select from '@mui/material/Select';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import TextField from '@mui/material/TextField';
+
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { Controller, useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useMediaQuery } from "react-responsive"
+import { useState } from "react";
 
 import { FormButton } from "../components/FormButton";
+import { SnackbarMessage } from "./SnackbarMessage";
+import { styles } from "../styles";
 import { CREATE_CHARACTER } from "../mutations";
 import { CHARACTERS, LOOPS, PECULIARITIES, BOOKS } from "../queries";
-import { styles } from "../styles";
-import { SnackbarMessage } from "./SnackbarMessage";
-import { useState } from "react";
-import { Checkbox, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />
 const checkedIcon = <CheckBoxIcon fontSize="small" />
 
 export const CharacterForm = () => {
-  const isDesktop = useMediaQuery({ query: "(min-width: 899px)" })
+
+  const isMobile = useMediaQuery({ query: "(max-width: 599px)" })
 
   // tracks form success for snackbar message
   const [formSuccess, setFormSuccess] = useState()
@@ -68,7 +73,7 @@ export const CharacterForm = () => {
     { data: loopsData, loading: loopsLoading, error: loopsError },
   ] = useLazyQuery(LOOPS);
 
-  const { register, handleSubmit, formState: { errors }, control } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       // fullName: "",
       // species: "",
@@ -105,14 +110,14 @@ export const CharacterForm = () => {
 
       }
       console.log("input:", input);
-      // const data = await executeCreateCharacter({
-      //   variables: { input }
-      // })
+      const data = await executeCreateCharacter({
+        variables: { input }
+      })
 
-      // if (data) {
-      //   setFormSuccess(true)
-      //   // refresh form or whole page?
-      // }
+      if (data) {
+        setFormSuccess(true)
+        // TODO: reset form
+      }
     } catch (error) {
       console.log(error);
       setFormSuccess(false)
@@ -298,17 +303,26 @@ export const CharacterForm = () => {
     <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
       <FormControl error={!!errors.peculiarStatus}>
         <FormLabel id="peculiar-status-radio-buttons-group" required error={!!errors.peculiarStatus}>Status</FormLabel>
-        <RadioGroup
+        {!isMobile && <RadioGroup
           row
           aria-labelledby="peculiar-status-radio-buttons-group"
           name="peculiar-status-radio-buttons-group"
-          // onChange={handlePeculiarStatusChange}
           sx={{ marginLeft: '0.85em' }}
         >
           <FormControlLabel value="Alive" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Alive" />
           <FormControlLabel value="Dead" control={<Radio {...register("peculiarStatus", { required: true, })} />} label="Dead" />
           <FormControlLabel value="Unknown" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Unknown" />
-        </RadioGroup>
+        </RadioGroup>}
+        {isMobile && <RadioGroup
+          row
+          aria-labelledby="peculiar-status-radio-buttons-group"
+          name="peculiar-status-radio-buttons-group"
+          sx={{ marginLeft: '0.85em', flexDirection: "column" }}
+        >
+          <FormControlLabel value="Alive" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Alive" />
+          <FormControlLabel value="Dead" control={<Radio {...register("peculiarStatus", { required: true, })} />} label="Dead" />
+          <FormControlLabel value="Unknown" control={<Radio {...register("peculiarStatus", { required: true })} />} label="Unknown" />
+        </RadioGroup>}
         <FormHelperText>{!!errors.peculiarStatus ? "Peculiar's status is required." : ""}</FormHelperText>
       </FormControl>
     </Box>
