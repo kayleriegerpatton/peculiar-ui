@@ -105,9 +105,9 @@ export const Header = () => {
             sx={styles.navLink}
             component="a"
           >
-            About
+            about
           </Button>
-          
+
           {/* LOGGED IN ------------------------------- */}
           {isLoggedIn &&
             (<>
@@ -126,7 +126,7 @@ export const Header = () => {
                 onClick={handleLogout}
                 sx={styles.navLink}
               >
-                Logout
+                logout
               </Button>
             </>)}
 
@@ -209,23 +209,82 @@ export const Header = () => {
               display: { xs: "block", md: "none" },
             }}
           >
-            {loggedInPages.map((page) => (
-              <MenuItem
-                key={page.label}
-                onClick={() => handleNavigation(page.path)}
-                sx={styles.navLink}
+            <MenuItem
+              onClick={() => handleNavigation("about")}
+              sx={styles.navLink}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Oranienbaum",
+                  textTransform: "lowercase",
+                  fontSize: "1.2rem",
+                  component: "a"
+                }}
               >
-                <Typography
-                  sx={{
-                    fontFamily: "Oranienbaum",
-                    textTransform: "lowercase",
-                    fontSize: "1.5rem",
-                  }}
+                about
+              </Typography>
+            </MenuItem>
+            {/* LOGGED IN ------------------------------- */}
+            {isLoggedIn &&
+              (<>
+                {loggedInPages.map((page) => (
+                  <MenuItem
+                    key={page.label}
+                    onClick={() => handleNavigation(page.path)}
+                    sx={styles.navLink}
+                    component="a"
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "Oranienbaum",
+                        textTransform: "lowercase",
+                        fontSize: "1.2rem",
+                      }}
+                    >
+                      {page.label}
+                    </Typography>
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  onClick={handleLogout}
+                  sx={{ ...styles.navLink, paddingRight: "3rem" }}
+                  component="button"
+
                 >
-                  {page.label}
-                </Typography>
-              </MenuItem>
-            ))}
+                  <Typography
+                    sx={{
+                      fontFamily: "Oranienbaum",
+                      textTransform: "lowercase",
+                      fontSize: "1.2rem",
+                    }}
+                  >
+                    logout
+                  </Typography>
+                </MenuItem>
+              </>)}
+
+            {/* LOGGED OUT ------------------------------- */}
+            {!isLoggedIn &&
+              (<>
+                {loggedOutPages.map((page) => (
+                  <MenuItem
+                    key={page.label}
+                    onClick={() => handleNavigation(page.path)}
+                    sx={styles.navLink}
+                  >
+                    <Typography
+                      sx={{
+                        fontFamily: "Oranienbaum",
+                        textTransform: "lowercase",
+                        fontSize: "1.2rem",
+                      }}
+                    >
+                      {page.label}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </>)}
+
           </Menu>
         </Box>
 
