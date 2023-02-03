@@ -10,13 +10,13 @@ import { ImageCard } from "../components/ImageCard";
 export const CreatePage = () => {
   const cardInfo = [
     {
-      buttonText: "Peculiarity", endIcon: <StarsIcon />, image: "https://peculiar-project-images.s3.amazonaws.com/default-character.png", altText: "Miss Peregrine's Home for Peculiar Children book cover", navigate: "/create/peculiarity"
+      buttonText: "Peculiarity", endIcon: <StarsIcon />, image: "https://peculiar-project-assets.s3.amazonaws.com/default-character.png", altText: "Miss Peregrine's Home for Peculiar Children book cover", navigate: "/create/peculiarity"
     },
     {
-      buttonText: "Loop", endIcon: <TornadoIcon />, image: "https://peculiar-project-images.s3.amazonaws.com/default-loop-image-crop.png", altText: "Graphic of Florida with various printed images and doodles", navigate: "/create/loop"
+      buttonText: "Loop", endIcon: <TornadoIcon />, image: "https://peculiar-project-assets.s3.amazonaws.com/default-loop-image-crop.png", altText: "Graphic of Florida with various printed images and doodles", navigate: "/create/loop"
     },
     {
-      buttonText: "Character", endIcon: <PersonAddAlt1Icon />, image: "https://peculiar-project-images.s3.amazonaws.com/default-character.png", altText: "Miss Peregrine's Home for Peculiar Children book cover", navigate: "/create/character"
+      buttonText: "Character", endIcon: <PersonAddAlt1Icon />, image: "https://peculiar-project-assets.s3.amazonaws.com/default-character.png", altText: "Miss Peregrine's Home for Peculiar Children book cover", navigate: "/create/character"
     }
   ]
 
