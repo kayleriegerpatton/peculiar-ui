@@ -12,16 +12,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { styles } from "../styles";
+import { useAuth } from "../contexts/AppProvider";
 
-const adminPages = [
+const loggedInPages = [
   { label: "Create", path: "create" },
-  { label: "Edit", path: "edit" },
+  { label: "Dashboard", path: "dashboard" }, // edit links will be on the dashboard
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
+  // const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -42,12 +44,23 @@ export const Header = () => {
   //  const handleOpenUserMenu = (event) => {
   //     setAnchorElUser(event.currentTarget);
   //   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // setUser();
+    // setIsLoggedIn(false);
+
+    navigate("login", { replace: true });
+  };
+
   return (
     <AppBar
       position="static"
       sx={{ backgroundColor: "var(--platinum)", mb: 5 }}
     >
-      <Container maxWidth="xl">
+      {/* <Container maxWidth="xl"> */}
         <Toolbar disableGutters sx={{ display: "flex" }}>
           {/* Title on desktop */}
           <Typography
@@ -60,6 +73,7 @@ export const Header = () => {
               fontWeight: 700, //bold
               fontSize: "2.5rem",
               mr: 2,
+              ml: 2,
               display: { xs: "none", md: "flex" },
               color: "var(--dark-liver)",
               textDecoration: "none",
@@ -77,20 +91,29 @@ export const Header = () => {
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               justifyContent: "flex-end",
+              mr: 2
             }}
           >
-            {adminPages.map((page) => (
+            {loggedInPages.map((page) => (
               <Button
                 key={page.label}
                 onClick={() => handleNavigation(page.path)}
                 sx={styles.navLink}
+                component="a"
               >
                 {page.label}
               </Button>
             ))}
+            <Button
+              onClick={handleLogout}
+              sx={styles.navLink}
+              component="a"
+            >
+              Logout
+            </Button>
           </Box>
 
-          {/* MOBILE VIEWPORTS */}
+          {/* MOBILE VIEWPORTS ------------------------------------------------------------*/}
           {/* Title on small-medium screen sizes */}
           <Typography
             variant="h4"
@@ -152,7 +175,7 @@ export const Header = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {adminPages.map((page) => (
+              {loggedInPages.map((page) => (
                 <MenuItem
                   key={page.label}
                   onClick={() => handleNavigation(page.path)}
@@ -203,7 +226,7 @@ export const Header = () => {
             </Menu>
           </Box> */}
         </Toolbar>
-      </Container>
+      {/* </Container> */}
     </AppBar>
   );
 };
