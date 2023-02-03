@@ -9,7 +9,7 @@ import { CreatePage } from "../pages/CreatePage";
 import { CreateCharacterPage } from "../pages/CreateCharacterPage";
 import { CreateLoopPage } from "../pages/CreateLoopPage";
 import { CreatePeculiarityPage } from "../pages/CreatePeculiarityPage";
-import { EditPage } from "../pages/EditPage";
+import { DashboardPage } from "../pages/DashboardPage";
 import { SkipLink } from "./SkipLink";
 import { useAuth } from "../contexts/AppProvider";
 import { SignUpPage } from "../pages/SignUpPage";
@@ -29,7 +29,7 @@ export const AppRouter = () => {
       {notMobile && <SkipLink />}
 
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
-        <Header component={"header"} />
+        <Header component={"header"} sx={{ minHeight: "10vh" }}/>
 
         <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh" }}>
           <Routes>
@@ -44,7 +44,7 @@ export const AppRouter = () => {
                 <Route path="/create/loop" element={<CreateLoopPage />} />
                 <Route path="/create" element={<CreatePage />} />
 
-                <Route path="/edit" element={<EditPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
 
               </>
             )}
@@ -52,7 +52,7 @@ export const AppRouter = () => {
           </Routes>
         </Box>
 
-        <Footer component={"footer"} />
+        <Footer component={"footer"} sx={{ minHeight: "10vh" }}/>
       </Stack>
     </>
   );
