@@ -15,7 +15,7 @@ import { styles } from "../styles";
 
 const adminPages = [
   { label: "Create", path: "create" },
-  { label: "Edit", path: "edit" },
+  { label: "Dashboard", path: "edit" },
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
