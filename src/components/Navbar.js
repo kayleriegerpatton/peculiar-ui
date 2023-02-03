@@ -19,7 +19,7 @@ const adminPages = [
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-export const Navbar = () => {
+export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
