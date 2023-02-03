@@ -53,15 +53,3 @@ export const App = () => {
     </ThemeProvider>
   );
 };
-
-// export const App = () => {
-//   return (
-//     <ApolloProvider client={client}>
-//       <AppProvider>
-//         <BrowserRouter>
-//           <AppRouter />
-//         </BrowserRouter>
-//       </AppProvider>
-//     </ApolloProvider>
-//   );
-// };
