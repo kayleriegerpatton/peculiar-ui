@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
@@ -18,12 +17,19 @@ const loggedInPages = [
   { label: "Create", path: "create" },
   { label: "Dashboard", path: "dashboard" }, // edit links will be on the dashboard
 ];
+
+const loggedOutPages = [
+  { label: "Sign Up", path: "signup" },
+  { label: "Log In", path: "login" }
+]
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
   // const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
+  const isLoggedIn = true //TODO: REMOVE LATER
+
   const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
@@ -61,40 +67,72 @@ export const Header = () => {
       sx={{ backgroundColor: "var(--platinum)", mb: 5 }}
     >
       {/* <Container maxWidth="xl"> */}
-        <Toolbar disableGutters sx={{ display: "flex" }}>
-          {/* Title on desktop */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            onClick={() => handleNavigation("/")}
-            sx={{
-              fontFamily: "Amatic SC",
-              fontWeight: 700, //bold
-              fontSize: "2.5rem",
-              mr: 2,
-              ml: 2,
-              display: { xs: "none", md: "flex" },
-              color: "var(--dark-liver)",
-              textDecoration: "none",
-              border: "none",
-              backgroundColor: "var(--platinum)",
-              cursor: "pointer",
-            }}
-          >
-            The Peculiar Project
-          </Typography>
+      <Toolbar disableGutters sx={{ display: "flex" }}>
+        {/* Title on desktop */}
+        <Typography
+          variant="h5"
+          noWrap
+          component="a"
+          onClick={() => handleNavigation("/")}
+          sx={{
+            fontFamily: "Amatic SC",
+            fontWeight: 700, //bold
+            fontSize: "2.5rem",
+            mr: 2,
+            ml: 2,
+            display: { xs: "none", md: "flex" },
+            color: "var(--dark-liver)",
+            textDecoration: "none",
+            border: "none",
+            backgroundColor: "var(--platinum)",
+            cursor: "pointer",
+          }}
+        >
+          The Peculiar Project
+        </Typography>
 
-          {/* nav links on larger screen sizes */}
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "flex-end",
-              mr: 2
-            }}
+        {/* nav links on larger screen sizes */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: { xs: "none", md: "flex" },
+            justifyContent: "flex-end",
+            mr: 2
+          }}
+        >
+          <Button
+            onClick={() => handleNavigation("about")}
+            sx={styles.navLink}
+            component="a"
           >
-            {loggedInPages.map((page) => (
+            About
+          </Button>
+          
+          {/* LOGGED IN ------------------------------- */}
+          {isLoggedIn &&
+            (<>
+              {loggedInPages.map((page) => (
+                <Button
+                  key={page.label}
+                  onClick={() => handleNavigation(page.path)}
+                  sx={styles.navLink}
+                  component="a"
+                >
+                  {page.label}
+                </Button>
+              ))}
+
+              <Button
+                onClick={handleLogout}
+                sx={styles.navLink}
+              >
+                Logout
+              </Button>
+            </>)}
+
+          {/* LOGGED OUT ------------------------------- */}
+          {!isLoggedIn && (<>
+            {loggedOutPages.map((page) => (
               <Button
                 key={page.label}
                 onClick={() => handleNavigation(page.path)}
@@ -103,100 +141,96 @@ export const Header = () => {
               >
                 {page.label}
               </Button>
-            ))}
-            <Button
-              onClick={handleLogout}
-              sx={styles.navLink}
-              component="a"
-            >
-              Logout
-            </Button>
-          </Box>
+            ))}</>)}
 
-          {/* MOBILE VIEWPORTS ------------------------------------------------------------*/}
-          {/* Title on small-medium screen sizes */}
-          <Typography
-            variant="h4"
-            noWrap
-            component="button"
-            onClick={() => handleNavigation("/")}
+
+
+        </Box>
+
+        {/* MOBILE VIEWPORTS ------------------------------------------------------------*/}
+        {/* Title on small-medium screen sizes */}
+        <Typography
+          variant="h4"
+          noWrap
+          component="button"
+          onClick={() => handleNavigation("/")}
+          sx={{
+            display: { xs: "flex", md: "none" },
+            flexGrow: 1,
+            justifyContent: "center",
+            fontFamily: "Amatic SC",
+            fontSize: "2.5rem",
+            fontWeight: 700,
+            color: "var(--dark-liver)",
+            textDecoration: "none",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            border: "none",
+            backgroundColor: "var(--platinum)",
+            cursor: "pointer",
+          }}
+        >
+          The Peculiar Project
+        </Typography>
+        {/* Right-aligned burger menu */}
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            flexGrow: 1,
+            justifyContent: "flex-end",
+          }}
+        >
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            sx={{ color: "var(--dark-liver)" }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
             sx={{
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              justifyContent: "center",
-              fontFamily: "Amatic SC",
-              fontSize: "2.5rem",
-              fontWeight: 700,
-              color: "var(--dark-liver)",
-              textDecoration: "none",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              border: "none",
-              backgroundColor: "var(--platinum)",
-              cursor: "pointer",
+              display: { xs: "block", md: "none" },
             }}
           >
-            The Peculiar Project
-          </Typography>
-          {/* Right-aligned burger menu */}
-          <Box
-            sx={{
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              justifyContent: "flex-end",
-            }}
-          >
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              sx={{ color: "var(--dark-liver)" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {loggedInPages.map((page) => (
-                <MenuItem
-                  key={page.label}
-                  onClick={() => handleNavigation(page.path)}
-                  sx={styles.navLink}
+            {loggedInPages.map((page) => (
+              <MenuItem
+                key={page.label}
+                onClick={() => handleNavigation(page.path)}
+                sx={styles.navLink}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: "Oranienbaum",
+                    textTransform: "lowercase",
+                    fontSize: "1.5rem",
+                  }}
                 >
-                  <Typography
-                    sx={{
-                      fontFamily: "Oranienbaum",
-                      textTransform: "lowercase",
-                      fontSize: "1.5rem",
-                    }}
-                  >
-                    {page.label}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                  {page.label}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
 
-          {/* Avatar dropdown menu */}
-          {/* <Box sx={{ flexGrow: 0 }}>
+        {/* Avatar dropdown menu */}
+        {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="" src="" />
@@ -225,7 +259,7 @@ export const Header = () => {
               ))}
             </Menu>
           </Box> */}
-        </Toolbar>
+      </Toolbar>
       {/* </Container> */}
     </AppBar>
   );
