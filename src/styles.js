@@ -97,13 +97,10 @@ export const styles = {
   },
 
   navLink: {
-    // my: 2,
-    mx: 0.5,
     color: "var(--dark-liver)",
     fontFamily: "Oranienbaum",
     textTransform: "lowercase",
-    fontSize: "1.5rem",
-    display: "block",
+    fontSize: "1.2rem",
     "&:hover": {
       backgroundColor: "var(--lavender-blue)",
       color: "var(--dark-liver)",
