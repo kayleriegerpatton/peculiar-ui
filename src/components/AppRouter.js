@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
+import { Header } from "./Header";
 import { LandingPage } from "../pages/LandingPage";
 import { CreatePage } from "../pages/CreatePage";
 import { CreateCharacterPage } from "../pages/CreateCharacterPage";
@@ -29,7 +29,7 @@ export const AppRouter = () => {
       {notMobile && <SkipLink />}
 
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
-        <Navbar component={"header"} />
+        <Header component={"header"} />
 
         <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh" }}>
           <Routes>
