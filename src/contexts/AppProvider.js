@@ -6,6 +6,7 @@ export const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem("token") || false
   );
+
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || undefined
   );
