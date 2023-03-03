@@ -34,5 +34,12 @@ mutation Mutation($input: LoopInput!) {
     id
   }
 }
+`
 
+export const CREATE_USER = gql`
+mutation Mutation($input: CreateUserInput!) {
+  signupUser(input: $input) {
+    success
+  }
+}
 `

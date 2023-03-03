@@ -12,7 +12,7 @@ import { CreatePeculiarityPage } from "../pages/CreatePeculiarityPage";
 import { DashboardPage } from "../pages/DashboardPage";
 import { SkipLink } from "./SkipLink";
 import { useAuth } from "../contexts/AppProvider";
-import { SignUpPage } from "../pages/SignUpPage";
+import { SignupPage } from "../pages/SignupPage";
 import { LoginPage } from "../pages/LoginPage";
 import { AboutPage } from "../pages/AboutPage";
 
@@ -33,7 +33,7 @@ export const AppRouter = () => {
 
         <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh", margin: "2rem" }}>
           <Routes>
-            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/" element={<LandingPage />} />
