@@ -19,8 +19,8 @@ import { AboutPage } from "../pages/AboutPage";
 // * AppRouter controls URL and rendered pages/components
 // TODO: handle browser back button functionality; hash router?
 export const AppRouter = () => {
-  // const { isLoggedIn, user } = useAuth()
-  const isLoggedIn = true // TODO: remove once auth middleware is in use
+  const { isLoggedIn } = useAuth()
+  // const isLoggedIn = true // TODO: remove once auth middleware is in use
 
   const notMobile = useMediaQuery({ query: "(min-width: 900px" });
   return (

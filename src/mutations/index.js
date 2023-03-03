@@ -49,18 +49,19 @@ mutation Mutation($input: LoginInput!) {
   loginUser(input: $input) {
     token
     user {
-      createdCharacters {
-        name
-      }
-      email
-      firstName
       id
+      firstName
       lastName
+      email
+      username
       profileImage
       savedCharacters {
         name
       }
-      username
+      createdCharacters {
+        name
+      }
+
     }
   }
 }
