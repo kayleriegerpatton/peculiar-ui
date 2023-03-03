@@ -26,6 +26,7 @@ export const CreatePage = () => {
       <Box sx={{ ...styles.flexContainer, justifyContent: 'center', maxWidth: '1000px', margin: 'auto' }}>
         {cardInfo.map((card) => {
           return <ImageCard
+            key={card.buttonText}
             endIcon={card.endIcon}
             image={card.image}
             altText={card.altText}
