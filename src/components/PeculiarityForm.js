@@ -13,7 +13,7 @@ export const PeculiarityForm = () => {
   const [executeCreatePeculiarity, { loading, error }] =
     useMutation(CREATE_PECULIARITY);
 
-  const [formSuccess, setFormSuccess] = useState(false)
+  const [formSuccess, setFormSuccess] = useState()
 
   const {
     register,
@@ -57,8 +57,8 @@ export const PeculiarityForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       formSuccess={setFormSuccess}
       >
-      {formSuccess && <SnackbarMessage message="New peculiarity created." status="success" />}
-      {formSuccess === false && <SnackbarMessage message="Failed to create peculiarity. Please try again." status="error" />}
+      {formSuccess === true && <SnackbarMessage message="New peculiarity created." status="success" />}
+      {error && <SnackbarMessage message="Failed to create peculiarity. Please try again." status="error" />}
 
       {/* name */}
       <TextField
@@ -87,7 +87,6 @@ export const PeculiarityForm = () => {
 
       <FormButton text="Create Peculiarity" loading={loading} error={error} />
 
-      {formSuccess && <SnackbarMessage message="New peculiarity created." />}
     </Box>
   );
 };

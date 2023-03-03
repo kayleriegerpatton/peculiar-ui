@@ -22,13 +22,12 @@ const loggedOutPages = [
   { label: "Sign Up", path: "signup" },
   { label: "Log In", path: "login" }
 ]
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
   // const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
-  const isLoggedIn = true //TODO: REMOVE LATER
+  const isLoggedIn = true // TODO: remove once auth middleware is in use
 
   const navigate = useNavigate();
 

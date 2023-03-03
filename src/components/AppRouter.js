@@ -20,7 +20,7 @@ import { AboutPage } from "../pages/AboutPage";
 // TODO: handle browser back button functionality; hash router?
 export const AppRouter = () => {
   // const { isLoggedIn, user } = useAuth()
-  const isLoggedIn = true
+  const isLoggedIn = true // TODO: remove once auth middleware is in use
 
   const notMobile = useMediaQuery({ query: "(min-width: 900px" });
   return (
@@ -31,7 +31,7 @@ export const AppRouter = () => {
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
         <Header component={"header"} sx={{ minHeight: "10vh" }}/>
 
-        <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh" }}>
+        <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh", margin: "2rem" }}>
           <Routes>
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
