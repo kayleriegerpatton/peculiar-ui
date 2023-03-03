@@ -24,7 +24,6 @@ export const SignupPage = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue,
   } = useForm()
 
   const navigate = useNavigate()

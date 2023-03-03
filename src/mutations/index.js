@@ -43,3 +43,25 @@ mutation Mutation($input: CreateUserInput!) {
   }
 }
 `
+
+export const LOGIN_USER = gql`
+mutation Mutation($input: LoginInput!) {
+  loginUser(input: $input) {
+    token
+    user {
+      createdCharacters {
+        name
+      }
+      email
+      firstName
+      id
+      lastName
+      profileImage
+      savedCharacters {
+        name
+      }
+      username
+    }
+  }
+}
+`
