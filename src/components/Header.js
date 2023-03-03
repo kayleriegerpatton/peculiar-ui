@@ -27,7 +27,7 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
   // const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
-  const isLoggedIn = true // TODO: remove once auth middleware is in use
+  const isLoggedIn = false // TODO: remove once auth middleware is in use
 
   const navigate = useNavigate();
 
@@ -65,7 +65,6 @@ export const Header = () => {
       position="static"
       sx={{ backgroundColor: "var(--platinum)", mb: 5 }}
     >
-      {/* <Container maxWidth="xl"> */}
       <Toolbar disableGutters sx={{ display: "flex" }}>
         {/* Title on desktop */}
         <Typography
@@ -225,7 +224,7 @@ export const Header = () => {
             </MenuItem>
             {/* LOGGED IN ------------------------------- */}
             {isLoggedIn &&
-              (<>
+              (<div>
                 {loggedInPages.map((page) => (
                   <MenuItem
                     key={page.label}
@@ -260,11 +259,11 @@ export const Header = () => {
                     logout
                   </Typography>
                 </MenuItem>
-              </>)}
+              </div>)}
 
             {/* LOGGED OUT ------------------------------- */}
             {!isLoggedIn &&
-              (<>
+              (<div>
                 {loggedOutPages.map((page) => (
                   <MenuItem
                     key={page.label}
@@ -282,43 +281,10 @@ export const Header = () => {
                     </Typography>
                   </MenuItem>
                 ))}
-              </>)}
-
+              </div>)}
           </Menu>
         </Box>
-
-        {/* Avatar dropdown menu */}
-        {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src="" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
       </Toolbar>
-      {/* </Container> */}
     </AppBar>
   );
 };
