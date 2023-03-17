@@ -9,6 +9,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { AppRouter } from "./components/AppRouter";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { AppProvider } from "./contexts/AppProvider";
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL || "http://localhost:4000",
@@ -46,22 +47,12 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
+        <AppProvider>
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+        </AppProvider>
       </ApolloProvider>
     </ThemeProvider>
   );
 };
-
-// export const App = () => {
-//   return (
-//     <ApolloProvider client={client}>
-//       <AppProvider>
-//         <BrowserRouter>
-//           <AppRouter />
-//         </BrowserRouter>
-//       </AppProvider>
-//     </ApolloProvider>
-//   );
-// };

@@ -5,9 +5,10 @@
   --bora-purple: #A48DD7;
   --dark-liver: #4c474bff;
   --gold-fusion: #817f61ff;
-  font-family: "Amatic SC", cursive; /* 400 or 700 */
-  font-family: "Oranienbaum", serif; /* 400 */
+  font-family: "Amatic SC", cursive; /* 400 or 700; scrawl */
+  font-family: "Oranienbaum", serif; /* 400; thin serif*/
   font-family: 'Libre Franklin', sans-serif; /* 100, 200, 300, 400, 700 */
+  font-family: 'Crimson Text', serif; /* 400, 600, 700 & italics; similar to book typeface*/
   font-size: 16px;
 }
 
