@@ -44,7 +44,7 @@ export const AppRouter = () => {
                 <Route path="/create/loop" element={<CreateLoopPage />} />
                 <Route path="/create" element={<CreatePage />} />
 
-                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/:id/dashboard" element={<DashboardPage />} />
 
               </>
             )}

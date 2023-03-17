@@ -57,7 +57,7 @@ export const LoginPage = () => {
           createdCharacters: user.createdCharacters
         })
   
-        // navigate("/", { replace: true });
+        navigate(`/${user.id}/dashboard`, { replace: true });
       }
     } catch (error) {
       console.log(error);
@@ -68,8 +68,8 @@ export const LoginPage = () => {
   return (
     <Container component="main" maxWidth="xs">
       <Title title="Log In" />
-      {isLoggedIn && <Title title="logged in!" />}
-      {!isLoggedIn && <Title title="logged out!" />}
+      {/* {isLoggedIn && <Title title="logged in!" />} */}
+      {/* {!isLoggedIn && <Title title="logged out!" />} */}
       <RequiredNote />
       <Box
         component="form"
