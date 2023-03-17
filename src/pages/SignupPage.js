@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Title } from "../components/Title";
 import { RequiredNote } from "../components/RequiredNote";
+import { Typography } from "@mui/material";
 
 export const SignupPage = () => {
   const [executeSignup, { loading, error }] =
@@ -54,7 +55,7 @@ export const SignupPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <>
       <Title title="Sign up" />
       <RequiredNote />
       <Box
@@ -125,7 +126,7 @@ export const SignupPage = () => {
           margin="normal"
           id="image"
           name="image"
-          label="Profile Image*"
+          label="Profile Image"
           variant="outlined"
           helperText={errors.image?.message}
           fullWidth
@@ -164,8 +165,10 @@ export const SignupPage = () => {
         />
 
         <FormButton text="Sign Up" loading={loading} error={error} />
-
+        <Typography sx={{marginTop: "1rem"}}>
+          Already have an account? <a href="/login">Log in</a>
+        </Typography>
       </Box>
-    </Container>
+    </>
   )
 }
