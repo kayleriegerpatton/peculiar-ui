@@ -26,8 +26,7 @@ const loggedOutPages = [
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
-  // const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
-  const isLoggedIn = false // TODO: remove once auth middleware is in use
+  const { isLoggedIn, setUser, setIsLoggedIn } = useAuth();
 
   const navigate = useNavigate();
 
@@ -54,10 +53,10 @@ export const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    // setUser();
-    // setIsLoggedIn(false);
+    setUser();
+    setIsLoggedIn(false);
 
-    navigate("login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (
