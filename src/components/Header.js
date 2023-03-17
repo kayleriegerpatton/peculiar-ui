@@ -26,7 +26,7 @@ const loggedOutPages = [
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
-  const { isLoggedIn, setUser, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
 
   const navigate = useNavigate();
 
@@ -39,7 +39,11 @@ export const Header = () => {
   };
 
   const handleNavigation = (path) => {
-    navigate(path, { replace: true });
+    if (path === "dashboard") {
+      navigate(`${user.id}/${path}`, {replace: true})
+    } else {
+      navigate(path, { replace: true });
+    }
     setAnchorElNav(null);
   };
   // const handleCloseUserMenu = () => {
