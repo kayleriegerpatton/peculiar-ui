@@ -1,6 +1,6 @@
 
 import { useMutation } from "@apollo/client"
-import { Container, TextField } from "@mui/material"
+import { Container, TextField, Typography } from "@mui/material"
 import Box from "@mui/material/Box";
 import { useForm } from "react-hook-form"
 import { FormButton } from "../components/FormButton"
@@ -66,14 +66,14 @@ export const LoginPage = () => {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <>
       <Title title="Log In" />
       {/* {isLoggedIn && <Title title="logged in!" />} */}
       {/* {!isLoggedIn && <Title title="logged out!" />} */}
       <RequiredNote />
       <Box
         component="form"
-        sx={styles.formWrapper}
+        sx={{...styles.formWrapper, maxWidth: '20rem' }}
         onSubmit={handleSubmit(onSubmit)}
       // formFailure={setFormFailure} //not sure what this is for...
       >
@@ -107,7 +107,10 @@ export const LoginPage = () => {
           {...register("password", { required: { value: true, message: "Password is required." }, pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, message: "Password must contain at least one uppercase letter, lowercase letter, number, and special character !@$%*?&" }, minLength: { value: 8, message: "Password must contain at least 8 characters." } })} // match at least 1: uppercase, lowercase, number, and special character
         />
         <FormButton text="Log In" loading={loading} error={error} />
+        <Typography sx={{marginTop: "1rem"}}>
+          Don't have an account? <a href="/signup">Sign up</a>
+        </Typography>
       </Box>
-    </Container>
+    </>
   )
 }
