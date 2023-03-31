@@ -30,7 +30,7 @@ export const AppRouter = () => {
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
         <Header component={"header"} sx={{ minHeight: "10vh" }}/>
 
-        <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ minHeight: "80vh", margin: "2rem" }}>
+        <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ margin: "2rem" }}>
           <Routes>
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -51,7 +51,7 @@ export const AppRouter = () => {
           </Routes>
         </Box>
 
-        <Footer component={"footer"} sx={{ minHeight: "10vh" }}/>
+        <Footer component={"footer"} />
       </Stack>
     </>
   );
