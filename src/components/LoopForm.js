@@ -113,278 +113,279 @@ export const LoopForm = () => {
     }
   }
 
-  return <Box component="form"
-    sx={styles.formWrapper}
-    onSubmit={handleSubmit(onSubmit)}
-    formSuccess={setFormSuccess}
-  >
-    {formSuccess && <SnackbarMessage message="New loop created." status="success" />}
-    {formSuccess === false && <SnackbarMessage message="Failed to create loop. Please try again." status="error" />}
+  return (
+    <Box component="form"
+      sx={styles.formWrapper}
+      onSubmit={handleSubmit(onSubmit)}
+      formSuccess={setFormSuccess}
+    >
+      {formSuccess && <SnackbarMessage message="New loop created." status="success" />}
+      {formSuccess === false && <SnackbarMessage message="Failed to create loop. Please try again." status="error" />}
 
-    {/* city --------------------------------------------- */}
-    <TextField
-      margin="normal"
-      id="loopCity"
-      name="loopCity"
-      label="City"
-      variant="outlined"
-      fullWidth
-      {...register("loopCity", { required: false })}
-    />
-
-    {/* state --------------------------------------------- */}
-    <TextField
-      margin="normal"
-      id="loopState"
-      name="loopState"
-      label="State"
-      variant="outlined"
-      fullWidth
-      {...register("loopState", { required: false })}
-    />
-
-    {/* country --------------------------------------------- */}
-    <TextField
-      margin="normal"
-      id="loopCountry"
-      name="loopCountry"
-      label="Country"
-      variant="outlined"
-      fullWidth
-      {...register("loopCountry", { required: false })}
-    />
-
-    {/* day & month DESKTOP --------------------------------------------- */}
-    {!isMobile && <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", minWidth: "421px" }}>
-      {/* date */}
+      {/* city --------------------------------------------- */}
       <TextField
         margin="normal"
-        id="loopDate"
-        name="loopDate"
-        label="Day"
+        id="loopCity"
+        name="loopCity"
+        label="City"
         variant="outlined"
         fullWidth
-        helperText="Double digit numbers only"
-        placeholder="01"
-        {...register("loopDate", { required: false, pattern: /\b([0][1-9]|[12][0-9]|3[01])\b/g })} //match 01-31
-        error={!!errors.loopDate}
+        {...register("loopCity", { required: false })}
       />
 
-      {/* month */}
-      <TextField
-        fullWidth
-        sx={{ marginTop: "1rem", marginLeft: "1rem" }}
-        select
-        id="loopMonth"
-        name="loopMonth"
-        defaultValue="Unknown"
-        label="Month"
-        onChange={handleMonthChange}
-        {...register("loopMonth", { required: false })}
-        // helperText={errors.loopMonth?.message}
-        // error={!!errors.loopMonth}
-        rules={{ required: false }}
-        variant="outlined"
-      >
-        <MenuItem value={"Unknown"}>Unknown</MenuItem>
-        <MenuItem value={"January"}>January</MenuItem>
-        <MenuItem value={"February"}>February</MenuItem>
-        <MenuItem value={"March"}>March</MenuItem>
-        <MenuItem value={"April"}>April</MenuItem>
-        <MenuItem value={"May"}>May</MenuItem>
-        <MenuItem value={"June"}>June</MenuItem>
-        <MenuItem value={"July"}>July</MenuItem>
-        <MenuItem value={"August"}>August</MenuItem>
-        <MenuItem value={"September"}>September</MenuItem>
-        <MenuItem value={"October"}>October</MenuItem>
-        <MenuItem value={"November"}>November</MenuItem>
-        <MenuItem value={"December"}>December</MenuItem>
-      </TextField>
-    </Box>}
-
-    {/* day & month MOBILE */}
-    {isMobile && <Box sx={{ flexDirection: "column", display: "flex", alignSelf: "start" }}>
-      {/* date */}
+      {/* state --------------------------------------------- */}
       <TextField
         margin="normal"
-        id="loopDate"
-        name="loopDate"
-        label="Day"
+        id="loopState"
+        name="loopState"
+        label="State"
         variant="outlined"
         fullWidth
-        helperText="Double digit numbers only"
-        placeholder="01"
-        {...register("loopDate", { required: false, pattern: /\b([0][1-9]|[12][0-9]|3[01])\b/g })} //match 01-31
-        error={!!errors.loopDate}
+        {...register("loopState", { required: false })}
       />
 
-      {/* month */}
+      {/* country --------------------------------------------- */}
       <TextField
-        fullWidth
-        sx={{ marginTop: "1rem" }}
-        select
-        id="loopMonth"
-        name="loopMonth"
-        defaultValue="Unknown"
-        label="Month"
-        onChange={handleMonthChange}
-        {...register("loopMonth", { required: false })}
-        rules={{ required: false }}
+        margin="normal"
+        id="loopCountry"
+        name="loopCountry"
+        label="Country"
         variant="outlined"
-      >
-        <MenuItem value={"Unknown"}>Unknown</MenuItem>
-        <MenuItem value={"January"}>January</MenuItem>
-        <MenuItem value={"February"}>February</MenuItem>
-        <MenuItem value={"March"}>March</MenuItem>
-        <MenuItem value={"April"}>April</MenuItem>
-        <MenuItem value={"May"}>May</MenuItem>
-        <MenuItem value={"June"}>June</MenuItem>
-        <MenuItem value={"July"}>July</MenuItem>
-        <MenuItem value={"August"}>August</MenuItem>
-        <MenuItem value={"September"}>September</MenuItem>
-        <MenuItem value={"October"}>October</MenuItem>
-        <MenuItem value={"November"}>November</MenuItem>
-        <MenuItem value={"December"}>December</MenuItem>
-      </TextField>
-    </Box>}
-
-    {/* year DESKTOP --------------------------------------------- */}
-    {!isMobile && <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
-      <TextField
         fullWidth
-        sx={{ width: "150px", marginRight: "1rem", marginTop: "1rem" }}
-        id="loopYear"
-        name="loopYear"
-        label="Year"
-        variant="outlined"
-        {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
-        error={!!errors.loopYear}
-        helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)." : "Ex: 2020, 1500s."}
+        {...register("loopCountry", { required: false })}
       />
 
-      {/* year notation */}
-      <TextField
-        fullWidth
-        sx={{ width: "100px", marginTop: "1rem" }}
-        select
-        id="loopYearNotation"
-        name="loopYearNotation"
-        defaultValue="C.E."
-        label="Era"
-        onChange={handleYearNotationChange}
-        {...register("loopYearNotation", { required: true })}
-        rules={{ required: false }}
-        variant="outlined"
-      >
-        <MenuItem value={"B.C.E."}>B.C.E.</MenuItem>
-        <MenuItem value={"C.E."}>C.E.</MenuItem>
-      </TextField>
-    </Box>}
-    {/* year MOBILE */}
-    {isMobile && <Box sx={{ flexDirection: "column", display: "flex", alignSelf: "start" }}>
-      <TextField
-        fullWidth
-        sx={{ maxWidth: "195px", marginRight: "1rem", marginTop: "1rem" }}
-        id="loopYear"
-        name="loopYear"
-        label="Year"
-        variant="outlined"
-        {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
-        error={!!errors.loopYear}
-        helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)." : "Ex: 2020, 1500s."}
-      />
+      {/* day & month DESKTOP --------------------------------------------- */}
+      {!isMobile && <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start", minWidth: "421px" }}>
+        {/* date */}
+        <TextField
+          margin="normal"
+          id="loopDate"
+          name="loopDate"
+          label="Day"
+          variant="outlined"
+          fullWidth
+          helperText="Double digit numbers only"
+          placeholder="01"
+          {...register("loopDate", { required: false, pattern: /\b([0][1-9]|[12][0-9]|3[01])\b/g })} //match 01-31
+          error={!!errors.loopDate}
+        />
 
-      {/* year notation */}
-      <TextField
-        fullWidth
-        sx={{ maxWidth: "195px", marginTop: "1rem" }}
-        select
-        id="loopYearNotation"
-        name="loopYearNotation"
-        defaultValue="C.E."
-        label="Era"
-        onChange={handleYearNotationChange}
-        {...register("loopYearNotation", { required: true })}
-        rules={{ required: false }}
-        variant="outlined"
-      >
-        <MenuItem value={"B.C.E."}>B.C.E.</MenuItem>
-        <MenuItem value={"C.E."}>C.E.</MenuItem>
-      </TextField>
-    </Box>}
-
-    {/* description ---------------------------------------------- */}
-    <TextField
-      margin="normal"
-      sx={{ marginTop: "1.5rem" }}
-      id="loopDescription"
-      name="loopDescription"
-      label="Description*"
-      variant="outlined"
-      helperText={errors.loopDescription ? "Description is required! Try taking a quote directly from its introduction in the book." : "Try taking a quote directly from its introduction in the book!"}
-      fullWidth
-      multiline
-      minRows={5}
-      {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -()]+$/ })} // match any number of letters, numbers, periods, parentheses, or dashes
-      error={!!errors.loopDescription}
-    />
-
-    {/* ymbryne */}
-    {ymbrynesData && <FormControl sx={{ alignSelf: "start", paddingTop: "1rem" }}>
-      <TextField
-        fullWidth
-        select
-        id="ymbryne"
-        name="ymbryne"
-        label="Ymbryne"
-        defaultValue={""}
-        {...register("ymbryne", { required: false })}
-        rules={{ required: false }}
-        variant="outlined"
-        sx={{ minWidth: "300px" }}
-      >
-        <MenuItem key={"noSelection"} id={''} value={''}>--</MenuItem>
-        {ymbrynesData.ymbrynes?.map((ymbryne) => (
-          <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.id}>{ymbryne.name}</MenuItem>
-        ))}
-
-      </TextField>
-    </FormControl>}
-
-    {/* status */}
-    <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
-      <FormControl error={!!errors.loopStatus}>
-        <FormLabel id="loop-status-radio-buttons-group" error={!!errors.loopStatus}>Loop Status*</FormLabel>
-        {!isMobile && <RadioGroup
-          row
-          aria-labelledby="loop-status-radio-buttons-group"
-          name="loop-status-radio-buttons-group"
-          onChange={handleLoopStatusChange}
-          sx={{ marginLeft: '0.85em' }}
-
+        {/* month */}
+        <TextField
+          fullWidth
+          sx={{ marginTop: "1rem", marginLeft: "1rem" }}
+          select
+          id="loopMonth"
+          name="loopMonth"
+          defaultValue="Unknown"
+          label="Month"
+          onChange={handleMonthChange}
+          {...register("loopMonth", { required: false })}
+          // helperText={errors.loopMonth?.message}
+          // error={!!errors.loopMonth}
+          rules={{ required: false }}
+          variant="outlined"
         >
-          <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true })} />} label="Active" />
-          <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
-          <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
-        </RadioGroup>}
-        {isMobile && <RadioGroup
-          aria-labelledby="loop-status-radio-buttons-group"
-          name="loop-status-radio-buttons-group"
-          onChange={handleLoopStatusChange}
-          sx={{ marginLeft: '0.85em' }}
+          <MenuItem value={"Unknown"}>Unknown</MenuItem>
+          <MenuItem value={"January"}>January</MenuItem>
+          <MenuItem value={"February"}>February</MenuItem>
+          <MenuItem value={"March"}>March</MenuItem>
+          <MenuItem value={"April"}>April</MenuItem>
+          <MenuItem value={"May"}>May</MenuItem>
+          <MenuItem value={"June"}>June</MenuItem>
+          <MenuItem value={"July"}>July</MenuItem>
+          <MenuItem value={"August"}>August</MenuItem>
+          <MenuItem value={"September"}>September</MenuItem>
+          <MenuItem value={"October"}>October</MenuItem>
+          <MenuItem value={"November"}>November</MenuItem>
+          <MenuItem value={"December"}>December</MenuItem>
+        </TextField>
+      </Box>}
 
+      {/* day & month MOBILE */}
+      {isMobile && <Box sx={{ flexDirection: "column", display: "flex", alignSelf: "start" }}>
+        {/* date */}
+        <TextField
+          margin="normal"
+          id="loopDate"
+          name="loopDate"
+          label="Day"
+          variant="outlined"
+          fullWidth
+          helperText="Double digit numbers only"
+          placeholder="01"
+          {...register("loopDate", { required: false, pattern: /\b([0][1-9]|[12][0-9]|3[01])\b/g })} //match 01-31
+          error={!!errors.loopDate}
+        />
+
+        {/* month */}
+        <TextField
+          fullWidth
+          sx={{ marginTop: "1rem" }}
+          select
+          id="loopMonth"
+          name="loopMonth"
+          defaultValue="Unknown"
+          label="Month"
+          onChange={handleMonthChange}
+          {...register("loopMonth", { required: false })}
+          rules={{ required: false }}
+          variant="outlined"
         >
-          <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true })} />} label="Active" />
-          <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
-          <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
-        </RadioGroup>}
-        <FormHelperText>{!!errors.loopStatus ? "Loop status is required." : ""}</FormHelperText>
-      </FormControl>
+          <MenuItem value={"Unknown"}>Unknown</MenuItem>
+          <MenuItem value={"January"}>January</MenuItem>
+          <MenuItem value={"February"}>February</MenuItem>
+          <MenuItem value={"March"}>March</MenuItem>
+          <MenuItem value={"April"}>April</MenuItem>
+          <MenuItem value={"May"}>May</MenuItem>
+          <MenuItem value={"June"}>June</MenuItem>
+          <MenuItem value={"July"}>July</MenuItem>
+          <MenuItem value={"August"}>August</MenuItem>
+          <MenuItem value={"September"}>September</MenuItem>
+          <MenuItem value={"October"}>October</MenuItem>
+          <MenuItem value={"November"}>November</MenuItem>
+          <MenuItem value={"December"}>December</MenuItem>
+        </TextField>
+      </Box>}
+
+      {/* year DESKTOP --------------------------------------------- */}
+      {!isMobile && <Box sx={{ flexDirection: "row", display: "flex", alignSelf: "start" }}>
+        <TextField
+          fullWidth
+          sx={{ width: "150px", marginRight: "1rem", marginTop: "1rem" }}
+          id="loopYear"
+          name="loopYear"
+          label="Year"
+          variant="outlined"
+          {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
+          error={!!errors.loopYear}
+          helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)." : "Ex: 2020, 1500s."}
+        />
+
+        {/* year notation */}
+        <TextField
+          fullWidth
+          sx={{ width: "100px", marginTop: "1rem" }}
+          select
+          id="loopYearNotation"
+          name="loopYearNotation"
+          defaultValue="C.E."
+          label="Era"
+          onChange={handleYearNotationChange}
+          {...register("loopYearNotation", { required: true })}
+          rules={{ required: false }}
+          variant="outlined"
+        >
+          <MenuItem value={"B.C.E."}>B.C.E.</MenuItem>
+          <MenuItem value={"C.E."}>C.E.</MenuItem>
+        </TextField>
+      </Box>}
+      {/* year MOBILE */}
+      {isMobile && <Box sx={{ flexDirection: "column", display: "flex", alignSelf: "start" }}>
+        <TextField
+          fullWidth
+          sx={{ maxWidth: "195px", marginRight: "1rem", marginTop: "1rem" }}
+          id="loopYear"
+          name="loopYear"
+          label="Year"
+          variant="outlined"
+          {...register("loopYear", { required: false, pattern: /^\d{1,5}([s]?)$/gm })} // match at least 1 digit (e.g. 1500s)
+          error={!!errors.loopYear}
+          helperText={errors.loopYear ? "Year format is invalid. Year must be a number followed by an optional \"s\" (ex. 1500s)." : "Ex: 2020, 1500s."}
+        />
+
+        {/* year notation */}
+        <TextField
+          fullWidth
+          sx={{ maxWidth: "195px", marginTop: "1rem" }}
+          select
+          id="loopYearNotation"
+          name="loopYearNotation"
+          defaultValue="C.E."
+          label="Era"
+          onChange={handleYearNotationChange}
+          {...register("loopYearNotation", { required: true })}
+          rules={{ required: false }}
+          variant="outlined"
+        >
+          <MenuItem value={"B.C.E."}>B.C.E.</MenuItem>
+          <MenuItem value={"C.E."}>C.E.</MenuItem>
+        </TextField>
+      </Box>}
+
+      {/* description ---------------------------------------------- */}
+      <TextField
+        margin="normal"
+        sx={{ marginTop: "1.5rem" }}
+        id="loopDescription"
+        name="loopDescription"
+        label="Description*"
+        variant="outlined"
+        helperText={errors.loopDescription ? "Description is required! Try taking a quote directly from its introduction in the book." : "Try taking a quote directly from its introduction in the book!"}
+        fullWidth
+        multiline
+        minRows={5}
+        {...register("loopDescription", { required: true, pattern: /^[a-zA-Z\d. -()]+$/ })} // match any number of letters, numbers, periods, parentheses, or dashes
+        error={!!errors.loopDescription}
+      />
+
+      {/* ymbryne */}
+      {ymbrynesData && <FormControl sx={{ alignSelf: "start", paddingTop: "1rem" }}>
+        <TextField
+          fullWidth
+          select
+          id="ymbryne"
+          name="ymbryne"
+          label="Ymbryne"
+          defaultValue={""}
+          {...register("ymbryne", { required: false })}
+          rules={{ required: false }}
+          variant="outlined"
+          sx={{ minWidth: "300px" }}
+        >
+          <MenuItem key={"noSelection"} id={''} value={''}>--</MenuItem>
+          {ymbrynesData.ymbrynes?.map((ymbryne) => (
+            <MenuItem key={ymbryne.id} id={ymbryne.id} value={ymbryne.id}>{ymbryne.name}</MenuItem>
+          ))}
+
+        </TextField>
+      </FormControl>}
+
+      {/* status */}
+      <Box sx={{ alignSelf: 'flex-start', marginTop: "1.4rem" }}>
+        <FormControl error={!!errors.loopStatus}>
+          <FormLabel id="loop-status-radio-buttons-group" error={!!errors.loopStatus}>Loop Status*</FormLabel>
+          {!isMobile && <RadioGroup
+            row
+            aria-labelledby="loop-status-radio-buttons-group"
+            name="loop-status-radio-buttons-group"
+            onChange={handleLoopStatusChange}
+            sx={{ marginLeft: '0.85em' }}
+
+          >
+            <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true })} />} label="Active" />
+            <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
+            <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
+          </RadioGroup>}
+          {isMobile && <RadioGroup
+            aria-labelledby="loop-status-radio-buttons-group"
+            name="loop-status-radio-buttons-group"
+            onChange={handleLoopStatusChange}
+            sx={{ marginLeft: '0.85em' }}
+
+          >
+            <FormControlLabel value="Active" control={<Radio {...register("loopStatus", { required: true })} />} label="Active" />
+            <FormControlLabel value="Collapsed" control={<Radio {...register("loopStatus", { required: true })} />} label="Collapsed" />
+            <FormControlLabel value="Unknown" control={<Radio {...register("loopStatus", { required: true })} />} label="Unknown" />
+          </RadioGroup>}
+          <FormHelperText>{!!errors.loopStatus ? "Loop status is required." : ""}</FormHelperText>
+        </FormControl>
+      </Box>
+
+      <FormButton text="Create Loop" loading={loading} error={error} />
+
+
     </Box>
-
-    <FormButton text="Create Loop" loading={loading} error={error} />
-
-
-  </Box>
-
+  )
 }
