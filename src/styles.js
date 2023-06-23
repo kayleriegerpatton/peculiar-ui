@@ -12,6 +12,12 @@ export const styles = {
     paddingBottom: 2,
   },
 
+  h4: {
+    fontFamily: "Libre Franklin",
+    fontWeight: 700,
+    fontSize: "1.625rem"
+  },
+
   title: {
     fontFamily: "Oranienbaum",
     fontSize: "2.5rem",
@@ -97,9 +103,9 @@ export const styles = {
   },
 
   navLink: {
-    color: "var(--dark-liver)",
-    fontFamily: "Oranienbaum",
-    textTransform: "lowercase",
+    color: "white",
+    fontFamily: "Libre Franklin",
+    textTransform: "none",
     fontSize: "1.2rem",
     "&:hover": {
       backgroundColor: "var(--lavender-blue)",

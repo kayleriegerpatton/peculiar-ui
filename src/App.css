@@ -5,9 +5,9 @@
   --bora-purple: #A48DD7;
   --dark-liver: #4c474bff;
   --gold-fusion: #817f61ff;
+  font-family: 'Libre Franklin', sans-serif; /* 100, 200, 300, 400, 700 */
   font-family: "Amatic SC", cursive; /* 400 or 700; scrawl */
   font-family: "Oranienbaum", serif; /* 400; thin serif*/
-  font-family: 'Libre Franklin', sans-serif; /* 100, 200, 300, 400, 700 */
   font-family: 'Crimson Text', serif; /* 400, 600, 700 & italics; similar to book typeface*/
   font-size: 16px;
 }
@@ -18,7 +18,7 @@ html, body {
   margin: 0;
   padding: 0;
   /* Below styles are for a11y testing */
-  /* letter-spacing: .12rem; 
+  /* letter-spacing: .12rem;
   word-spacing: .16rem;  */
 }
 
@@ -27,18 +27,17 @@ p+p {
 }
 
 footer {
-  background-color: var(--platinum);
+  background-color: var(--gold-fusion);
   text-align: center;
   margin-top: auto;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding: 3rem 7rem;
 }
 
 /* style footer links to not change color */
 footer a:link {
-  color: var(--dark-liver)
+  color: white
 }
 
 footer a:visited {
-color: var(--dark-liver)
+color: white
 }
