@@ -124,6 +124,7 @@ export const LoopForm = () => {
 
       {/* city --------------------------------------------- */}
       <TextField
+      autoFocus
         margin="normal"
         id="loopCity"
         name="loopCity"

@@ -56,12 +56,13 @@ export const PeculiarityForm = () => {
       sx={styles.formWrapper}
       onSubmit={handleSubmit(onSubmit)}
       formSuccess={setFormSuccess}
-      >
+    >
       {formSuccess === true && <SnackbarMessage message="New peculiarity created." status="success" />}
       {error && <SnackbarMessage message="Failed to create peculiarity. Please try again." status="error" />}
 
       {/* name */}
       <TextField
+        autoFocus
         error={!!errors.peculiarityName}
         margin="normal"
         id="peculiarityName"
