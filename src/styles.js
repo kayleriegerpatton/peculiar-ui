@@ -12,6 +12,12 @@ export const styles = {
     paddingBottom: 2,
   },
 
+  h4: {
+    fontFamily: "Libre Franklin",
+    fontWeight: 700,
+    fontSize: "1.625rem"
+  },
+
   title: {
     fontFamily: "Oranienbaum",
     fontSize: "2.5rem",

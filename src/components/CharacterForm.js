@@ -145,6 +145,7 @@ export const CharacterForm = () => {
           InputProps={{
             ...params.InputProps,
             type: 'search',
+            autofocus: true
           }}
           error={!!errors.fullName}
           helperText={!!errors.fullName ? "Name is required. Only letters and '.- characters are allowed." : ""}
