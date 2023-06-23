@@ -66,7 +66,7 @@ export const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "var(--platinum)", mb: 5 }}
+      sx={{ backgroundColor: "var(--gold-fusion)", mb: 5 }}
     >
       <Toolbar disableGutters sx={{ display: "flex" }}>
         {/* Title on desktop */}
@@ -82,10 +82,10 @@ export const Header = () => {
             mr: 2,
             ml: 2,
             display: { xs: "none", md: "flex" },
-            color: "var(--dark-liver)",
+            color: "white",
             textDecoration: "none",
+            // backgroundColor: "var(--platinum)",
             border: "none",
-            backgroundColor: "var(--platinum)",
             cursor: "pointer",
           }}
         >
@@ -106,7 +106,7 @@ export const Header = () => {
             sx={styles.navLink}
             component="a"
           >
-            about
+            About
           </Button>
 
           {/* LOGGED IN ------------------------------- */}
@@ -162,13 +162,13 @@ export const Header = () => {
             fontFamily: "Amatic SC",
             fontSize: "2.5rem",
             fontWeight: 700,
-            color: "var(--dark-liver)",
+            color: "white",
             textDecoration: "none",
             position: "absolute",
             left: 0,
             right: 0,
             border: "none",
-            backgroundColor: "var(--platinum)",
+            backgroundColor: "var(--gold-fusion)",
             cursor: "pointer",
           }}
         >
@@ -188,7 +188,7 @@ export const Header = () => {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={handleOpenNavMenu}
-            sx={{ color: "var(--dark-liver)" }}
+            sx={{ color: "white" }}
           >
             <MenuIcon />
           </IconButton>
@@ -208,21 +208,21 @@ export const Header = () => {
             onClose={handleCloseNavMenu}
             sx={{
               display: { xs: "block", md: "none" },
+              // backgroundColor: "--var(gold-fusion)"
             }}
           >
             <MenuItem
               onClick={() => handleNavigation("about")}
-              sx={styles.navLink}
+              // sx={styles.navLink}
             >
               <Typography
                 sx={{
-                  fontFamily: "Oranienbaum",
-                  textTransform: "lowercase",
+                  fontFamily: "Libre Franklin",
                   fontSize: "1.2rem",
                   component: "a"
                 }}
               >
-                about
+                About
               </Typography>
             </MenuItem>
             {/* LOGGED IN ------------------------------- */}
@@ -232,13 +232,11 @@ export const Header = () => {
                   <MenuItem
                     key={page.label}
                     onClick={() => handleNavigation(page.path)}
-                    sx={styles.navLink}
                     component="a"
                   >
                     <Typography
                       sx={{
-                        fontFamily: "Oranienbaum",
-                        textTransform: "lowercase",
+                        fontFamily: "Libre Franklin",
                         fontSize: "1.2rem",
                       }}
                     >
@@ -248,14 +246,13 @@ export const Header = () => {
                 ))}
                 <MenuItem
                   onClick={handleLogout}
-                  sx={{ ...styles.navLink, paddingRight: "3rem" }}
+                  sx={{ paddingRight: "3rem" }}
                   component="button"
 
                 >
                   <Typography
                     sx={{
-                      fontFamily: "Oranienbaum",
-                      textTransform: "lowercase",
+                      fontFamily: "Libre Franklin",
                       fontSize: "1.2rem",
                     }}
                   >
@@ -271,12 +268,10 @@ export const Header = () => {
                   <MenuItem
                     key={page.label}
                     onClick={() => handleNavigation(page.path)}
-                    sx={styles.navLink}
                   >
                     <Typography
                       sx={{
-                        fontFamily: "Oranienbaum",
-                        textTransform: "lowercase",
+                        fontFamily: "Libre Franklin",
                         fontSize: "1.2rem",
                       }}
                     >
