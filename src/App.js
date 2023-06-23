@@ -41,6 +41,22 @@ const theme = createTheme({
       main: "#bfc1edff",
     },
   },
+  breakpoints: {
+    // min-width values
+    values: {
+      xs: 0, // mobile, 0-639px
+      sm: 640, // tablet, 640-1023px
+      md: 1024, // laptop, 1024-1199px
+      lg: 1200, // desktop, 1200-1535px
+      xl: 1536, // larger, 1536px+
+    },
+  },
+  typography: {
+    h4: {
+      fontSize: "1.625rem",
+      fontFamily: 'Amatic SC'
+    }
+  }
 });
 
 export const App = () => {
