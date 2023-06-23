@@ -15,9 +15,51 @@ export const Footer = () => {
   const year = new Date().getFullYear();
 
   return <Stack
-  component="footer"
-  direction={mobile ? "column" : "row-reverse"}
-  sx={mobile ? {padding: "3rem", display: "inline-flex", justifyContent: "space-between" } : { display: "inline-flex", justifyContent: "space-between" }}>
+    component="footer"
+    direction={mobile ? "column" : "row-reverse"}
+    sx={mobile ? { padding: "3rem", display: "inline-flex", justifyContent: "space-between" } : { display: "inline-flex", justifyContent: "space-between" }}>
+    {/* Contact icons */}
+    {mobile && <Stack
+      direction="row"
+      spacing={1}
+      alignItems="center"
+      justifyContent="flex-start"
+      marginBottom="1rem"
+    >
+      <IconButton
+        aria-label="github"
+        href="https://github.com/kayleriegerpatton"
+        target="_blank"
+        sx={{paddingLeft: 0}} >
+        <GitHubIcon fontSize='large' />
+      </IconButton>
+
+      <IconButton
+        aria-label="linkedin"
+        href="https://www.linkedin.com/in/kaylerieger/"
+        target="_blank">
+        <LinkedInIcon fontSize='large' />
+      </IconButton>
+
+      <IconButton
+        aria-label="portfolio"
+        href="http://www.tinyurl.com/krp-portfolio"
+        target="_blank" >
+        <WebIcon fontSize='large' />
+      </IconButton>
+
+      <IconButton
+        aria-label="email"
+        href="mailto:kayle.patton22@gmail.com"
+        target="_blank">
+        <EmailIcon fontSize='large' />
+      </IconButton>
+      {!mobile && <a href='mailto:kayle.patton22@gmail.com'>
+        kayle.patton22@gmail.com
+      </a>}
+
+    </Stack>}
+
     {/* Explore links */}
     <Stack
       direction="column"
@@ -42,11 +84,11 @@ export const Footer = () => {
     <Stack
       direction="column-reverse"
       alignItems="flex-start"
-      spacing={4}
+      spacing={5}
     >
 
       {/* Contact icons */}
-      <Stack
+      {!mobile && <Stack
         direction="row"
         spacing={1}
         alignItems="center"
@@ -56,35 +98,36 @@ export const Footer = () => {
         <IconButton
           aria-label="github"
           href="https://github.com/kayleriegerpatton"
-          target="_blank" >
-          <GitHubIcon fontSize='large' />
+          target="_blank"
+          sx={{paddingLeft: 0}}>
+          <GitHubIcon sx={{fontSize: "3rem"}} />
         </IconButton>
 
         <IconButton
           aria-label="linkedin"
           href="https://www.linkedin.com/in/kaylerieger/"
           target="_blank">
-          <LinkedInIcon fontSize='large' />
+          <LinkedInIcon sx={{fontSize: "3rem"}} />
         </IconButton>
 
         <IconButton
           aria-label="portfolio"
           href="http://www.tinyurl.com/krp-portfolio"
           target="_blank" >
-          <WebIcon fontSize='large' />
+          <WebIcon sx={{fontSize: "3rem"}} />
         </IconButton>
 
         <IconButton
           aria-label="email"
           href="mailto:kayle.patton22@gmail.com"
           target="_blank">
-          <EmailIcon fontSize='large' />
+          <EmailIcon sx={{fontSize: "3rem"}} />
         </IconButton>
         {!mobile && <a href='mailto:kayle.patton22@gmail.com'>
           kayle.patton22@gmail.com
         </a>}
 
-      </Stack>
+      </Stack>}
 
       {/* Logo Group */}
       <Stack
