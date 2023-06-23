@@ -18,7 +18,7 @@ html, body {
   margin: 0;
   padding: 0;
   /* Below styles are for a11y testing */
-  /* letter-spacing: .12rem; 
+  /* letter-spacing: .12rem;
   word-spacing: .16rem;  */
 }
 
@@ -27,7 +27,7 @@ p+p {
 }
 
 footer {
-  background-color: var(--platinum);
+  background-color: var(--gold-fusion);
   text-align: center;
   margin-top: auto;
   padding-top: 3rem;
