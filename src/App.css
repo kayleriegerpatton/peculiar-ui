@@ -33,6 +33,7 @@ body {
   font-size: 3rem;
   line-height: 120%;
   font-weight: 700;
+  margin-top: 0px;
 }
 
 /* p+p {
@@ -48,6 +49,7 @@ body {
   display: flex;
   gap: 50px;
   justify-content: center;
+  margin: 50px 0 150px;
 }
 
 .about-text {
@@ -62,6 +64,7 @@ body {
 .about-text p:last-of-type {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+  font-weight: 300;
 }
 
 #about-logo {
@@ -74,6 +77,17 @@ body {
 .logo-text {
   text-align: center;
   margin: 0;
+}
+
+.about-container img {
+  border-radius: 50%;
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+
+.about-container a {
+  color: var(--dark-liver);
 }
 
 footer {
