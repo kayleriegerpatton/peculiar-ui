@@ -74,27 +74,6 @@ export const Header = () => {
     >
       <Toolbar disableGutters sx={{ display: "flex" }}>
         {/* Title on desktop */}
-        {/* <Typography
-          variant="h5"
-          noWrap
-          component="a"
-          onClick={() => handleNavigation("/")}
-          sx={{
-            fontFamily: "Amatic SC",
-            fontWeight: 700, //bold
-            fontSize: "2.5rem",
-            mr: 2,
-            ml: 2,
-            display: { xs: "none", md: "flex" },
-            color: "white",
-            textDecoration: "none",
-            // backgroundColor: "var(--platinum)",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          The Peculiar Project
-        </Typography> */}
         {!mobile &&
           <Stack
             direction="row"
