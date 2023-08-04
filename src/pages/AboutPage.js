@@ -4,8 +4,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WebIcon from '@mui/icons-material/Web';
 import { ReactComponent as LogoIcon } from '../peculiar-bird-icon.svg'
+import "./AboutPage.css"
+
+import { useMediaQuery } from 'react-responsive';
 
 export const AboutPage = () => {
+  const mobile = useMediaQuery({ query: "(max-width: 1199px" });
   return (
     <>
       <div className="about-container">
@@ -48,6 +52,9 @@ export const AboutPage = () => {
       </div>
       <div className="about-section-background">
         <div className="about-container">
+        <div>
+            <img alt="Kayle wearing a black blazer and glasses." src="https://peculiar-project-assets.s3.eu-west-1.amazonaws.com/profile.jpeg"></img>
+          </div>
           <div className="about-text">
             <h2 className="page-title">About the Developer</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -100,9 +107,7 @@ export const AboutPage = () => {
               </Stack>
             </Stack>
           </div>
-          <div>
-            <img alt="Kayle wearing a black blazer and glasses." src="https://peculiar-project-assets.s3.eu-west-1.amazonaws.com/profile.jpeg"></img>
-          </div>
+
 
         </div>
       </div>
