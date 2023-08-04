@@ -67,6 +67,7 @@ export const Footer = () => {
       alignItems="flex-start"
       justifyContent="center"
       marginBottom="2rem"
+      style={{marginRight: "1rem"}}
     >
       <Typography
         color="white"

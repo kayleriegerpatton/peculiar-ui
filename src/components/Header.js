@@ -127,7 +127,7 @@ export const Header = () => {
                 onClick={handleLogout}
                 sx={styles.navLink}
               >
-                logout
+                Logout
               </Button>
             </>)}
 
@@ -256,7 +256,7 @@ export const Header = () => {
                       fontSize: "1.2rem",
                     }}
                   >
-                    logout
+                    Logout
                   </Typography>
                 </MenuItem>
               </div>)}

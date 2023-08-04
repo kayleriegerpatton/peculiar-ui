@@ -21,6 +21,7 @@ import { useState } from "react";
 
 import { FormButton } from "../components/FormButton";
 import { SnackbarMessage } from "./SnackbarMessage";
+import { ImageUploader } from "../components/ImageUploader";
 import { styles } from "../styles";
 import { CREATE_CHARACTER } from "../mutations";
 import { CHARACTERS, LOOPS, PECULIARITIES, BOOKS } from "../queries";
@@ -145,7 +146,7 @@ export const CharacterForm = () => {
           InputProps={{
             ...params.InputProps,
             type: 'search',
-            autofocus: true
+            autoFocus: true
           }}
           error={!!errors.fullName}
           helperText={!!errors.fullName ? "Name is required. Only letters and '.- characters are allowed." : ""}
@@ -214,6 +215,7 @@ export const CharacterForm = () => {
     />}
 
     {/* imageUrl- input; optional */}
+<ImageUploader id="image" label="Image" name="imageFile"/>
     <TextField
       margin="normal"
       id="image"
