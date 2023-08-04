@@ -105,6 +105,7 @@ export const styles = {
   navLink: {
     color: "white",
     fontFamily: "Libre Franklin",
+    padding: "0 15px",
     textTransform: "none",
     fontSize: "1.2rem",
     "&:hover": {
