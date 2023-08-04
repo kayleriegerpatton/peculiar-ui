@@ -46,11 +46,16 @@ body {
   display: flex;
   gap: 50px;
   justify-content: center;
-  margin: 50px auto 150px;
+  margin: 150px auto;
 }
 
 .about-text {
   max-width: 620px;
+}
+
+.about-section-background {
+  background-color: var(--lavender-blue);
+  padding: 0.1px
 }
 
 /* targets all 2nd children */

@@ -46,12 +46,12 @@ export const AboutPage = () => {
           </Stack>
         </div>
       </div>
-
+      <div className="about-section-background">
         <div className="about-container">
           <div className="about-text">
             <h2 className="page-title">About the Developer</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>Get in Touch:</p>
+            <p>Get in touch:</p>
 
             <Stack
               direction="row"
@@ -105,6 +105,8 @@ export const AboutPage = () => {
           </div>
 
         </div>
+      </div>
+
 
 
     </>
