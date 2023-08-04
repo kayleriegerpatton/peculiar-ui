@@ -30,7 +30,7 @@ export const Footer = () => {
         aria-label="github"
         href="https://github.com/kayleriegerpatton"
         target="_blank"
-        sx={{paddingLeft: 0}} >
+      >
         <GitHubIcon fontSize='large' />
       </IconButton>
 
@@ -99,29 +99,29 @@ export const Footer = () => {
           aria-label="github"
           href="https://github.com/kayleriegerpatton"
           target="_blank"
-          sx={{paddingLeft: 0}}>
-          <GitHubIcon sx={{fontSize: "3rem"}} />
+        >
+          <GitHubIcon sx={{ fontSize: "3rem" }} />
         </IconButton>
 
         <IconButton
           aria-label="linkedin"
           href="https://www.linkedin.com/in/kaylerieger/"
           target="_blank">
-          <LinkedInIcon sx={{fontSize: "3rem"}} />
+          <LinkedInIcon sx={{ fontSize: "3rem" }} />
         </IconButton>
 
         <IconButton
           aria-label="portfolio"
           href="http://www.tinyurl.com/krp-portfolio"
           target="_blank" >
-          <WebIcon sx={{fontSize: "3rem"}} />
+          <WebIcon sx={{ fontSize: "3rem" }} />
         </IconButton>
 
         <IconButton
           aria-label="email"
           href="mailto:kayle.patton22@gmail.com"
           target="_blank">
-          <EmailIcon sx={{fontSize: "3rem"}} />
+          <EmailIcon sx={{ fontSize: "3rem" }} />
         </IconButton>
         {!mobile && <a href='mailto:kayle.patton22@gmail.com'>
           kayle.patton22@gmail.com
