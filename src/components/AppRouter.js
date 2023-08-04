@@ -30,7 +30,7 @@ export const AppRouter = () => {
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
         <Header component={"header"} sx={{ minHeight: "10vh" }}/>
 
-        <Box component={'main'} id='main-content' tabIndex={"-1"} sx={{ margin: "2rem" }}>
+        <Box component={'main'} id='main-content' tabIndex={"-1"}>
           <Routes>
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />

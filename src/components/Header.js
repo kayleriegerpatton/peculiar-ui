@@ -66,7 +66,7 @@ export const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "var(--gold-fusion)", mb: 5 }}
+      sx={{ backgroundColor: "var(--gold-fusion)" }}
     >
       <Toolbar disableGutters sx={{ display: "flex" }}>
         {/* Title on desktop */}
