@@ -88,9 +88,10 @@ export const styles = {
     mx: 3,
     textTransform: "none",
     color: "white",
+    fontSize: "1rem",
     fontWeight: 700,
     minWidth: "200px",
-    backgroundColor: "var(--gold-fusion)",
+    backgroundColor: "var(--dark-liver)",
     "&:hover": {
       backgroundColor: "var(--lavender-blue)",
       color: "var(--dark-liver)",
