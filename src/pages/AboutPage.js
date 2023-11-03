@@ -6,17 +6,15 @@ import WebIcon from '@mui/icons-material/Web';
 import { ReactComponent as LogoIcon } from '../peculiar-bird-icon.svg'
 import "./AboutPage.css"
 
-import { useMediaQuery } from 'react-responsive';
-
 export const AboutPage = () => {
-  const mobile = useMediaQuery({ query: "(max-width: 1199px" });
   return (
     <>
       <div className="about-container">
         <LogoIcon fill='var(--dark-liver)' width="22rem" height="" id="about-logo" />
         <div className="about-text">
           <h1 className="page-title">About the Peculiar Project</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>The Peculiar Project started in 2022, shortly after Kayle completed her web development boot-camp training as a way to utilize her new skills. It's grown slowly over the years and continues to provide opportunities for learning and to encourage re-reading the series.</p>
+
           <p>Check out the project code:</p>
           <Stack
             direction="row"
@@ -55,7 +53,7 @@ export const AboutPage = () => {
 
           <div className="about-text">
             <h2 className="page-title">About the Developer</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Kayle is a full stack web developer/software engineer passionate about the arts and accessibility. She's always looking for ways to get creative when problem solving and enjoys working at the intersection of engineering, design, and user experience and accessibility. </p>
             <p>Get in touch:</p>
 
             <Stack
@@ -111,9 +109,6 @@ export const AboutPage = () => {
 
         </div>
       </div>
-
-
-
     </>
   )
 }

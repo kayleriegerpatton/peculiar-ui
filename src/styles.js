@@ -86,6 +86,7 @@ export const styles = {
   button: {
     my: 2,
     mx: 3,
+    textTransform: "none",
     color: "white",
     fontWeight: 700,
     minWidth: "200px",
