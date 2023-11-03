@@ -4,6 +4,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 
 import { useAuth } from "../contexts/AppProvider";
 import { styles } from "../styles";
@@ -20,6 +21,8 @@ export const LandingPage = () => {
     }
   };
 
+
+  const mobile = useMediaQuery({ query: "(max-width: 749px" });
   return (
     <>
       <div className="landing-section-background">
@@ -40,18 +43,30 @@ export const LandingPage = () => {
       <div className="join-container">
         <h2 className="page-title">Become Part of Peculiardom</h2>
         <Stack
-          direction="row"
-          spacing={15}
+          direction={mobile ? "column" : "row"}
+          spacing={mobile ? 1 : 15}
           justifyContent="center">
-          <Stack sx={{ maxWidth: "115px", textAlign: "center", alignItems: "center" }}>
+
+          <Stack
+            direction={mobile ? "row" : "column"}
+            className="icon-stack"
+            sx={{ textAlign: "center", alignItems: "center" }}>
             <PersonAddIcon className="round-icon" sx={{ fontSize: "3rem", borderRadius: "100px" }} />
             <p>Explore Characters</p>
           </Stack>
-          <Stack sx={{ maxWidth: "115px", textAlign: "center", alignItems: "center" }}>
+
+          <Stack
+            direction={mobile ? "row" : "column"}
+            className="icon-stack"
+            sx={{ textAlign: "center", alignItems: "center" }}>
             <AddCircleOutlineIcon className="round-icon" sx={{ fontSize: "3rem", borderRadius: "100px" }} />
             <p>Custom Create</p>
           </Stack>
-          <Stack sx={{ maxWidth: "115px", textAlign: "center", alignItems: "center" }}>
+
+          <Stack
+            direction={mobile ? "row" : "column"}
+            className="icon-stack"
+            sx={{ textAlign: "center", alignItems: "center" }}>
             <PublicIcon className="round-icon" sx={{ fontSize: "3rem", borderRadius: "100px" }} />
             <p>Discover Loops</p>
           </Stack>
