@@ -136,7 +136,7 @@ export const Header = () => {
                 onClick={handleLogout}
                 sx={styles.navLink}
               >
-                logout
+                Logout
               </Button>
             </>)}
 

@@ -13,7 +13,7 @@ export const AboutPage = () => {
         <LogoIcon fill='var(--dark-liver)' width="22rem" height="" id="about-logo" />
         <div className="about-text">
           <h1 className="page-title">About the Peculiar Project</h1>
-          <p>The Peculiar Project started in 2022, shortly after Kayle completed her web development boot-camp training as a way to utilize her new skills. It's grown slowly over the years and continues to provide opportunities for learning and to encourage re-reading the series.</p>
+          <p>The Peculiar Project started in 2022, shortly after Kayle completed her web development boot-camp training as a way to utilize her new skills. It's grown slowly over the years and continues to provide opportunities for learning and to encourage rereading the book series.</p>
 
           <p>Check out the project code:</p>
           <Stack
