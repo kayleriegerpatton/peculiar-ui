@@ -19,14 +19,15 @@ export const styles = {
   },
 
   title: {
-    fontFamily: "Oranienbaum",
-    fontSize: "2.5rem",
+    fontFamily: "Libre Franklin, sans-serif",
+    fontSize: "3.5rem",
     marginBottom: "2rem",
+    lineHeight: "120%",
     textAlign: "center",
+    marginTop: "2rem"
   },
 
   note: {
-    // fontFamily: "Roboto",
     fontWeight: '200',
     fontSize: "1rem",
     textAlign: "center",

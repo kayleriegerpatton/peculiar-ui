@@ -1,0 +1,9 @@
+.map-container {
+  max-width: 1200px;
+  margin: 0px auto 130px;
+  padding: 0 2rem;
+}
+
+#map-subtitle {
+  font-size: 2rem;
+}
