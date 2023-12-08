@@ -9,9 +9,12 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 
 import { styles } from "../styles";
 import { useAuth } from "../contexts/AppProvider";
+import { Stack } from "@mui/material";
+import { ReactComponent as LogoIcon } from '../peculiar-bird-icon.svg'
 
 const loggedInPages = [
   { label: "Create", path: "create" },
@@ -27,6 +30,7 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   // const [anchorElUser, setAnchorElUser] = useState(null);
   const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
+  const mobile = useMediaQuery({ query: "(max-width: 1023px" });
 
   const navigate = useNavigate();
 
@@ -40,7 +44,7 @@ export const Header = () => {
 
   const handleNavigation = (path) => {
     if (path === "dashboard") {
-      navigate(`${user.id}/${path}`, {replace: true})
+      navigate(`${user.id}/${path}`, { replace: true })
     } else {
       navigate(path, { replace: true });
     }
@@ -70,27 +74,32 @@ export const Header = () => {
     >
       <Toolbar disableGutters sx={{ display: "flex" }}>
         {/* Title on desktop */}
-        <Typography
-          variant="h5"
-          noWrap
-          component="a"
-          onClick={() => handleNavigation("/")}
-          sx={{
-            fontFamily: "Amatic SC",
-            fontWeight: 700, //bold
-            fontSize: "2.5rem",
-            mr: 2,
-            ml: 2,
-            display: { xs: "none", md: "flex" },
-            color: "white",
-            textDecoration: "none",
-            // backgroundColor: "var(--platinum)",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          The Peculiar Project
-        </Typography>
+        {!mobile &&
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            spacing={0.5}
+            component="a"
+            onClick={() => handleNavigation("/")}
+            sx={{
+              ml: 2,
+              cursor: "pointer",
+            }}>
+            <LogoIcon fill='white' width="5rem" height="5rem" />
+            <div>
+              <Typography
+                fontFamily={'Amatic SC'}
+                fontWeight={'700'}
+                fontSize="3.125rem"
+                color='white'
+              >
+                The Peculiar Project
+              </Typography>
+            </div>
+          </Stack>
+        }
+
 
         {/* nav links on larger screen sizes */}
         <Box
@@ -107,6 +116,14 @@ export const Header = () => {
             component="a"
           >
             About
+          </Button>
+
+          <Button
+            onClick={() => handleNavigation("map")}
+            sx={styles.navLink}
+            component="a"
+          >
+            Map of Days
           </Button>
 
           {/* LOGGED IN ------------------------------- */}
@@ -127,7 +144,7 @@ export const Header = () => {
                 onClick={handleLogout}
                 sx={styles.navLink}
               >
-                logout
+                Logout
               </Button>
             </>)}
 
@@ -213,7 +230,6 @@ export const Header = () => {
           >
             <MenuItem
               onClick={() => handleNavigation("about")}
-              // sx={styles.navLink}
             >
               <Typography
                 sx={{
@@ -223,6 +239,19 @@ export const Header = () => {
                 }}
               >
                 About
+              </Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleNavigation("map")}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Libre Franklin",
+                  fontSize: "1.2rem",
+                  component: "a"
+                }}
+              >
+                Map of Days
               </Typography>
             </MenuItem>
             {/* LOGGED IN ------------------------------- */}

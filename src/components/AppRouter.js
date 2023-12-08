@@ -15,6 +15,7 @@ import { useAuth } from "../contexts/AppProvider";
 import { SignupPage } from "../pages/SignupPage";
 import { LoginPage } from "../pages/LoginPage";
 import { AboutPage } from "../pages/AboutPage";
+import { MapPage } from "../pages/MapPage"
 
 // * AppRouter controls URL and rendered pages/components
 // TODO: handle browser back button functionality; hash router?
@@ -28,23 +29,22 @@ export const AppRouter = () => {
       {notMobile && <SkipLink />}
 
       <Stack id={"page-container"} sx={{ minHeight: "100vh" }}>
-        <Header component={"header"} sx={{ minHeight: "10vh" }}/>
+        <Header component={"header"} sx={{ minHeight: "10vh" }} />
 
         <Box component={'main'} id='main-content' tabIndex={"-1"}>
           <Routes>
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/map" element={<MapPage />} />
             <Route path="/" element={<LandingPage />} />
             {isLoggedIn && (
               <>
+                <Route path="/:id/dashboard" element={<DashboardPage />} />
                 <Route path="/create/character" element={<CreateCharacterPage />} />
                 <Route path="/create/peculiarity" element={<CreatePeculiarityPage />} />
                 <Route path="/create/loop" element={<CreateLoopPage />} />
                 <Route path="/create" element={<CreatePage />} />
-
-                <Route path="/:id/dashboard" element={<DashboardPage />} />
-
               </>
             )}
             {/* <Route path="*" element={<Navigate to="/" />} /> */}

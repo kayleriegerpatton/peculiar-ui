@@ -19,14 +19,15 @@ export const styles = {
   },
 
   title: {
-    fontFamily: "Oranienbaum",
-    fontSize: "2.5rem",
+    fontFamily: "Libre Franklin, sans-serif",
+    fontSize: "3.5rem",
     marginBottom: "2rem",
+    lineHeight: "120%",
     textAlign: "center",
+    marginTop: "2rem"
   },
 
   note: {
-    // fontFamily: "Roboto",
     fontWeight: '200',
     fontSize: "1rem",
     textAlign: "center",
@@ -86,10 +87,12 @@ export const styles = {
   button: {
     my: 2,
     mx: 3,
+    textTransform: "none",
     color: "white",
+    fontSize: "1rem",
     fontWeight: 700,
     minWidth: "200px",
-    backgroundColor: "var(--gold-fusion)",
+    backgroundColor: "var(--dark-liver)",
     "&:hover": {
       backgroundColor: "var(--lavender-blue)",
       color: "var(--dark-liver)",
