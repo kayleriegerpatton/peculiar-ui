@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useAuth } from "../contexts/AppProvider";
 import { styles } from "../styles";
 import "./LandingPage.css"
+import forestImage from './sebastian-unrau-sp-p7uuT0tw-unsplash.jpg'
 
 export const LandingPage = () => {
   const { isLoggedIn, user, setUser, setIsLoggedIn } = useAuth();
@@ -35,7 +36,7 @@ export const LandingPage = () => {
             {isLoggedIn ? <Button sx={styles.button} component="a" onClick={() => handleNavigation("create")}>Get Peculiar</Button> : <Button sx={styles.button} component="a" onClick={() => handleNavigation("about")}>Learn More</Button>}
           </div>
           {/* <div> */}
-          <img alt="" src="https://picsum.photos/650/500"></img>
+          <img alt="" src={forestImage}></img>
           {/* </div> */}
         </div>
       </div>
