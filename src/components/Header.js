@@ -118,6 +118,14 @@ export const Header = () => {
             About
           </Button>
 
+          <Button
+            onClick={() => handleNavigation("map")}
+            sx={styles.navLink}
+            component="a"
+          >
+            Map of Days
+          </Button>
+
           {/* LOGGED IN ------------------------------- */}
           {isLoggedIn &&
             (<>
@@ -222,7 +230,6 @@ export const Header = () => {
           >
             <MenuItem
               onClick={() => handleNavigation("about")}
-            // sx={styles.navLink}
             >
               <Typography
                 sx={{
@@ -232,6 +239,19 @@ export const Header = () => {
                 }}
               >
                 About
+              </Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleNavigation("map")}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Libre Franklin",
+                  fontSize: "1.2rem",
+                  component: "a"
+                }}
+              >
+                Map of Days
               </Typography>
             </MenuItem>
             {/* LOGGED IN ------------------------------- */}

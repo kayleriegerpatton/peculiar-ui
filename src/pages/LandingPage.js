@@ -30,7 +30,7 @@ export const LandingPage = () => {
         <div className="landing-container">
           <div className="landing-text">
             <h2 className="page-title">Extraordinary things began to happen...</h2>
-            <p>Just when you thought your life would be nothing but ordinary. Discover the peculiar world created by Ransom Riggs in his Peculiar Children book series, where birds can be headmistresses, children may have powers, and adventure will take you to another place and time entirely. </p>
+            <p>just when you thought your life would be nothing but ordinary. Discover the peculiar world created by Ransom Riggs in his Peculiar Children book series, where birds can be headmistresses, children may have powers, and adventure will take you to another place and time entirely. </p>
             <p> Nothing is as it seems.</p>
 
             {isLoggedIn ? <Button sx={styles.button} component="a" onClick={() => handleNavigation("create")}>Get Peculiar</Button> : <Button sx={styles.button} component="a" onClick={() => handleNavigation("about")}>Learn More</Button>}
