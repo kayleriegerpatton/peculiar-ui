@@ -1,6 +1,9 @@
 # The Peculiar Project
 > Venture into Ransom Riggs' Peculiardom
 
+![Licence](https://img.shields.io/github/license/kayleriegerpatton/peculiar-ui)
+![Issues](https://img.shields.io/github/issues/kayleriegerpatton/peculiar-ui)
+
 ## About
 This full stack, single page web application offers users ways of exploring the content of the [Peculiar Children book series](https://www.ransomriggs.com/books/) by Ransom Riggs.
 
